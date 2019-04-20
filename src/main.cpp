@@ -1,3 +1,19 @@
+#include <iostream>
+#include <fstream>
+#include <stdio.h>
+#include <stdlib.h>
+#ifdef _WIN32
+#include "misc/getopt.h" // getopt for windows
+#else
+#include <getopt.h>
+#include <unistd.h>
+#endif
+#include <unordered_set>
+#include <stdlib.h> // atoi for getopt inputs
+
+#include "CGL/CGL.h"
+#include "misc/file_utils.h"
+
 void main() {
 
   float dt = 0.05;
