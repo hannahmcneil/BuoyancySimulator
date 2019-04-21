@@ -49,6 +49,22 @@ CGL/CGL.h
 /Users/leehagaman/Desktop/cs184/BuoyancySimulator/CGL/CGL.h
 waterPoint.cpp
 /Users/leehagaman/Desktop/cs184/BuoyancySimulator/waterPoint.cpp
+simulate.cpp
+/Users/leehagaman/Desktop/cs184/BuoyancySimulator/simulate.cpp
+meshHandler.cpp
+/Users/leehagaman/Desktop/cs184/BuoyancySimulator/meshHandler.cpp
+
+/Users/leehagaman/Desktop/cs184/BuoyancySimulator/meshHandler.cpp
+meshHandler.h
+/Users/leehagaman/Desktop/cs184/BuoyancySimulator/meshHandler.h
+
+/Users/leehagaman/Desktop/cs184/BuoyancySimulator/meshHandler.h
+
+/Users/leehagaman/Desktop/cs184/BuoyancySimulator/simulate.cpp
+simulate.h
+/Users/leehagaman/Desktop/cs184/BuoyancySimulator/simulate.h
+
+/Users/leehagaman/Desktop/cs184/BuoyancySimulator/simulate.h
 
 /Users/leehagaman/Desktop/cs184/BuoyancySimulator/waterPoint.cpp
 waterPoint.h

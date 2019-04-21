@@ -13,6 +13,9 @@
 
 #include "CGL/CGL.h"
 #include "waterPoint.cpp"
+#include "simulate.cpp"
+#include "meshHandler.cpp"
+
 
 int main() {
 
@@ -22,14 +25,17 @@ int main() {
 
   std::vector<WaterPoint*> *water_points;
 
-  generate_initial_water_positions(water_points);
+  Simulate s = Simulate();
+  MeshHandler m = MeshHandler();
+
+  s.generate_initial_positions(water_points);
 
   for (int i = 0; i < num_time_steps; ++i) {
     if (i % num_time_steps_per_frame == 0) {
-      save_dae(water_points, i);
+      m.save_dae(water_points, i);
     }
-    simulate(water_points, dt);
+    s.simulate(water_points, dt);
   }
-  save_dae(water_points, num_time_steps);
+  m.save_dae(water_points, num_time_steps);
 
 }

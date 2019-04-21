@@ -6,5 +6,9 @@ CMakeFiles/BuoyancySimulator.dir/main.cpp.o
  ../CGL/include/CGL/misc.h
  ../CGL/include/CGL/vector3D.h
  /Users/leehagaman/Desktop/cs184/BuoyancySimulator/main.cpp
+ /Users/leehagaman/Desktop/cs184/BuoyancySimulator/meshHandler.cpp
+ /Users/leehagaman/Desktop/cs184/BuoyancySimulator/meshHandler.h
+ /Users/leehagaman/Desktop/cs184/BuoyancySimulator/simulate.cpp
+ /Users/leehagaman/Desktop/cs184/BuoyancySimulator/simulate.h
  /Users/leehagaman/Desktop/cs184/BuoyancySimulator/waterPoint.cpp
  /Users/leehagaman/Desktop/cs184/BuoyancySimulator/waterPoint.h
