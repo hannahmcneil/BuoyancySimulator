@@ -6,5 +6,5 @@ CXX_FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/Ma
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/Users/leehagaman/Desktop/cs184/BuoyancySimulator/CGL/include -I/Users/leehagaman/Desktop/cs184/BuoyancySimulator/. -I/Users/leehagaman/Desktop/cs184/BuoyancySimulator/collision -I/Users/leehagaman/Desktop/cs184/BuoyancySimulator/misc 
+CXX_INCLUDES = -I/Users/leehagaman/Desktop/cs184/BuoyancySimulator/CGL/include -I/Users/leehagaman/Desktop/cs184/BuoyancySimulator/CGAL-4.14/include -I/Users/leehagaman/Desktop/cs184/BuoyancySimulator/. -I/Users/leehagaman/Desktop/cs184/BuoyancySimulator/collision -I/Users/leehagaman/Desktop/cs184/BuoyancySimulator/misc -I/Users/leehagaman/Desktop/cs184/BuoyancySimulator/boost_1_70_0 
 

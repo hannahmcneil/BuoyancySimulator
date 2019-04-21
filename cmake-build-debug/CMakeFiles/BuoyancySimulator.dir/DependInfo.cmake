@@ -11,9 +11,11 @@ set(CMAKE_CXX_COMPILER_ID "AppleClang")
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../CGL/include"
+  "../CGAL-4.14/include"
   "../."
   "../collision"
   "../misc"
+  "../boost_1_70_0"
   )
 
 # Targets to which this target links.
