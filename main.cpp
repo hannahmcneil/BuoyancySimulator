@@ -12,7 +12,7 @@
 #include <stdlib.h> // atoi for getopt inputs
 
 #include "CGL/CGL.h"
-#include "src/misc/file_utils.h"
+#include "waterPoint.cpp"
 
 int main() {
 
@@ -20,7 +20,7 @@ int main() {
   int num_time_steps = 100;
   int num_time_steps_per_frame = 1;
 
-  std::vector<WaterPoint*> water_points;
+  std::vector<WaterPoint*> *water_points;
 
   generate_initial_water_positions(water_points);
 
