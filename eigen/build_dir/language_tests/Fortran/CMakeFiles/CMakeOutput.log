@@ -1,0 +1,206 @@
+The system is: Darwin - 18.2.0 - x86_64
+Compiling the Fortran compiler identification source file "CMakeFortranCompilerId.F" succeeded.
+Compiler: /Users/HannahMcNeil/anaconda2/bin/gfortran 
+Build flags: 
+Id flags: -v 
+
+The output was:
+0
+Driving: /Users/HannahMcNeil/anaconda2/bin/gfortran -mmacosx-version-min=10.14.2 -v CMakeFortranCompilerId.F -l gfortran -shared-libgcc
+Using built-in specs.
+COLLECT_GCC=/Users/HannahMcNeil/anaconda2/bin/gfortran
+COLLECT_LTO_WRAPPER=/Users/HannahMcNeil/anaconda2/bin/../libexec/gcc/x86_64-apple-darwin11.4.2/4.8.5/lto-wrapper
+Target: x86_64-apple-darwin11.4.2
+Configured with: ./configure --prefix=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac --with-gxx-include-dir=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac/gcc/include/c++ --bindir=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac/bin --datarootdir=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac/share --libdir=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac/lib --with-gmp=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac --with-mpfr=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac --with-mpc=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac --with-isl=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac --with-cloog=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac --with-boot-ldflags='-Wl,-headerpad_max_install_names -Wl,-L/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac/lib -Wl,-L/usr/lib' --with-stage1-ldflags='-Wl,-headerpad_max_install_names -Wl,-L/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac/lib -Wl,-L/usr/lib' --enable-checking=release --with-tune=generic --disable-multilib
+Thread model: posix
+gcc version 4.8.5 (GCC) 
+COLLECT_GCC_OPTIONS='-mmacosx-version-min=10.14.2' '-v' '-shared-libgcc' '-mtune=generic'
+ /Users/HannahMcNeil/anaconda2/bin/../libexec/gcc/x86_64-apple-darwin11.4.2/4.8.5/f951 CMakeFortranCompilerId.F -ffixed-form -cpp=/var/folders/g1/5x1zj4t94_j_ntp3bk2z_6580000gn/T//ccJuupkh.f90 -quiet -v -iprefix /Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/ -D__DYNAMIC__ CMakeFortranCompilerId.F -fPIC -quiet -dumpbase CMakeFortranCompilerId.F -mmacosx-version-min=10.14.2 -mtune=generic -auxbase CMakeFortranCompilerId -version -fintrinsic-modules-path /Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/finclude -o /var/folders/g1/5x1zj4t94_j_ntp3bk2z_6580000gn/T//ccu9PZQY.s
+GNU Fortran (GCC) version 4.8.5 (x86_64-apple-darwin11.4.2)
+	compiled by GNU C version 4.8.5, GMP version 5.1.2, MPFR version 3.1.2, MPC version 1.0.1
+warning: GMP header version 5.1.2 differs from library version 6.1.2.
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+ignoring nonexistent directory "/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/../../../../x86_64-apple-darwin11.4.2/include"
+ignoring duplicate directory "/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/../../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/include"
+ignoring duplicate directory "/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/../../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/include-fixed"
+ignoring nonexistent directory "/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/../../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/../../../../x86_64-apple-darwin11.4.2/include"
+ignoring nonexistent directory "/usr/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/finclude
+ /Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/include
+ /Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/include-fixed
+ /Users/HannahMcNeil/anaconda2/bin/../lib/gcc/../../include
+End of search list.
+GNU Fortran (GCC) version 4.8.5 (x86_64-apple-darwin11.4.2)
+	compiled by GNU C version 4.8.5, GMP version 5.1.2, MPFR version 3.1.2, MPC version 1.0.1
+warning: GMP header version 5.1.2 differs from library version 6.1.2.
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+COLLECT_GCC_OPTIONS='-mmacosx-version-min=10.14.2' '-v' '-shared-libgcc' '-mtune=generic'
+ as -arch x86_64 -force_cpusubtype_ALL -o /var/folders/g1/5x1zj4t94_j_ntp3bk2z_6580000gn/T//cct7Tatd.o /var/folders/g1/5x1zj4t94_j_ntp3bk2z_6580000gn/T//ccu9PZQY.s
+Reading specs from /Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/../../../libgfortran.spec
+rename spec lib to liborig
+COLLECT_GCC_OPTIONS='-mmacosx-version-min=10.14.2' '-v' '-shared-libgcc' '-mtune=generic'
+COMPILER_PATH=/Users/HannahMcNeil/anaconda2/bin/../libexec/gcc/x86_64-apple-darwin11.4.2/4.8.5/:/Users/HannahMcNeil/anaconda2/bin/../libexec/gcc/
+LIBRARY_PATH=/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/:/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/:/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/../../../:/usr/lib/
+COLLECT_GCC_OPTIONS='-mmacosx-version-min=10.14.2' '-v' '-shared-libgcc' '-mtune=generic'
+ /Users/HannahMcNeil/anaconda2/bin/../libexec/gcc/x86_64-apple-darwin11.4.2/4.8.5/collect2 -dynamic -arch x86_64 -macosx_version_min 10.14.2 -weak_reference_mismatches non-weak -o a.out -L/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5 -L/Users/HannahMcNeil/anaconda2/bin/../lib/gcc -L/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/../../.. /var/folders/g1/5x1zj4t94_j_ntp3bk2z_6580000gn/T//cct7Tatd.o -lgfortran -no_compact_unwind -lSystem -lgcc_ext.10.5 -lgcc -lquadmath -lm -lgcc_ext.10.5 -lgcc -lSystem -v
+collect2 version 4.8.5
+/usr/bin/ld -dynamic -arch x86_64 -macosx_version_min 10.14.2 -weak_reference_mismatches non-weak -o a.out -L/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5 -L/Users/HannahMcNeil/anaconda2/bin/../lib/gcc -L/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/../../.. /var/folders/g1/5x1zj4t94_j_ntp3bk2z_6580000gn/T//cct7Tatd.o -lgfortran -no_compact_unwind -lSystem -lgcc_ext.10.5 -lgcc -lquadmath -lm -lgcc_ext.10.5 -lgcc -lSystem -v
+@(#)PROGRAM:ld  PROJECT:ld64-450.3
+BUILD 18:45:16 Apr  4 2019
+configured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em
+Library search paths:
+	/Users/HannahMcNeil/anaconda2/lib/gcc/x86_64-apple-darwin11.4.2/4.8.5
+	/Users/HannahMcNeil/anaconda2/lib/gcc
+	/Users/HannahMcNeil/anaconda2/lib
+	/usr/lib
+	/usr/local/lib
+Framework search paths:
+	/Library/Frameworks/
+	/System/Library/Frameworks/
+
+
+Compilation of the Fortran compiler identification source "CMakeFortranCompilerId.F" produced "a.out"
+
+The Fortran compiler identification is GNU, found in "/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/eigen/build_dir/language_tests/Fortran/CMakeFiles/3.13.3/CompilerIdFortran/a.out"
+
+Determining if the Fortran compiler works passed with the following output:
+Change Dir: /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/eigen/build_dir/language_tests/Fortran/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_31563/fast"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTC_31563.dir/build.make CMakeFiles/cmTC_31563.dir/build
+Building Fortran object CMakeFiles/cmTC_31563.dir/testFortranCompiler.f.o
+/Users/HannahMcNeil/anaconda2/bin/gfortran    -c /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/eigen/build_dir/language_tests/Fortran/CMakeFiles/CMakeTmp/testFortranCompiler.f -o CMakeFiles/cmTC_31563.dir/testFortranCompiler.f.o
+Linking Fortran executable cmTC_31563
+/usr/local/Cellar/cmake/3.13.3/bin/cmake -E cmake_link_script CMakeFiles/cmTC_31563.dir/link.txt --verbose=1
+/Users/HannahMcNeil/anaconda2/bin/gfortran      CMakeFiles/cmTC_31563.dir/testFortranCompiler.f.o  -o cmTC_31563 
+
+
+Detecting Fortran compiler ABI info compiled with the following output:
+Change Dir: /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/eigen/build_dir/language_tests/Fortran/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_ee3b9/fast"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTC_ee3b9.dir/build.make CMakeFiles/cmTC_ee3b9.dir/build
+Building Fortran object CMakeFiles/cmTC_ee3b9.dir/CMakeFortranCompilerABI.F.o
+/Users/HannahMcNeil/anaconda2/bin/gfortran    -c /usr/local/Cellar/cmake/3.13.3/share/cmake/Modules/CMakeFortranCompilerABI.F -o CMakeFiles/cmTC_ee3b9.dir/CMakeFortranCompilerABI.F.o
+Linking Fortran executable cmTC_ee3b9
+/usr/local/Cellar/cmake/3.13.3/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ee3b9.dir/link.txt --verbose=1
+/Users/HannahMcNeil/anaconda2/bin/gfortran   -v -Wl,-v   CMakeFiles/cmTC_ee3b9.dir/CMakeFortranCompilerABI.F.o  -o cmTC_ee3b9 
+Driving: /Users/HannahMcNeil/anaconda2/bin/gfortran -mmacosx-version-min=10.14.2 -v -Wl,-v CMakeFiles/cmTC_ee3b9.dir/CMakeFortranCompilerABI.F.o -o cmTC_ee3b9 -l gfortran -shared-libgcc
+Using built-in specs.
+COLLECT_GCC=/Users/HannahMcNeil/anaconda2/bin/gfortran
+COLLECT_LTO_WRAPPER=/Users/HannahMcNeil/anaconda2/bin/../libexec/gcc/x86_64-apple-darwin11.4.2/4.8.5/lto-wrapper
+Target: x86_64-apple-darwin11.4.2
+Configured with: ./configure --prefix=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac --with-gxx-include-dir=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac/gcc/include/c++ --bindir=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac/bin --datarootdir=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac/share --libdir=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac/lib --with-gmp=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac --with-mpfr=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac --with-mpc=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac --with-isl=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac --with-cloog=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac --with-boot-ldflags='-Wl,-headerpad_max_install_names -Wl,-L/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac/lib -Wl,-L/usr/lib' --with-stage1-ldflags='-Wl,-headerpad_max_install_names -Wl,-L/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac/lib -Wl,-L/usr/lib' --enable-checking=release --with-tune=generic --disable-multilib
+Thread model: posix
+gcc version 4.8.5 (GCC) 
+Reading specs from /Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/../../../libgfortran.spec
+rename spec lib to liborig
+COLLECT_GCC_OPTIONS='-mmacosx-version-min=10.14.2' '-v' '-o' 'cmTC_ee3b9' '-shared-libgcc' '-mtune=generic'
+COMPILER_PATH=/Users/HannahMcNeil/anaconda2/bin/../libexec/gcc/x86_64-apple-darwin11.4.2/4.8.5/:/Users/HannahMcNeil/anaconda2/bin/../libexec/gcc/
+LIBRARY_PATH=/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/:/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/:/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/../../../:/usr/lib/
+COLLECT_GCC_OPTIONS='-mmacosx-version-min=10.14.2' '-v' '-o' 'cmTC_ee3b9' '-shared-libgcc' '-mtune=generic'
+ /Users/HannahMcNeil/anaconda2/bin/../libexec/gcc/x86_64-apple-darwin11.4.2/4.8.5/collect2 -dynamic -arch x86_64 -macosx_version_min 10.14.2 -weak_reference_mismatches non-weak -o cmTC_ee3b9 -L/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5 -L/Users/HannahMcNeil/anaconda2/bin/../lib/gcc -L/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/../../.. -v CMakeFiles/cmTC_ee3b9.dir/CMakeFortranCompilerABI.F.o -lgfortran -no_compact_unwind -lSystem -lgcc_ext.10.5 -lgcc -lquadmath -lm -lgcc_ext.10.5 -lgcc -lSystem -v
+collect2 version 4.8.5
+/usr/bin/ld -dynamic -arch x86_64 -macosx_version_min 10.14.2 -weak_reference_mismatches non-weak -o cmTC_ee3b9 -L/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5 -L/Users/HannahMcNeil/anaconda2/bin/../lib/gcc -L/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/../../.. -v CMakeFiles/cmTC_ee3b9.dir/CMakeFortranCompilerABI.F.o -lgfortran -no_compact_unwind -lSystem -lgcc_ext.10.5 -lgcc -lquadmath -lm -lgcc_ext.10.5 -lgcc -lSystem -v
+@(#)PROGRAM:ld  PROJECT:ld64-450.3
+BUILD 18:45:16 Apr  4 2019
+configured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em
+@(#)PROGRAM:ld  PROJECT:ld64-450.3
+BUILD 18:45:16 Apr  4 2019
+configured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em
+Library search paths:
+	/Users/HannahMcNeil/anaconda2/lib/gcc/x86_64-apple-darwin11.4.2/4.8.5
+	/Users/HannahMcNeil/anaconda2/lib/gcc
+	/Users/HannahMcNeil/anaconda2/lib
+	/usr/lib
+	/usr/local/lib
+Framework search paths:
+	/Library/Frameworks/
+	/System/Library/Frameworks/
+
+
+Parsed Fortran implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/eigen/build_dir/language_tests/Fortran/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_ee3b9/fast"]
+  ignore line: [/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTC_ee3b9.dir/build.make CMakeFiles/cmTC_ee3b9.dir/build]
+  ignore line: [Building Fortran object CMakeFiles/cmTC_ee3b9.dir/CMakeFortranCompilerABI.F.o]
+  ignore line: [/Users/HannahMcNeil/anaconda2/bin/gfortran    -c /usr/local/Cellar/cmake/3.13.3/share/cmake/Modules/CMakeFortranCompilerABI.F -o CMakeFiles/cmTC_ee3b9.dir/CMakeFortranCompilerABI.F.o]
+  ignore line: [Linking Fortran executable cmTC_ee3b9]
+  ignore line: [/usr/local/Cellar/cmake/3.13.3/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ee3b9.dir/link.txt --verbose=1]
+  ignore line: [/Users/HannahMcNeil/anaconda2/bin/gfortran   -v -Wl,-v   CMakeFiles/cmTC_ee3b9.dir/CMakeFortranCompilerABI.F.o  -o cmTC_ee3b9 ]
+  ignore line: [Driving: /Users/HannahMcNeil/anaconda2/bin/gfortran -mmacosx-version-min=10.14.2 -v -Wl,-v CMakeFiles/cmTC_ee3b9.dir/CMakeFortranCompilerABI.F.o -o cmTC_ee3b9 -l gfortran -shared-libgcc]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/Users/HannahMcNeil/anaconda2/bin/gfortran]
+  ignore line: [COLLECT_LTO_WRAPPER=/Users/HannahMcNeil/anaconda2/bin/../libexec/gcc/x86_64-apple-darwin11.4.2/4.8.5/lto-wrapper]
+  ignore line: [Target: x86_64-apple-darwin11.4.2]
+  ignore line: [Configured with: ./configure --prefix=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac --with-gxx-include-dir=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac/gcc/include/c++ --bindir=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac/bin --datarootdir=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac/share --libdir=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac/lib --with-gmp=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac --with-mpfr=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac --with-mpc=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac --with-isl=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac --with-cloog=/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac --with-boot-ldflags='-Wl,-headerpad_max_install_names -Wl,-L/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac/lib -Wl,-L/usr/lib' --with-stage1-ldflags='-Wl,-headerpad_max_install_names -Wl,-L/Users/ray/mc-x64-3.5/conda-bld/gcc-4.8_1477649012852/_b_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac/lib -Wl,-L/usr/lib' --enable-checking=release --with-tune=generic --disable-multilib]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 4.8.5 (GCC) ]
+  ignore line: [Reading specs from /Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/../../../libgfortran.spec]
+  ignore line: [rename spec lib to liborig]
+  ignore line: [COLLECT_GCC_OPTIONS='-mmacosx-version-min=10.14.2' '-v' '-o' 'cmTC_ee3b9' '-shared-libgcc' '-mtune=generic']
+  ignore line: [COMPILER_PATH=/Users/HannahMcNeil/anaconda2/bin/../libexec/gcc/x86_64-apple-darwin11.4.2/4.8.5/:/Users/HannahMcNeil/anaconda2/bin/../libexec/gcc/]
+  ignore line: [LIBRARY_PATH=/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/:/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/:/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/../../../:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-mmacosx-version-min=10.14.2' '-v' '-o' 'cmTC_ee3b9' '-shared-libgcc' '-mtune=generic']
+  link line: [ /Users/HannahMcNeil/anaconda2/bin/../libexec/gcc/x86_64-apple-darwin11.4.2/4.8.5/collect2 -dynamic -arch x86_64 -macosx_version_min 10.14.2 -weak_reference_mismatches non-weak -o cmTC_ee3b9 -L/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5 -L/Users/HannahMcNeil/anaconda2/bin/../lib/gcc -L/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/../../.. -v CMakeFiles/cmTC_ee3b9.dir/CMakeFortranCompilerABI.F.o -lgfortran -no_compact_unwind -lSystem -lgcc_ext.10.5 -lgcc -lquadmath -lm -lgcc_ext.10.5 -lgcc -lSystem -v]
+    arg [/Users/HannahMcNeil/anaconda2/bin/../libexec/gcc/x86_64-apple-darwin11.4.2/4.8.5/collect2] ==> ignore
+    arg [-dynamic] ==> ignore
+    arg [-arch] ==> ignore
+    arg [x86_64] ==> ignore
+    arg [-macosx_version_min] ==> ignore
+    arg [10.14.2] ==> ignore
+    arg [-weak_reference_mismatches] ==> ignore
+    arg [non-weak] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_ee3b9] ==> ignore
+    arg [-L/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5] ==> dir [/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5]
+    arg [-L/Users/HannahMcNeil/anaconda2/bin/../lib/gcc] ==> dir [/Users/HannahMcNeil/anaconda2/bin/../lib/gcc]
+    arg [-L/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/../../..] ==> dir [/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/../../..]
+    arg [-v] ==> ignore
+    arg [CMakeFiles/cmTC_ee3b9.dir/CMakeFortranCompilerABI.F.o] ==> ignore
+    arg [-lgfortran] ==> lib [gfortran]
+    arg [-no_compact_unwind] ==> ignore
+    arg [-lSystem] ==> lib [System]
+    arg [-lgcc_ext.10.5] ==> lib [gcc_ext.10.5]
+    arg [-lgcc] ==> lib [gcc]
+    arg [-lquadmath] ==> lib [quadmath]
+    arg [-lm] ==> lib [m]
+    arg [-lgcc_ext.10.5] ==> lib [gcc_ext.10.5]
+    arg [-lgcc] ==> lib [gcc]
+    arg [-lSystem] ==> lib [System]
+    arg [-v] ==> ignore
+  Library search paths: [;/Users/HannahMcNeil/anaconda2/lib/gcc/x86_64-apple-darwin11.4.2/4.8.5;/Users/HannahMcNeil/anaconda2/lib/gcc;/Users/HannahMcNeil/anaconda2/lib;/usr/lib;/usr/local/lib]
+  Framework search paths: [;/Library/Frameworks/;/System/Library/Frameworks/]
+  remove lib [System]
+  remove lib [System]
+  collapse library dir [/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5] ==> [/Users/HannahMcNeil/anaconda2/lib/gcc/x86_64-apple-darwin11.4.2/4.8.5]
+  collapse library dir [/Users/HannahMcNeil/anaconda2/bin/../lib/gcc] ==> [/Users/HannahMcNeil/anaconda2/lib/gcc]
+  collapse library dir [/Users/HannahMcNeil/anaconda2/bin/../lib/gcc/x86_64-apple-darwin11.4.2/4.8.5/../../..] ==> [/Users/HannahMcNeil/anaconda2/lib]
+  collapse library dir [/Users/HannahMcNeil/anaconda2/lib/gcc/x86_64-apple-darwin11.4.2/4.8.5] ==> [/Users/HannahMcNeil/anaconda2/lib/gcc/x86_64-apple-darwin11.4.2/4.8.5]
+  collapse library dir [/Users/HannahMcNeil/anaconda2/lib/gcc] ==> [/Users/HannahMcNeil/anaconda2/lib/gcc]
+  collapse library dir [/Users/HannahMcNeil/anaconda2/lib] ==> [/Users/HannahMcNeil/anaconda2/lib]
+  collapse library dir [/usr/lib] ==> [/usr/lib]
+  collapse library dir [/usr/local/lib] ==> [/usr/local/lib]
+  collapse framework dir [/Library/Frameworks/] ==> [/Library/Frameworks]
+  collapse framework dir [/System/Library/Frameworks/] ==> [/System/Library/Frameworks]
+  implicit libs: [gfortran;gcc_ext.10.5;gcc;quadmath;m;gcc_ext.10.5;gcc]
+  implicit dirs: [/Users/HannahMcNeil/anaconda2/lib/gcc/x86_64-apple-darwin11.4.2/4.8.5;/Users/HannahMcNeil/anaconda2/lib/gcc;/Users/HannahMcNeil/anaconda2/lib;/usr/lib;/usr/local/lib]
+  implicit fwks: [/Library/Frameworks;/System/Library/Frameworks]
+
+
+Determining if the Fortran compiler supports Fortran 90 passed with the following output:
+Change Dir: /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/eigen/build_dir/language_tests/Fortran/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_c58f1/fast"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTC_c58f1.dir/build.make CMakeFiles/cmTC_c58f1.dir/build
+Building Fortran object CMakeFiles/cmTC_c58f1.dir/testFortranCompilerF90.f90.o
+/Users/HannahMcNeil/anaconda2/bin/gfortran    -c /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/eigen/build_dir/language_tests/Fortran/CMakeFiles/CMakeTmp/testFortranCompilerF90.f90 -o CMakeFiles/cmTC_c58f1.dir/testFortranCompilerF90.f90.o
+Linking Fortran executable cmTC_c58f1
+/usr/local/Cellar/cmake/3.13.3/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c58f1.dir/link.txt --verbose=1
+/Users/HannahMcNeil/anaconda2/bin/gfortran      CMakeFiles/cmTC_c58f1.dir/testFortranCompilerF90.f90.o  -o cmTC_c58f1 
+
+

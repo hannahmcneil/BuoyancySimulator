@@ -54,8 +54,10 @@ Polyhedron water_mesh(std::map<WaterPoint*, Vector>* surface_points) {
            CGAL::Second_of_pair_property_map<Pwn>(),
            output_mesh, average_spacing);
 
+  return output_mesh;
+
 }
 
-Vector find_normal(WaterPoint w) {
+Vector MeshHandler::find_normal(WaterPoint w) {
   return Vector(0, 0, 0);
 }
