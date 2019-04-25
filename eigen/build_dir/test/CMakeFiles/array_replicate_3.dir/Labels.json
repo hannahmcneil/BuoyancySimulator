@@ -1,0 +1,16 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/eigen/test/array_replicate.cpp"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"BuildOfficial"
+		],
+		"name" : "array_replicate_3"
+	}
+}

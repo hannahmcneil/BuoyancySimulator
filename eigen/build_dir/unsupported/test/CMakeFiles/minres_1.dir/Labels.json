@@ -1,0 +1,16 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/eigen/unsupported/test/minres.cpp"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"BuildUnsupported"
+		],
+		"name" : "minres_1"
+	}
+}

@@ -1,0 +1,16 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/eigen/test/incomplete_cholesky.cpp"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"BuildOfficial"
+		],
+		"name" : "incomplete_cholesky_1"
+	}
+}

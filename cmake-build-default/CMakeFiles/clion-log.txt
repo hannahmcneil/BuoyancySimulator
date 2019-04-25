@@ -1,54 +1,8 @@
 /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE= -DCGAL_DIR=$HOME/CGAL-4.14 -DCMAKE_BUILD_TYPE=Release BOOST_ROOT=$HOME/boost_1_70_0 -G "CodeBlocks - Unix Makefiles" /Users/leehagaman/Desktop/cs184/BuoyancySimulator
--- __cplusplus is 199711
--- Boost version: 1.69.0
--- Found the following Boost libraries:
---   thread
---   system
---   chrono
---   date_time
---   atomic
--- Boost include dirs: /usr/local/include
--- Boost libraries:    /usr/local/lib/libboost_thread-mt.dylib;/usr/local/lib/libboost_system-mt.dylib;/usr/local/lib/libboost_chrono-mt.dylib;/usr/local/lib/libboost_date_time-mt.dylib;/usr/local/lib/libboost_atomic-mt.dylib
--- Targetting Unix Makefiles
--- Using /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ compiler.
--- DARWIN_VERSION=18
--- Mac Leopard detected
--- Boost version: 1.69.0
--- Found the following Boost libraries:
---   thread
---   system
---   chrono
---   date_time
---   atomic
--- Build type: Release
--- USING CXXFLAGS = ' -O3 -DNDEBUG'
--- USING EXEFLAGS = ' '
--- Requested component: Core
-CMake Warning (dev) at /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.13/Modules/FindBoost.cmake:1006 (if):
-  Policy CMP0054 is not set: Only interpret if() arguments as variables or
-  keywords when unquoted.  Run "cmake --help-policy CMP0054" for policy
-  details.  Use the cmake_policy command to set the policy and suppress this
-  warning.
+CMake Error at CMakeLists.txt:17:
+  Parse error.  Expected a command name, got unquoted argument with text
+  "<<<<<<<".
 
-  Quoted variables like "chrono" will no longer be dereferenced when the
-  policy is set to NEW.  Since the policy is not set the OLD behavior will be
-  used.
-Call Stack (most recent call first):
-  /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.13/Modules/FindBoost.cmake:1670 (_Boost_MISSING_DEPENDENCIES)
-  /usr/local/lib/cmake/CGAL/CGAL_Macros.cmake:296 (find_package)
-  /usr/local/lib/cmake/CGAL/UseCGAL.cmake:27 (use_component)
-  CMakeLists.txt:7 (include)
-This warning is for project developers.  Use -Wno-dev to suppress it.
 
--- Boost version: 1.69.0
--- Found the following Boost libraries:
---   thread
---   system
---   chrono
---   date_time
---   atomic
--- Requested component: MPFR
--- Requested component: GMP
--- Configuring done
--- Generating done
--- Build files have been written to: /Users/leehagaman/Desktop/cs184/BuoyancySimulator
+-- Configuring incomplete, errors occurred!
+See also "/Users/leehagaman/Desktop/cs184/BuoyancySimulator/CMakeFiles/CMakeOutput.log".

@@ -27,6 +27,12 @@ BUILD_LIBCGL:BOOL=ON
 BUILD_SHARED_LIBS:BOOL=ON
 
 //Value Computed by CMake
+BuoyancySimulator_BINARY_DIR:STATIC=/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/build
+
+//Value Computed by CMake
+BuoyancySimulator_SOURCE_DIR:STATIC=/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator
+
+//Value Computed by CMake
 CGL_BINARY_DIR:STATIC=/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/build/CGL
 
 //Build for debug
@@ -45,7 +51,7 @@ CGL_BUILD_SHARED:BOOL=OFF
 CGL_BUILD_TESTS:BOOL=OFF
 
 //Dependencies for the target
-CGL_LIB_DEPENDS:STATIC=general;nanogui;general;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Cocoa.framework;general;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/OpenGL.framework;general;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/CoreVideo.framework;general;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/IOKit.framework;general;/usr/local/lib/libfreetype.dylib;
+CGL_LIB_DEPENDS:STATIC=general;nanogui;general;/usr/local/lib/libfreetype.dylib;
 
 //Value Computed by CMake
 CGL_SOURCE_DIR:STATIC=/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/CGL
@@ -173,7 +179,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=ClothSim
+CMAKE_PROJECT_NAME:STATIC=BuoyancySimulator
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib
@@ -248,6 +254,12 @@ ClothSim_BINARY_DIR:STATIC=/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/b
 
 //Value Computed by CMake
 ClothSim_SOURCE_DIR:STATIC=/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator
+
+//Path to a file.
+EIGEN3_INCLUDE_DIR:PATH=EIGEN3_INCLUDE_DIR-NOTFOUND
+
+//The directory containing a CMake configuration file for Eigen3.
+Eigen3_DIR:PATH=/usr/local/share/eigen3/cmake
 
 //Path to a file.
 FREETYPE_INCLUDE_DIR_freetype2:PATH=/usr/local/include/freetype2
@@ -457,7 +469,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=7
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=3
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -504,6 +516,10 @@ COCOA_FRAMEWORK-ADVANCED:INTERNAL=1
 CORE_FOUNDATION_FRAMEWORK-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CORE_VIDEO_FRAMEWORK
 CORE_VIDEO_FRAMEWORK-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: EIGEN3_INCLUDE_DIR
+EIGEN3_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//Details about finding Eigen3
+FIND_PACKAGE_MESSAGE_DETAILS_Eigen3:INTERNAL=[/usr/local/include/eigen3][TRUE][v(3.3.7)]
 //Details about finding Freetype
 FIND_PACKAGE_MESSAGE_DETAILS_Freetype:INTERNAL=[/usr/local/lib/libfreetype.dylib][/usr/local/include/freetype2][v2.9.1()]
 //Details about finding OpenGL

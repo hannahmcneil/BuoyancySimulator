@@ -1,0 +1,16 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/eigen/test/redux.cpp"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"BuildOfficial"
+		],
+		"name" : "redux_7"
+	}
+}
