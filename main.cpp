@@ -12,12 +12,14 @@
 #include <stdlib.h> // atoi for getopt inputs
 
 #include "CGL/CGL.h"
-#include "waterPoint.cpp"
 #include "simulate.cpp"
 #include "meshHandler.cpp"
 
 
 int main() {
+
+  std::cout << "starting" << std::endl;
+
   Simulate s = Simulate();
   MeshHandler m = MeshHandler();
 
@@ -34,4 +36,7 @@ int main() {
     s.simulate(water_points, dt);
   }
   m.save_dae(water_points, num_time_steps);
+
+  std::cout << "done" << std::endl;
+
 }

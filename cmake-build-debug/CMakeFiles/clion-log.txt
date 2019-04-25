@@ -1,4 +1,7 @@
-/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/leehagaman/Desktop/cs184/BuoyancySimulator
--- Configuring done
--- Generating done
--- Build files have been written to: /Users/leehagaman/Desktop/cs184/BuoyancySimulator/cmake-build-debug
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCGAL_DIR=$HOME/CGAL-4.14 -G "CodeBlocks - Unix Makefiles" /Users/leehagaman/Desktop/cs184/BuoyancySimulator
+CMake Error at CMakeLists.txt:15:
+  Parse error.  Expected a command name, got unquoted argument with text
+  "-DCGAL_DIR=$HOME/CGAL-4.14".
+
+
+-- Configuring incomplete, errors occurred!

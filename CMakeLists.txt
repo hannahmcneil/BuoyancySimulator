@@ -1,16 +1,27 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 2.8.4)
+
 project(BuoyancySimulator)
 
-set(CMAKE_CXX_STANDARD 14)
+# Find CGAL
+find_package(CGAL REQUIRED COMPONENTS Core) # If the dependency is required, use REQUIRED option - if it's not found CMake will issue an error
+include( ${CGAL_USE_FILE} )
 
-# CGL
+
 add_subdirectory(CGL)
 include_directories(CGL/include)
 include_directories(CGAL-4.14/include)
 include_directories(.)
 include_directories(collision)
 include_directories(misc)
-include_directories(boost_1_70_0)
 
+# Setup your executable
+include_directories (BEFORE "../../include")
+include_directories (BEFORE "include")
 
-add_executable(BuoyancySimulator main.cpp)
+include( CGAL_CreateSingleSourceCGALProgram )
+create_single_source_cgal_program( "main.cpp" )
+
+find_package(Eigen3 3.3.7)
+if (EIGEN3_FOUND)
+    include( ${EIGEN3_USE_FILE} )
+endif()

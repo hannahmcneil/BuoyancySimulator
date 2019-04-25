@@ -2,6 +2,7 @@
 #include <CGAL/Polyhedron_3.h>
 #include <vector>
 #include <fstream>
+#include <waterPoint.h>
 
 // Types
 typedef CGAL::Exact_predicates_inexact_constructions_kernel Kernel;

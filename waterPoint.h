@@ -4,10 +4,13 @@
 
 using namespace CGL;
 
+#ifndef WATERPOINT
+#define WATERPOINT
+
 class WaterPoint {
   WaterPoint(Vector3D position)
-  : position(position),
-  last_position(position) {}
+          : position(position),
+            last_position(position) {}
 
   Vector3D velocity(double delta_t) {
     return (position - last_position) / delta_t;
@@ -20,3 +23,6 @@ class WaterPoint {
   Vector3D forces;
 
 };
+
+
+#endif

@@ -6,6 +6,7 @@
 #include <CGAL/poisson_surface_reconstruction.h>
 #include <vector>
 #include <fstream>
+#include <waterPoint.h>
 
 // Types
 typedef CGAL::Exact_predicates_inexact_constructions_kernel Kernel;
@@ -27,7 +28,8 @@ std::map<WaterPoint*, Vector>* MeshHandler::surface_points(std::vector<WaterPoin
   for (WaterPoint *w : *water_points) {
     Vector normal = find_normal(*w);
     if (normal.x() * normal.x() + normal.y() * normal.y() + normal.z() * normal.z() > 0.1) {
-      output->emplace(w, normal);
+      std::pair<WaterPoint*, Vector> pp = std::pair<WaterPoint*, Vector>(w, normal);
+      output->insert(pp);
     }
   }
   return output;
@@ -42,7 +44,7 @@ Polyhedron water_mesh(std::map<WaterPoint*, Vector>* surface_points) {
     WaterPoint* w =  iter->first;
     Point p = Point(w->position.x, w->position.y, w->position.z);
     Vector n = iter->second;
-    points.emplace_back(std::pair<Point, Vector>(p, n));
+    points.push_back(std::pair<Point, Vector>(p, n));
   }
 
   double average_spacing = CGAL::compute_average_spacing<CGAL::Sequential_tag>
@@ -56,6 +58,6 @@ Polyhedron water_mesh(std::map<WaterPoint*, Vector>* surface_points) {
 
 }
 
-Vector find_normal(WaterPoint w) {
+Vector MeshHandler::find_normal(WaterPoint w) {
   return Vector(0, 0, 0);
 }

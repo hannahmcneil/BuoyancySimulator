@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="executable"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="clang"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\usr\;CMake Files\..\..\..\..\..\usr\local\;CMake Files\..\..\..\..\..\usr\local\lib\;CMake Files\..\..\..\..\..\usr\local\lib\cmake\;CMake Files\..\..\..\..\..\usr\local\lib\cmake\CGAL\;CMake Files\..\..\..\..\..\usr\local\lib\cmake\CGAL\config\;CMake Files\..\..\..\..\..\usr\local\lib\cmake\CGAL\config\support\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/leehagaman/Desktop/cs184/BuoyancySimulator"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/leehagaman/Desktop/cs184/BuoyancySimulator/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/leehagaman/Desktop/cs184/BuoyancySimulator/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/leehagaman/Desktop/cs184/BuoyancySimulator/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/leehagaman/Desktop/cs184/BuoyancySimulator/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/leehagaman/Desktop/cs184/BuoyancySimulator"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/leehagaman/Desktop/cs184/BuoyancySimulator/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/leehagaman/Desktop/cs184/BuoyancySimulator/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/leehagaman/Desktop/cs184/BuoyancySimulator/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/leehagaman/Desktop/cs184/BuoyancySimulator/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/leehagaman/Desktop/cs184/BuoyancySimulator"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/leehagaman/Desktop/cs184/BuoyancySimulator/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/leehagaman/Desktop/cs184/BuoyancySimulator/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/leehagaman/Desktop/cs184/BuoyancySimulator/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/leehagaman/Desktop/cs184/BuoyancySimulator/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="executable">
+				<Option output="/Users/leehagaman/Desktop/cs184/BuoyancySimulator/executable" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/leehagaman/Desktop/cs184/BuoyancySimulator"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="clang"/>
+				<Compiler>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/10.0.1/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/leehagaman/Desktop/cs184/BuoyancySimulator/Makefile&quot;  VERBOSE=1 executable"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/leehagaman/Desktop/cs184/BuoyancySimulator/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/leehagaman/Desktop/cs184/BuoyancySimulator/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/leehagaman/Desktop/cs184/BuoyancySimulator/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="executable/fast">
+				<Option output="/Users/leehagaman/Desktop/cs184/BuoyancySimulator/executable" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/leehagaman/Desktop/cs184/BuoyancySimulator"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="clang"/>
+				<Compiler>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/10.0.1/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/leehagaman/Desktop/cs184/BuoyancySimulator/Makefile&quot;  VERBOSE=1 executable/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/leehagaman/Desktop/cs184/BuoyancySimulator/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/leehagaman/Desktop/cs184/BuoyancySimulator/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/leehagaman/Desktop/cs184/BuoyancySimulator/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/leehagaman/Desktop/cs184/BuoyancySimulator/main.cpp">
+			<Option target="executable"/>
+		</Unit>
+		<Unit filename="/Users/leehagaman/Desktop/cs184/BuoyancySimulator/meshHandler.cpp">
+			<Option target="executable"/>
+		</Unit>
+		<Unit filename="/Users/leehagaman/Desktop/cs184/BuoyancySimulator/meshHandler.h">
+			<Option target="executable"/>
+		</Unit>
+		<Unit filename="/Users/leehagaman/Desktop/cs184/BuoyancySimulator/simulate.cpp">
+			<Option target="executable"/>
+		</Unit>
+		<Unit filename="/Users/leehagaman/Desktop/cs184/BuoyancySimulator/simulate.h">
+			<Option target="executable"/>
+		</Unit>
+		<Unit filename="/Users/leehagaman/Desktop/cs184/BuoyancySimulator/waterPoint.cpp">
+			<Option target="executable"/>
+		</Unit>
+		<Unit filename="/Users/leehagaman/Desktop/cs184/BuoyancySimulator/waterPoint.h">
+			<Option target="executable"/>
+		</Unit>
+		<Unit filename="/Users/leehagaman/Desktop/cs184/BuoyancySimulator/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/Users/leehagaman/Desktop/cs184/BuoyancySimulator/../../../../../usr/local/lib/cmake/CGAL/CGALConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\CGAL\"/>
+		</Unit>
+		<Unit filename="/Users/leehagaman/Desktop/cs184/BuoyancySimulator/../../../../../usr/local/lib/cmake/CGAL/CGALConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\CGAL\"/>
+		</Unit>
+		<Unit filename="/Users/leehagaman/Desktop/cs184/BuoyancySimulator/../../../../../usr/local/lib/cmake/CGAL/CGALExports-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\CGAL\"/>
+		</Unit>
+		<Unit filename="/Users/leehagaman/Desktop/cs184/BuoyancySimulator/../../../../../usr/local/lib/cmake/CGAL/CGALExports.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\CGAL\"/>
+		</Unit>
+		<Unit filename="/Users/leehagaman/Desktop/cs184/BuoyancySimulator/../../../../../usr/local/lib/cmake/CGAL/CGALLibConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\CGAL\"/>
+		</Unit>
+		<Unit filename="/Users/leehagaman/Desktop/cs184/BuoyancySimulator/../../../../../usr/local/lib/cmake/CGAL/CGAL_Common.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\CGAL\"/>
+		</Unit>
+		<Unit filename="/Users/leehagaman/Desktop/cs184/BuoyancySimulator/../../../../../usr/local/lib/cmake/CGAL/CGAL_CreateSingleSourceCGALProgram.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\CGAL\"/>
+		</Unit>
+		<Unit filename="/Users/leehagaman/Desktop/cs184/BuoyancySimulator/../../../../../usr/local/lib/cmake/CGAL/CGAL_Macros.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\CGAL\"/>
+		</Unit>
+		<Unit filename="/Users/leehagaman/Desktop/cs184/BuoyancySimulator/../../../../../usr/local/lib/cmake/CGAL/CGAL_SetupBoost.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\CGAL\"/>
+		</Unit>
+		<Unit filename="/Users/leehagaman/Desktop/cs184/BuoyancySimulator/../../../../../usr/local/lib/cmake/CGAL/CGAL_TweakFindBoost.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\CGAL\"/>
+		</Unit>
+		<Unit filename="/Users/leehagaman/Desktop/cs184/BuoyancySimulator/../../../../../usr/local/lib/cmake/CGAL/CGAL_VersionUtils.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\CGAL\"/>
+		</Unit>
+		<Unit filename="/Users/leehagaman/Desktop/cs184/BuoyancySimulator/../../../../../usr/local/lib/cmake/CGAL/CGAL_add_test.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\CGAL\"/>
+		</Unit>
+		<Unit filename="/Users/leehagaman/Desktop/cs184/BuoyancySimulator/../../../../../usr/local/lib/cmake/CGAL/CGAL_enable_end_of_configuration_hook.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\CGAL\"/>
+		</Unit>
+		<Unit filename="/Users/leehagaman/Desktop/cs184/BuoyancySimulator/../../../../../usr/local/lib/cmake/CGAL/config/support/CGAL_test_cpp_version.cpp">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\CGAL\config\support\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

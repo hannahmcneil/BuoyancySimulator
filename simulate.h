@@ -1,3 +1,5 @@
+#include <waterPoint.h>
+
 class Simulate {
 
   public:
