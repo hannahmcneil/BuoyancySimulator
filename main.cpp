@@ -24,6 +24,11 @@ int main() {
   MeshHandler m = MeshHandler();
 
   int num_particles_per_dimension = 51;
+  float width = 1.;
+  float height = 1.;
+  float length = 1.;
+  float density = 997.;
+  float mass = width * height * length * density / num_particles_per_dimension / num_particles_per_dimension / num_particles_per_dimension;
   float particle_dist = 1. / (num_particles_per_dimension - 1);
   float dt = 0.05;
   int num_time_steps = 100;
@@ -35,7 +40,7 @@ int main() {
     if (i % num_time_steps_per_frame == 0) {
       m.save_dae(water_points, i);
     }
-    s.simulate(water_points, dt);
+    s.simulate(water_points, dt, mass);
   }
   m.save_dae(water_points, num_time_steps);
 

@@ -20,6 +20,10 @@ void Simulate::generate_initial_positions(std::vector<WaterPoint*> *water_points
   }
 }
 
-void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt) {
-  return;
+void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt, float mass) {
+
+    // ADD GRAVITY AS FORCE ACTING ON ALL WATER POINTS
+    for (int i = 0; i < water_points->size(); i++) {
+        (*water_points)[i]->forces = gravity * mass;
+    }
 }
