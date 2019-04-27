@@ -13,8 +13,9 @@ void Simulate::generate_initial_positions(std::vector<WaterPoint*> *water_points
       for (int y = 0; y < num_particles; y++) {
           for (int x = 0; x < num_particles; x++) {
               Vector3D offsets = Vector3D(x * particle_dist, y * particle_dist, z * particle_dist);
-              WaterPoint point = WaterPoint(initial_pos + offsets);
-              water_points->push_back(&point);
+              WaterPoint *point = new WaterPoint(initial_pos + offsets);
+              point->forces = Vector3D(0, 0, 0);
+              water_points->push_back(point);
           }
       }
   }

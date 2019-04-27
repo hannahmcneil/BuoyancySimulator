@@ -33,16 +33,24 @@ int main() {
   float dt = 0.05;
   int num_time_steps = 100;
   int num_time_steps_per_frame = 1;
-  std::vector<WaterPoint*> *water_points;
 
-  s.generate_initial_positions(water_points, particle_dist, num_particles_per_dimension);
+  // CREATE VECTOR OF WATER POINTS
+  std::vector<WaterPoint*> water_points;
+
+  // RESERVE SPACE TO AVOID SEGFAULTS
+  water_points.reserve(num_particles_per_dimension * num_particles_per_dimension * num_particles_per_dimension);
+
+  // SET INITIAL POSITIONS OF WATER POINTS
+  s.generate_initial_positions(&water_points, particle_dist, num_particles_per_dimension);
+
+  // RUN SIMULATION FOR NUM_TIME_STEPS
   for (int i = 0; i < num_time_steps; ++i) {
     if (i % num_time_steps_per_frame == 0) {
-      m.save_dae(water_points, i);
+      m.save_dae(&water_points, i);
     }
-    s.simulate(water_points, dt, mass);
+    s.simulate(&water_points, dt, mass);
   }
-  m.save_dae(water_points, num_time_steps);
+  m.save_dae(&water_points, num_time_steps);
 
   std::cout << "done" << std::endl;
 
