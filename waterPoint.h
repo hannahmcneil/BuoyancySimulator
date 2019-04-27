@@ -8,6 +8,7 @@ using namespace CGL;
 #define WATERPOINT
 
 class WaterPoint {
+  public:
   WaterPoint(Vector3D position)
           : position(position),
             last_position(position) {}
@@ -16,7 +17,6 @@ class WaterPoint {
     return (position - last_position) / delta_t;
   }
 
-  public:
   // dynamic values
   Vector3D position;
   Vector3D last_position;

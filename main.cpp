@@ -23,12 +23,14 @@ int main() {
   Simulate s = Simulate();
   MeshHandler m = MeshHandler();
 
+  int num_particles_per_dimension = 51;
+  float particle_dist = 1. / (num_particles_per_dimension - 1);
   float dt = 0.05;
   int num_time_steps = 100;
   int num_time_steps_per_frame = 1;
   std::vector<WaterPoint*> *water_points;
 
-  s.generate_initial_positions(water_points);
+  s.generate_initial_positions(water_points, particle_dist, num_particles_per_dimension);
   for (int i = 0; i < num_time_steps; ++i) {
     if (i % num_time_steps_per_frame == 0) {
       m.save_dae(water_points, i);

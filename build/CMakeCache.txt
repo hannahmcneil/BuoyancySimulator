@@ -26,11 +26,72 @@ BUILD_LIBCGL:BOOL=ON
 //Build shared libraries
 BUILD_SHARED_LIBS:BOOL=ON
 
+//Build the testing tree.
+BUILD_TESTING:BOOL=OFF
+
+//Boost atomic library (debug)
+Boost_ATOMIC_LIBRARY_DEBUG:FILEPATH=/usr/local/lib/libboost_atomic-mt.dylib
+
+//Boost atomic library (release)
+Boost_ATOMIC_LIBRARY_RELEASE:FILEPATH=/usr/local/lib/libboost_atomic-mt.dylib
+
+//Boost chrono library (debug)
+Boost_CHRONO_LIBRARY_DEBUG:FILEPATH=/usr/local/lib/libboost_chrono-mt.dylib
+
+//Boost chrono library (release)
+Boost_CHRONO_LIBRARY_RELEASE:FILEPATH=/usr/local/lib/libboost_chrono-mt.dylib
+
+//Boost date_time library (debug)
+Boost_DATE_TIME_LIBRARY_DEBUG:FILEPATH=/usr/local/lib/libboost_date_time-mt.dylib
+
+//Boost date_time library (release)
+Boost_DATE_TIME_LIBRARY_RELEASE:FILEPATH=/usr/local/lib/libboost_date_time-mt.dylib
+
+//Activate the debug messages of the script FindBoost
+Boost_DEBUG:BOOL=OFF
+
+//Path to a file.
+Boost_INCLUDE_DIR:PATH=/usr/local/include
+
+//Boost library directory DEBUG
+Boost_LIBRARY_DIR_DEBUG:PATH=/usr/local/lib
+
+//Boost library directory RELEASE
+Boost_LIBRARY_DIR_RELEASE:PATH=/usr/local/lib
+
+//Boost system library (debug)
+Boost_SYSTEM_LIBRARY_DEBUG:FILEPATH=/usr/local/lib/libboost_system-mt.dylib
+
+//Boost system library (release)
+Boost_SYSTEM_LIBRARY_RELEASE:FILEPATH=/usr/local/lib/libboost_system-mt.dylib
+
+//Boost thread library (debug)
+Boost_THREAD_LIBRARY_DEBUG:FILEPATH=/usr/local/lib/libboost_thread-mt.dylib
+
+//Boost thread library (release)
+Boost_THREAD_LIBRARY_RELEASE:FILEPATH=/usr/local/lib/libboost_thread-mt.dylib
+
 //Value Computed by CMake
 BuoyancySimulator_BINARY_DIR:STATIC=/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/build
 
 //Value Computed by CMake
 BuoyancySimulator_SOURCE_DIR:STATIC=/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator
+
+//Link with static Boost libraries
+CGAL_Boost_USE_STATIC_LIBS:BOOL=OFF
+
+//Display memory and real time usage at end of CTest test outputs
+CGAL_CTEST_DISPLAY_MEM_AND_TIME:BOOL=OFF
+
+//Activate the CGAL developers mode. See https://github.com/CGAL/cgal/wiki/CGAL_DEV_MODE
+CGAL_DEV_MODE:BOOL=OFF
+
+//The directory containing a CMake configuration file for CGAL.
+CGAL_DIR:PATH=/usr/local/lib/cmake/CGAL
+
+//Use CGAL with GMPXX: use C++ classes of GNU MP instead of CGAL
+// wrappers
+CGAL_WITH_GMPXX:BOOL=OFF
 
 //Value Computed by CMake
 CGL_BINARY_DIR:STATIC=/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/build/CGL
@@ -51,7 +112,7 @@ CGL_BUILD_SHARED:BOOL=OFF
 CGL_BUILD_TESTS:BOOL=OFF
 
 //Dependencies for the target
-CGL_LIB_DEPENDS:STATIC=general;nanogui;general;/usr/local/lib/libfreetype.dylib;
+CGL_LIB_DEPENDS:STATIC=general;/usr/local/lib/libboost_thread-mt.dylib;general;/usr/local/lib/libboost_system-mt.dylib;general;/usr/local/lib/libboost_chrono-mt.dylib;general;/usr/local/lib/libboost_date_time-mt.dylib;general;/usr/local/lib/libboost_atomic-mt.dylib;general;nanogui;general;/usr/local/lib/libfreetype.dylib;
 
 //Value Computed by CMake
 CGL_SOURCE_DIR:STATIC=/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/CGL
@@ -256,7 +317,7 @@ ClothSim_BINARY_DIR:STATIC=/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/b
 ClothSim_SOURCE_DIR:STATIC=/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator
 
 //Path to a file.
-EIGEN3_INCLUDE_DIR:PATH=EIGEN3_INCLUDE_DIR-NOTFOUND
+EIGEN3_INCLUDE_DIR:PATH=/usr/local/include/eigen3
 
 //The directory containing a CMake configuration file for Eigen3.
 Eigen3_DIR:PATH=/usr/local/share/eigen3/cmake
@@ -306,12 +367,28 @@ GLFW_USE_MENUBAR:BOOL=ON
 //Use the full resolution of Retina displays
 GLFW_USE_RETINA:BOOL=ON
 
+//The directory containing the GMP header files
+GMP_INCLUDE_DIR:PATH=/usr/local/include
+
+//Path to the GMP library
+GMP_LIBRARIES:FILEPATH=/usr/local/lib/libgmp.dylib
+
+GMP_LIBRARIES_DIR:FILEPATH=/usr/local/lib
+
 //Path to a library.
 IOKIT_FRAMEWORK:FILEPATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/IOKit.framework
 
 //Takes an empty string or 64. Directory where lib will be installed:
 // lib or lib64
 LIB_SUFFIX:STRING=
+
+//The directory containing the MPFR header files
+MPFR_INCLUDE_DIR:PATH=/usr/local/include
+
+//Path to the MPFR library
+MPFR_LIBRARIES:FILEPATH=/usr/local/lib/libmpfr.dylib
+
+MPFR_LIBRARIES_DIR:FILEPATH=/usr/local/lib
 
 //Build NanoGUI example application?
 NANOGUI_BUILD_EXAMPLE:BOOL=OFF
@@ -375,6 +452,47 @@ opengl_library:FILEPATH=/Applications/Xcode.app/Contents/Developer/Platforms/Mac
 # INTERNAL cache entries
 ########################
 
+//ADVANCED property for variable: Boost_ATOMIC_LIBRARY_DEBUG
+Boost_ATOMIC_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_ATOMIC_LIBRARY_RELEASE
+Boost_ATOMIC_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_CHRONO_LIBRARY_DEBUG
+Boost_CHRONO_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_CHRONO_LIBRARY_RELEASE
+Boost_CHRONO_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_DATE_TIME_LIBRARY_DEBUG
+Boost_DATE_TIME_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_DATE_TIME_LIBRARY_RELEASE
+Boost_DATE_TIME_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_DEBUG
+Boost_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_INCLUDE_DIR
+Boost_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_LIBRARY_DIR_DEBUG
+Boost_LIBRARY_DIR_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_LIBRARY_DIR_RELEASE
+Boost_LIBRARY_DIR_RELEASE-ADVANCED:INTERNAL=1
+//Avoid future search of boost-cmake
+Boost_NO_BOOST_CMAKE:INTERNAL=TRUE
+//ADVANCED property for variable: Boost_SYSTEM_LIBRARY_DEBUG
+Boost_SYSTEM_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_SYSTEM_LIBRARY_RELEASE
+Boost_SYSTEM_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_THREAD_LIBRARY_DEBUG
+Boost_THREAD_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_THREAD_LIBRARY_RELEASE
+Boost_THREAD_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CGAL_Boost_USE_STATIC_LIBS
+CGAL_Boost_USE_STATIC_LIBS-ADVANCED:INTERNAL=1
+CGAL_EXECUTABLE_TARGETS:INTERNAL=main
+//CGAL library is configured to use GMP
+CGAL_USE_GMP:INTERNAL=TRUE
+//CGAL library is configured to use MPFR
+CGAL_USE_MPFR:INTERNAL=TRUE
+//Result of TRY_COMPILE
+CGAL_test_cpp_version_COMPILE_RES:INTERNAL=TRUE
+//Result of TRY_RUN
+CGAL_test_cpp_version_RUN_RES:INTERNAL=1
 //ADVANCED property for variable: CMAKE_AR
 CMAKE_AR-ADVANCED:INTERNAL=1
 //This is the directory where this CMakeCache.txt was created
@@ -519,9 +637,13 @@ CORE_VIDEO_FRAMEWORK-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: EIGEN3_INCLUDE_DIR
 EIGEN3_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //Details about finding Eigen3
-FIND_PACKAGE_MESSAGE_DETAILS_Eigen3:INTERNAL=[/usr/local/include/eigen3][TRUE][v(3.3.7)]
+FIND_PACKAGE_MESSAGE_DETAILS_Eigen3:INTERNAL=[/usr/local/include/eigen3][v3.3.7(3.3.7)]
 //Details about finding Freetype
 FIND_PACKAGE_MESSAGE_DETAILS_Freetype:INTERNAL=[/usr/local/lib/libfreetype.dylib][/usr/local/include/freetype2][v2.9.1()]
+//Details about finding GMP
+FIND_PACKAGE_MESSAGE_DETAILS_GMP:INTERNAL=[/usr/local/lib/libgmp.dylib][/usr/local/include][v()]
+//Details about finding MPFR
+FIND_PACKAGE_MESSAGE_DETAILS_MPFR:INTERNAL=[/usr/local/lib/libmpfr.dylib][/usr/local/include][v()]
 //Details about finding OpenGL
 FIND_PACKAGE_MESSAGE_DETAILS_OpenGL:INTERNAL=[/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/OpenGL.framework][/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/OpenGL.framework][c ][v()]
 //Details about finding Threads
@@ -562,4 +684,20 @@ OPENGL_glu_LIBRARY-ADVANCED:INTERNAL=1
 VULKAN_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: VULKAN_LIBRARY
 VULKAN_LIBRARY-ADVANCED:INTERNAL=1
+//Last used Boost_ADDITIONAL_VERSIONS value.
+_Boost_ADDITIONAL_VERSIONS_LAST:INTERNAL=1.69.1;1.69.0;1.69;1.68.1;1.68.0;1.68;1.67.1;1.67.0;1.67;1.66.1;1.66.0;1.66;1.65.1;1.65.0;1.65;1.64.1;1.64.0;1.64;1.63.1;1.63.0;1.63;1.62.1;1.62.0;1.62;1.61.1;1.61.0;1.61;1.60.1;1.60.0;1.60;1.59.1;1.59.0;1.59;1.58.1;1.58.0;1.58;1.57.1;1.57.0;1.57;1.56.1;1.56.0;1.56;1.55.1;1.55.0;1.55;1.54.1;1.54.0;1.54;1.53.1;1.53.0;1.53;1.52.1;1.52.0;1.52;1.51.1;1.51.0;1.51;1.50.1;1.50.0;1.50;1.49.1;1.49.0;1.49;1.48.1;1.48.0;1.48;1.47.1;1.47.0;1.47;1.46.1;1.46.0;1.46;1.45.1;1.45.0;1.45;1.44.1;1.44.0;1.44;1.43.1;1.43.0;1.43;1.42.1;1.42.0;1.42;1.41.1;1.41.0;1.41;1.40.1;1.40.0;1.40;1.39.1;1.39.0;1.39;1.38.1;1.38.0;1.38;1.37.1;1.37.0;1.37
+//Components requested for this build tree.
+_Boost_COMPONENTS_SEARCHED:INTERNAL=atomic;chrono;date_time;system;thread
+//Last used Boost_INCLUDE_DIR value.
+_Boost_INCLUDE_DIR_LAST:INTERNAL=/usr/local/include
+//Last used Boost_LIBRARY_DIR_DEBUG value.
+_Boost_LIBRARY_DIR_DEBUG_LAST:INTERNAL=/usr/local/lib
+//Last used Boost_LIBRARY_DIR_RELEASE value.
+_Boost_LIBRARY_DIR_RELEASE_LAST:INTERNAL=/usr/local/lib
+//Last used Boost_NAMESPACE value.
+_Boost_NAMESPACE_LAST:INTERNAL=boost
+//Last used Boost_USE_MULTITHREADED value.
+_Boost_USE_MULTITHREADED_LAST:INTERNAL=TRUE
+//Last used Boost_USE_STATIC_LIBS value.
+_Boost_USE_STATIC_LIBS_LAST:INTERNAL=OFF
 
