@@ -36,7 +36,7 @@ std::map<WaterPoint*, Vector> *MeshHandler::surface_points(std::vector<WaterPoin
   return output;
 }
 
-Polyhedron water_mesh(std::map<WaterPoint*, Vector> *surface_points) {
+Polyhedron MeshHandler::water_mesh(std::map<WaterPoint*, Vector> *surface_points) {
   Polyhedron output_mesh;
 
   std::vector<Pwn> points;
