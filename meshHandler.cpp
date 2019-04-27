@@ -20,11 +20,12 @@ Polyhedron output_mesh;
 
 
 void MeshHandler::save_dae(std::vector<WaterPoint*> *water_points, int i) {
-  return;
+    std::map<WaterPoint*, Vector> *surface = surface_points(water_points);
+    Polyhedron surface_mesh = water_mesh(surface);
 }
 
-std::map<WaterPoint*, Vector>* MeshHandler::surface_points(std::vector<WaterPoint*> *water_points) {
-  std::map<WaterPoint*, Vector>* output;
+std::map<WaterPoint*, Vector> *MeshHandler::surface_points(std::vector<WaterPoint*> *water_points) {
+  std::map<WaterPoint*, Vector> *output;
   for (WaterPoint *w : *water_points) {
     Vector normal = find_normal(*w);
     if (normal.x() * normal.x() + normal.y() * normal.y() + normal.z() * normal.z() > 0.1) {
@@ -35,7 +36,7 @@ std::map<WaterPoint*, Vector>* MeshHandler::surface_points(std::vector<WaterPoin
   return output;
 }
 
-Polyhedron water_mesh(std::map<WaterPoint*, Vector>* surface_points) {
+Polyhedron water_mesh(std::map<WaterPoint*, Vector> *surface_points) {
   Polyhedron output_mesh;
 
   std::vector<Pwn> points;
