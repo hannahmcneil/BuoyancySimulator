@@ -23,7 +23,7 @@ int main() {
   Simulate s = Simulate();
   MeshHandler m = MeshHandler();
 
-  int num_particles_per_dimension = 51;
+  int num_particles_per_dimension = 11;
   float width = 1.;
   float height = 1.;
   float length = 1.;

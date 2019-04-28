@@ -29,8 +29,8 @@ void MeshHandler::save_dae(std::vector<WaterPoint*> *water_points, int i) {
 std::map<WaterPoint*, Vector> MeshHandler::surface_points(std::vector<WaterPoint*> *water_points) {
   std::map<WaterPoint*, Vector> output;
   for (WaterPoint *w : *water_points) {
-    Vector normal = find_normal(*w);
-    if (normal.x() * normal.x() + normal.y() * normal.y() + normal.z() * normal.z() >= 0.0) {
+    Vector normal = find_normal(*w, water_points);
+    if (normal.x() * normal.x() + normal.y() * normal.y() + normal.z() * normal.z() > 0.1) {
       std::pair<WaterPoint*, Vector> pp = std::pair<WaterPoint*, Vector>(w, normal);
       output.insert(pp);
     }
@@ -67,6 +67,31 @@ Polyhedron MeshHandler::water_mesh(std::map<WaterPoint*, Vector> surface_points)
 
 }
 
-Vector MeshHandler::find_normal(WaterPoint w) {
-  return Vector(0, 0, 0);
+Vector MeshHandler::find_normal(WaterPoint w, std::vector<WaterPoint*> *water_points) {
+  std::map<double, WaterPoint*> point_distances;
+  std::array<WaterPoint*, 10> neighbors;
+  Vector3D average_neighbor = Vector3D(0, 0, 0);
+  for (WaterPoint *neighbor : *water_points) {
+      if (neighbor == &w) {
+          continue;
+      }
+      double dist = (w.position - neighbor->position).norm();
+      std::pair<double, WaterPoint*> point_dist_pair = std::pair<double, WaterPoint*>(dist, neighbor);
+      point_distances.insert(point_dist_pair);
+  }
+  std::map<double, WaterPoint*>::iterator iter = point_distances.begin();
+  for (int i = 0; i < neighbors.size(); i++) {
+      neighbors[i] = iter->second;
+      iter++;
+  }
+  for (int i = 0; i < neighbors.size(); i++) {
+      average_neighbor += neighbors[i]->position;
+  }
+  average_neighbor = average_neighbor / 10.;
+  Vector3D diff_vec = (average_neighbor - w.position);
+  diff_vec.normalize();
+  Vector3D norm = -1. * diff_vec;
+  Vector normal = Vector(norm.x, norm.y, norm.z);
+  return normal;
+
 }

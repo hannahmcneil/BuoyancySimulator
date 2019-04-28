@@ -20,6 +20,6 @@ class MeshHandler {
 
   Polyhedron water_mesh(std::map<WaterPoint*, Vector> surface_points);
 
-  Vector find_normal(WaterPoint w);
+  Vector find_normal(WaterPoint w, std::vector<WaterPoint*> *water_points);
 
 };
