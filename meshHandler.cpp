@@ -20,28 +20,30 @@ Polyhedron output_mesh;
 
 
 void MeshHandler::save_dae(std::vector<WaterPoint*> *water_points, int i) {
-    std::map<WaterPoint*, Vector> *surface = surface_points(water_points);
+    std::map<WaterPoint*, Vector> surface = surface_points(water_points);
+    std::cout << "got surface points" << std::endl;
     Polyhedron surface_mesh = water_mesh(surface);
+    std::cout << "got surface mesh" << std::endl;
 }
 
-std::map<WaterPoint*, Vector> *MeshHandler::surface_points(std::vector<WaterPoint*> *water_points) {
-  std::map<WaterPoint*, Vector> *output;
+std::map<WaterPoint*, Vector> MeshHandler::surface_points(std::vector<WaterPoint*> *water_points) {
+  std::map<WaterPoint*, Vector> output;
   for (WaterPoint *w : *water_points) {
     Vector normal = find_normal(*w);
-    if (normal.x() * normal.x() + normal.y() * normal.y() + normal.z() * normal.z() > 0.1) {
+    if (normal.x() * normal.x() + normal.y() * normal.y() + normal.z() * normal.z() >= 0.0) {
       std::pair<WaterPoint*, Vector> pp = std::pair<WaterPoint*, Vector>(w, normal);
-      output->insert(pp);
+      output.insert(pp);
     }
   }
   return output;
 }
 
-Polyhedron MeshHandler::water_mesh(std::map<WaterPoint*, Vector> *surface_points) {
+Polyhedron MeshHandler::water_mesh(std::map<WaterPoint*, Vector> surface_points) {
   Polyhedron output_mesh;
 
   std::vector<Pwn> points;
-
-  for(std::map<WaterPoint*, Vector>::iterator iter = surface_points->begin(); iter != surface_points->end(); ++iter) {
+ 
+  for(std::map<WaterPoint*, Vector>::iterator iter = surface_points.begin(); iter != surface_points.end(); ++iter) {
     WaterPoint* w =  iter->first;
     Point p = Point(w->position.x, w->position.y, w->position.z);
     Vector n = iter->second;
@@ -51,11 +53,15 @@ Polyhedron MeshHandler::water_mesh(std::map<WaterPoint*, Vector> *surface_points
   double average_spacing = CGAL::compute_average_spacing<CGAL::Sequential_tag>
           (points, 6, CGAL::parameters::point_map(CGAL::First_of_pair_property_map<Pwn>()));
 
+  std::cout << "computed average spacing" << std::endl;
+
   CGAL::poisson_surface_reconstruction_delaunay
           (points.begin(), points.end(),
            CGAL::First_of_pair_property_map<Pwn>(),
            CGAL::Second_of_pair_property_map<Pwn>(),
            output_mesh, average_spacing);
+
+  std::cout << "reconstruction complete" << std::endl;
 
   return output_mesh;
 

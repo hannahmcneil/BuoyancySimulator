@@ -42,11 +42,14 @@ int main() {
 
   // SET INITIAL POSITIONS OF WATER POINTS
   s.generate_initial_positions(&water_points, particle_dist, num_particles_per_dimension);
+  std::cout << "set initial positions" << std::endl;
 
   // RUN SIMULATION FOR NUM_TIME_STEPS
   for (int i = 0; i < num_time_steps; ++i) {
     if (i % num_time_steps_per_frame == 0) {
+      //std::cout << "before save dae" << std::endl;
       m.save_dae(&water_points, i);
+      std::cout << "after save dae" << std::endl;
     }
     s.simulate(&water_points, dt, mass);
   }

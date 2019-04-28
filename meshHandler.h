@@ -16,9 +16,9 @@ class MeshHandler {
 
   void save_dae(std::vector<WaterPoint*> *water_points, int i);
 
-  std::map<WaterPoint*, Vector>* surface_points(std::vector<WaterPoint*> *water_points);
+  std::map<WaterPoint*, Vector> surface_points(std::vector<WaterPoint*> *water_points);
 
-  Polyhedron water_mesh(std::map<WaterPoint*, Vector> *surface_points);
+  Polyhedron water_mesh(std::map<WaterPoint*, Vector> surface_points);
 
   Vector find_normal(WaterPoint w);
 
