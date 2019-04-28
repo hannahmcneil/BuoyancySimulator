@@ -37,6 +37,10 @@ stdio.h
 -
 stdlib.h
 -
+sys/stat.h
+-
+sys/types.h
+-
 misc/getopt.h
 /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/misc/getopt.h
 getopt.h
@@ -68,6 +72,16 @@ vector
 fstream
 -
 waterPoint.h
+-
+iostream
+-
+sys/stat.h
+-
+sys/types.h
+-
+stdlib.h
+-
+stdio.h
 -
 
 /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/meshHandler.h

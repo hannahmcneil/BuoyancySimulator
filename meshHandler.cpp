@@ -6,7 +6,12 @@
 #include <CGAL/poisson_surface_reconstruction.h>
 #include <vector>
 #include <fstream>
-#include <waterPoint.h>
+#include <waterPoint.h> 
+#include <iostream>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 // Types
 typedef CGAL::Exact_predicates_inexact_constructions_kernel Kernel;
@@ -21,8 +26,6 @@ Polyhedron output_mesh;
 
 void MeshHandler::save_dae(std::vector<WaterPoint*> *water_points, int i, char *dae_folder, char *png_folder) {
     std::map<WaterPoint*, Vector> surface = surface_points(water_points);
-    std::cout << dae_folder << std::endl;
-    std::cout << png_folder << std::endl;
     Polyhedron surface_mesh = water_mesh(surface);
 }
 

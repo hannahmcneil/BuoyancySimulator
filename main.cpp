@@ -2,6 +2,8 @@
 #include <fstream>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #ifdef _WIN32
 #include "misc/getopt.h" // getopt for windows
 #else
@@ -19,9 +21,14 @@
 int main(int argc, char **argv) {
 
   if (argc != 3) {
-      printf("not enough arguments; please provide names for 2 destination folders\n");
+      printf("please provide names for 2 destination folders\n");
       exit(EXIT_FAILURE);
   }
+
+  int check1;
+  int check2;
+  check1 = mkdir(argv[1], S_IRWXU);
+  check2 = mkdir(argv[2], S_IRWXU);
 
   std::cout << "starting" << std::endl;
 
