@@ -19,11 +19,11 @@ Polyhedron output_mesh;
 
 
 
-void MeshHandler::save_dae(std::vector<WaterPoint*> *water_points, int i) {
+void MeshHandler::save_dae(std::vector<WaterPoint*> *water_points, int i, char *dae_folder, char *png_folder) {
     std::map<WaterPoint*, Vector> surface = surface_points(water_points);
-    std::cout << "got surface points" << std::endl;
+    std::cout << dae_folder << std::endl;
+    std::cout << png_folder << std::endl;
     Polyhedron surface_mesh = water_mesh(surface);
-    std::cout << "got surface mesh" << std::endl;
 }
 
 std::map<WaterPoint*, Vector> MeshHandler::surface_points(std::vector<WaterPoint*> *water_points) {

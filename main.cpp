@@ -16,7 +16,12 @@
 #include "meshHandler.cpp"
 
 
-int main() {
+int main(int argc, char **argv) {
+
+  if (argc != 3) {
+      printf("not enough arguments; please provide names for 2 destination folders\n");
+      exit(EXIT_FAILURE);
+  }
 
   std::cout << "starting" << std::endl;
 
@@ -47,13 +52,12 @@ int main() {
   // RUN SIMULATION FOR NUM_TIME_STEPS
   for (int i = 0; i < num_time_steps; ++i) {
     if (i % num_time_steps_per_frame == 0) {
-      //std::cout << "before save dae" << std::endl;
-      m.save_dae(&water_points, i);
-      std::cout << "after save dae" << std::endl;
+      m.save_dae(&water_points, i, argv[1], argv[2]);
+      std::cout << "saved dae" << std::endl;
     }
     s.simulate(&water_points, dt, mass);
   }
-  m.save_dae(&water_points, num_time_steps);
+  m.save_dae(&water_points, num_time_steps, argv[1], argv[2]);
 
   std::cout << "done" << std::endl;
 
