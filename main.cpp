@@ -30,7 +30,7 @@ int main(int argc, char **argv) {
   check1 = mkdir(argv[1], S_IRWXU);
   check2 = mkdir(argv[2], S_IRWXU);
 
-  std::cout << "starting" << std::endl;
+  std::cout << "starting main loop" << std::endl;
 
   Simulate s = Simulate();
   MeshHandler m = MeshHandler();
@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
   float mass = width * height * length * density / num_particles_per_dimension / num_particles_per_dimension / num_particles_per_dimension;
   float particle_dist = 1. / (num_particles_per_dimension - 1);
   float dt = 0.05;
-  int num_time_steps = 100;
+  int num_time_steps = 5;
   int num_time_steps_per_frame = 1;
 
   // CREATE VECTOR OF WATER POINTS
@@ -53,19 +53,20 @@ int main(int argc, char **argv) {
   water_points.reserve(num_particles_per_dimension * num_particles_per_dimension * num_particles_per_dimension);
 
   // SET INITIAL POSITIONS OF WATER POINTS
+  std::cout << "setting initial positions" << std::endl;
   s.generate_initial_positions(&water_points, particle_dist, num_particles_per_dimension);
-  std::cout << "set initial positions" << std::endl;
 
   // RUN SIMULATION FOR NUM_TIME_STEPS
   for (int i = 0; i < num_time_steps; ++i) {
     if (i % num_time_steps_per_frame == 0) {
-      m.save_dae(&water_points, i, argv[1], argv[2]);
-      std::cout << "saved dae" << std::endl;
+      m.save_dae(&water_points, i, argv[1]);
+
     }
+    std::cout << "simulating movement" << std::endl;
     s.simulate(&water_points, dt, mass);
   }
-  m.save_dae(&water_points, num_time_steps, argv[1], argv[2]);
+  m.save_dae(&water_points, num_time_steps, argv[1]);
 
-  std::cout << "done" << std::endl;
+  std::cout << "finished main loop" << std::endl;
 
 }
