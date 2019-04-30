@@ -14,6 +14,8 @@ typedef CGAL::Polyhedron_3<Kernel> Polyhedron;
 class MeshHandler {
   public:
 
+  void save_png_and_combine_frames(int time_steps, char *png_folder);
+
   void save_dae(std::vector<WaterPoint*> *water_points, int i, char *dae_folder);
 
   std::map<WaterPoint*, Vector> surface_points(std::vector<WaterPoint*> *water_points);

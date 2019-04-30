@@ -20,81 +20,11 @@
 </head>
 <body>
 <br />
-<h1 align="middle">CS184 Final Project Proposal: Buoyancy Simulator</h1>
+<h1 align="middle">CS184 Final Project Milestone: Buoyancy Simulator</h1>
 
-<h2 align="middle">Title, Summary, & Team Members</h2>
+<h2 align="middle">Progress</h2>
 
-<p>Our project's name is <i>Buoyancy Simulator</i>. Our team members are Lee Hagaman (26137135), Hannah McNeil (26121567), and Walker Snedaker (26139264). In this project we will do a physics simulation in order to model the interactions between a body of water and a solid boat. We will model the boat as a mesh object, and the water as a particle system; this is subject to change, as we may try to implement a new way of modeling this system if we encounter problems with our current plan (see the Resources section).</p>
-
-<h2 align="middle">Project Description</h2>
-
-<p>The goal of our project is to render realistic interactions between two objects which have different physical states (specifically a solid and a fluid). Furthermore, instead of simulating how fluid moves around a solid object, in this case the solid may also move, and will affect the water’s movement as well. So we have reciprocal/mutual interaction. We are simulating the fluid’s effect on the solid as well as the solid’s effect on the fluid.
-</p>
-
-<p>This problem is important because it is a central theme in graphics, and is used regularly in film (think disaster movies). It is challenging because we not only have to model two separate physical systems and their interactions with external forces (e.g. gravity), but we also have to model their interactions with each other. This will include creating a collision checker that may yield some difficulties when trying to check particle mesh collisions.</p>
-
-<p>We will go about solving this problem by first modeling the solid object and fluid separately, as a mesh object and particle system, respectively. The challenge will come about from determining how these distinct entities should interact with each other, and then implementing that behavior visually.</p>
-
-<h2 align="middle">Goals & Deliverables</h2>
-
-<p>(1) Our current plan is to have our final result be a scene of the boat floating on the water. Our scene will start as a still body of water, since it is initially undisturbed. At the beginning of our simulation the boat will drop onto the surface of the water and generate waves. We will run the simulation for some amount of time showing the interaction of the waves and the boat.</p>
-
-<p>We will determine the success of our implementation by examining realism. Our analysis will describe the efficiency of modeling interactions between different physical systems, and any notable setbacks. Furthermore, we will try to determine how any problems we encounter (whether due to inefficiency or violations of realism) may be addressed in other implementations.</p>
-
-<p>First of all, we must be able to realistically simulate the individual aspects of our scene (the boat and the water). These tasks are well within reason. The most difficult thing will probably be understanding and implementing the mathematical model which varies the forces between particles in order to enforce incompressibility while maintaining the effects of the other forces on our particles.</p>
-
-<p>(2) As for our "ideal" plan, we will still do all of the above, but hope to be able to add in extra features if time permits. For example, we would like to be able to create a more interesting environment, in which the boat is dropped onto a flowing river and then goes down a waterfall. The dynamic particle system will have to be edited a bit so that we “recycle” particles that go out of view of the camera and send them back to the top of the waterfall.</p>
-
-<h2 align="middle">Schedule</h2>
-
-<p>Week 1: Code for simulation of fluid dynamics.</p>
-
-<ul>
-  <li>Create baseline particle system.</li>
-  <li>Add functionality for external forces (e.g. gravity, walls).</li>
-  <li>Start to add functionality for internal forces (interaction of individual particles with each other).</li>
-</ul>
-
-<p>Week 2: Finish coding for simulation of fluid dynamics, then create mesh boat object.</p>
-
-<ul>
-  <li>Finish adding functionality for internal forces for fluid.</li>
-  <li>Test it and make sure it looks like water, aka having desired ripples and other simple wave phenomena. Leave time for debugging.</li>
-  <li>Create mesh object for boat.</li>
-</ul>
-
-<p>Week 3: Add interaction forces between mesh and particles, continue any debugging left over from week 2.</p>
-
-<ul>
-  <li>Finish debugging from Week 2 if necessary.</li>
-  <li>Add interaction forces between mesh and particles.</li>
-</ul>
-
-<p>Week 4: Time for debugging and adding additional features if so desired (multiple solids, raytracing, waterfall/river that the boat follows, wind/sail).</p>
-
-<ul>
-  <li>Adding waterfall/river that the boat follow and wind/sail effects may not be too difficult. It would probably be that we just create use local momentum/force variables for the current of the air and water then apply these currents as the base forces acting on the meshes.</li>
-  <li>We could make a mesh out of our fluid and then do raytracing to make our simulation photorealistic.</li>
-</ul>
-
-<h2 align="middle">Resources</h2>
-
-<p>For this project our computing platform will be the Linux operating system, since we will be using the Hive machines to run our code. The following resources are from a similar project we found on the course website. We will likely find more resources as we do our own research.</p>
-
-<p><a href="https://yidingjiang.github.io/cs184sp18_final/">https://yidingjiang.github.io/cs184sp18_final/</a></p>
-
-<p><a href="http://mmacklin.com/pbf_sig_preprint.pdf">http://mmacklin.com/pbf_sig_preprint.pdf</a></p>
-
-<p><a href="https://www.cc.gatech.edu/~turk/my_papers/sph_surfaces.pdf">https://www.cc.gatech.edu/~turk/my_papers/sph_surfaces.pdf</a></p>
-
-<p><a href="http://blog.mmacklin.com/position-based-fluids/">http://blog.mmacklin.com/position-based-fluids/</a></p>
-
-<p><a href="https://github.com/jlblancoc/nanoflann">https://github.com/jlblancoc/nanoflann</a></p>
-
-<p>We are also using the following paper as a possible reference for how to model our solid-fluid interaction:</p>
-
-<p><a href="https://graphics.ethz.ch/~sobarbar/papers/Sol07b/Sol07b.pdf?fbclid=IwAR1FTqR6nxfbdNG3X3FXMgvSuYpFbuf6S7X6FywbhrNQpLmOFgYYVDuNTeM">A Unified Particle Model for Fluid-Solid Interactions</a></p>
-
+<h2 align="middle">Future Plans/Changes</h2>
 
 
 </div>

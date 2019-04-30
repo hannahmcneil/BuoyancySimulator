@@ -33,6 +33,13 @@ typedef HDS::Halfedge_iterator           Iterator;
 
 Polyhedron output_mesh;
 
+void MeshHandler::save_png_and_combine_frames(int time_steps, char *png_folder) {
+    //for (int i = 0; i < time_steps; i++) {
+      //  system("pathtracer.exe '-t 8' '-r 480 360' '-f ./png_folder/frame_i.png' ./dae_folder/frame_i.dae");
+    //}
+    return;
+}
+
 void MeshHandler::save_dae(std::vector<WaterPoint*> *water_points, int i, char *dae_folder) {
   std::map<WaterPoint *, Vector> surface = surface_points(water_points);
   Polyhedron surface_mesh = water_mesh(surface);

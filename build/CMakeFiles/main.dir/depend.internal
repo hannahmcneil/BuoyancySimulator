@@ -191,6 +191,8 @@ CMakeFiles/main.dir/main.cpp.o
  /usr/local/include/CGAL/IO/File_scanner_OFF_impl.h
  /usr/local/include/CGAL/IO/File_writer_OFF.h
  /usr/local/include/CGAL/IO/File_writer_OFF_impl.h
+ /usr/local/include/CGAL/IO/File_writer_wavefront.h
+ /usr/local/include/CGAL/IO/File_writer_wavefront_impl.h
  /usr/local/include/CGAL/IO/Polyhedron_iostream.h
  /usr/local/include/CGAL/IO/Polyhedron_scan_OFF.h
  /usr/local/include/CGAL/IO/Verbose_ostream.h
@@ -201,6 +203,7 @@ CMakeFiles/main.dir/main.cpp.o
  /usr/local/include/CGAL/IO/io_impl.h
  /usr/local/include/CGAL/IO/io_tags.h
  /usr/local/include/CGAL/IO/print_OFF.h
+ /usr/local/include/CGAL/IO/print_wavefront.h
  /usr/local/include/CGAL/IO/scan_OFF.h
  /usr/local/include/CGAL/IO/trace.h
  /usr/local/include/CGAL/Implicit_surface_3.h
