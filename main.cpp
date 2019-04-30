@@ -65,7 +65,8 @@ int main(int argc, char **argv) {
     s.simulate(&water_points, dt, mass);
   }
   m.save_dae(&water_points, num_time_steps, argv[1], num_particles_per_dimension);
-  m.save_png_and_combine_frames(num_time_steps, argv[2]);
+
+  m.save_png_and_combine_frames(num_time_steps, argv[2], argv[1]);
 
   std::cout << "finished main loop" << std::endl;
 

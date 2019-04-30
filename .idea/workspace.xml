@@ -13,24 +13,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8184a7ea-10f2-4981-b13b-4a5633bf3532" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/main.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/main.dir/CXX.includecache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/main.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/main.dir/depend.internal" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/main.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/main.dir/depend.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/main.dir/main.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/boost_1_70_0/b2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/boost_1_70_0/bjam" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/boost_1_70_0/bootstrap.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/boost_1_70_0/libs/config/config.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/boost_1_70_0/libs/config/config.status" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/boost_1_70_0/libs/config/user.hpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/boost_1_70_0/project-config.jam" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/boost_1_70_0/tools/build/src/engine/bin.macosxx86_64/b2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/boost_1_70_0/tools/build/src/engine/bin.macosxx86_64/bjam" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/boost_1_70_0/tools/build/src/engine/bootstrap/jam0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-default/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-default/CMakeFiles/clion-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main" beforeDir="false" afterPath="$PROJECT_DIR$/main" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/MeshFile.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/boat_Smallish.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/boat_Smallish_rate.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/pathtracer" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/main.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/main.dir/main.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/main" beforeDir="false" afterPath="$PROJECT_DIR$/build/main" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dae/boatSmallish.dae" beforeDir="false" afterPath="$PROJECT_DIR$/build/boatSmallish.dae" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/meshHandler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/meshHandler.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/meshHandler.h" beforeDir="false" afterPath="$PROJECT_DIR$/meshHandler.h" afterDir="false" />
@@ -50,11 +40,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Default" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="452">
-              <caret line="65" column="3" selection-start-line="65" selection-start-column="3" selection-end-line="65" selection-end-column="3" />
+            <state relative-caret-position="344">
+              <caret line="68" column="66" selection-start-line="68" selection-start-column="66" selection-end-line="68" selection-end-column="66" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -62,11 +52,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/meshHandler.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="443">
-              <caret line="145" column="1" selection-start-line="145" selection-start-column="1" selection-end-line="145" selection-end-column="1" />
+              <caret line="151" column="1" selection-start-line="151" selection-start-column="1" selection-end-line="151" selection-end-column="1" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
               </folding>
@@ -108,7 +98,7 @@
         <entry file="file://$PROJECT_DIR$/simulate.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="9" lean-forward="true" selection-start-column="9" selection-end-column="9" />
+              <caret column="9" selection-start-column="9" selection-end-column="9" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
               </folding>
@@ -157,9 +147,9 @@
         <option value="$PROJECT_DIR$/CBtemplate.dae" />
         <option value="$PROJECT_DIR$/MeshFile.obj" />
         <option value="$PROJECT_DIR$/CBwater_test.dae" />
-        <option value="$PROJECT_DIR$/main.cpp" />
         <option value="$PROJECT_DIR$/meshHandler.h" />
         <option value="$PROJECT_DIR$/meshHandler.cpp" />
+        <option value="$PROJECT_DIR$/main.cpp" />
       </list>
     </option>
   </component>
@@ -270,12 +260,12 @@
       <workItem from="1556150324030" duration="3007000" />
       <workItem from="1556153766645" duration="4875000" />
       <workItem from="1556405450482" duration="776000" />
-      <workItem from="1556563869800" duration="15603000" />
+      <workItem from="1556563869800" duration="15763000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43026000" />
+    <option name="totallyTimeSpent" value="43186000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -301,8 +291,8 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32891566" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
-      <window_info anchor="bottom" id="Messages" order="8" visible="true" weight="0.28674698" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32891566" />
+      <window_info anchor="bottom" id="Messages" order="8" weight="0.28674698" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.32891566" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5007153" side_tool="true" weight="0.32891566" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.32891566" />
       <window_info anchor="bottom" id="CMake" order="12" sideWeight="0.49928468" weight="0.32891566" />
@@ -469,19 +459,9 @@
     <entry file="file://$PROJECT_DIR$/simulate.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="9" lean-forward="true" selection-start-column="9" selection-end-column="9" />
+          <caret column="9" selection-start-column="9" selection-end-column="9" />
           <folding>
             <element signature="e#0#17#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="452">
-          <caret line="65" column="3" selection-start-line="65" selection-start-column="3" selection-end-line="65" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -499,9 +479,19 @@
     <entry file="file://$PROJECT_DIR$/meshHandler.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="443">
-          <caret line="145" column="1" selection-start-line="145" selection-start-column="1" selection-end-line="145" selection-end-column="1" />
+          <caret line="151" column="1" selection-start-line="151" selection-start-column="1" selection-end-line="151" selection-end-column="1" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="344">
+          <caret line="68" column="66" selection-start-line="68" selection-start-column="66" selection-end-line="68" selection-end-column="66" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
