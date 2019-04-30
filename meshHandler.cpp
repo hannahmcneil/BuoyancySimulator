@@ -37,11 +37,11 @@ void MeshHandler::save_png_and_combine_frames(int time_steps, char *png_folder, 
     std::string s(png_folder);
     std::string d(dae_folder);
     for (int i = 0; i < time_steps; i++) {
-        std::string png_string = "'-f ./" + s + "/frame_" + std::to_string(i) + ".png' ";
+        std::string png_string = "-f ./" + s + "/frame_" + std::to_string(i) + ".png ";
         std::string dae_string = "./" + d + "/frame_" + std::to_string(i) + ".dae";
-        std::string command_string = "pathtracer.exe '-t 8' '-r 480 360' " + png_string + dae_string;
-        //system("pathtracer.exe '-t 8' '-r 480 360' '-f ./png_folder/frame_i.png' ./dae_folder/frame_i.dae");
-        std::cout << command_string << std::endl;
+        std::string command_string = "./pathtracer -t 8 -r 480 360 " + png_string + dae_string;
+        system("./pathtracer -t 8 -r 480 360 -f boat_Smallish.png boatSmallish.dae");
+        //std::cout << command_string << std::endl;
     }
     return;
 }
