@@ -15,6 +15,10 @@ stdio.h
 -
 stdlib.h
 -
+sys/stat.h
+-
+sys/types.h
+-
 misc/getopt.h
 /Users/leehagaman/Desktop/cs184/BuoyancySimulator/misc/getopt.h
 getopt.h
@@ -39,6 +43,10 @@ CGAL/Exact_predicates_inexact_constructions_kernel.h
 -
 CGAL/Polyhedron_3.h
 -
+CGAL/HalfedgeDS_default.h
+-
+CGAL/HalfedgeDS_decorator.h
+-
 CGAL/poisson_surface_reconstruction.h
 -
 vector
@@ -46,6 +54,18 @@ vector
 fstream
 -
 waterPoint.h
+-
+iostream
+-
+sys/stat.h
+-
+sys/types.h
+-
+stdlib.h
+-
+stdio.h
+-
+CGAL/IO/print_wavefront.h
 -
 
 /Users/leehagaman/Desktop/cs184/BuoyancySimulator/meshHandler.h
@@ -61,12 +81,34 @@ waterPoint.h
 -
 
 /Users/leehagaman/Desktop/cs184/BuoyancySimulator/simulate.cpp
+string
+-
+sstream
+-
+iostream
+-
 simulate.h
 /Users/leehagaman/Desktop/cs184/BuoyancySimulator/simulate.h
+waterPoint.h
+/Users/leehagaman/Desktop/cs184/BuoyancySimulator/waterPoint.h
+stdio.h
+-
+stdlib.h
+-
+vector
+-
 
 /Users/leehagaman/Desktop/cs184/BuoyancySimulator/simulate.h
 waterPoint.h
 -
+
+/Users/leehagaman/Desktop/cs184/BuoyancySimulator/waterPoint.h
+CGL/CGL.h
+/Users/leehagaman/Desktop/cs184/BuoyancySimulator/CGL/CGL.h
+CGL/misc.h
+/Users/leehagaman/Desktop/cs184/BuoyancySimulator/CGL/misc.h
+CGL/vector3D.h
+/Users/leehagaman/Desktop/cs184/BuoyancySimulator/CGL/vector3D.h
 
 /usr/local/include/CGAL/Aff_transformation_2.h
 CGAL/config.h
@@ -2024,6 +2066,24 @@ iostream
 CGAL/IO/File_writer_OFF.h
 -
 
+/usr/local/include/CGAL/IO/File_writer_wavefront.h
+CGAL/IO/binary_file_io.h
+-
+iostream
+-
+cstddef
+-
+CGAL/IO/File_writer_wavefront_impl.h
+-
+
+/usr/local/include/CGAL/IO/File_writer_wavefront_impl.h
+CGAL/basic.h
+-
+iostream
+-
+CGAL/IO/File_writer_wavefront.h
+-
+
 /usr/local/include/CGAL/IO/Polyhedron_iostream.h
 CGAL/license/Polyhedron.h
 -
@@ -2158,6 +2218,18 @@ CGAL/license/Polyhedron.h
 CGAL/basic.h
 -
 CGAL/IO/File_writer_OFF.h
+-
+CGAL/IO/generic_print_polyhedron.h
+-
+CGAL/Polyhedron_3.h
+-
+iostream
+-
+
+/usr/local/include/CGAL/IO/print_wavefront.h
+CGAL/license/Polyhedron.h
+-
+CGAL/IO/File_writer_wavefront.h
 -
 CGAL/IO/generic_print_polyhedron.h
 -
@@ -36801,12 +36873,4 @@ ostream
 -
 cmath
 -
-
-waterPoint.h
-CGL/CGL.h
-CGL/CGL.h
-CGL/misc.h
-CGL/misc.h
-CGL/vector3D.h
-CGL/vector3D.h
 

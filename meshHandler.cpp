@@ -32,6 +32,10 @@ typedef HDS::Halfedge_iterator           Iterator;
 
 
 Polyhedron output_mesh;
+boost::unordered_map<float, std::vector<WaterPoint *> *> waterpoint_map;
+Vector3D water_min;
+Vector3D water_max;
+int num_particles_dim;
 
 void MeshHandler::save_png_and_combine_frames(int time_steps, char *png_folder) {
     //for (int i = 0; i < time_steps; i++) {
@@ -40,7 +44,7 @@ void MeshHandler::save_png_and_combine_frames(int time_steps, char *png_folder) 
     return;
 }
 
-void MeshHandler::save_dae(std::vector<WaterPoint*> *water_points, int i, char *dae_folder) {
+void MeshHandler::save_dae(std::vector<WaterPoint*> *water_points, int i, char *dae_folder, int num_particles_per_dimension) {
   std::map<WaterPoint *, Vector> surface = surface_points(water_points);
   Polyhedron surface_mesh = water_mesh(surface);
 
@@ -80,26 +84,22 @@ void MeshHandler::save_dae(std::vector<WaterPoint*> *water_points, int i, char *
       face_string += str.substr(2);
     }
   }
+  num_particles_dim = num_particles_per_dimension;
 
   // now that we have the vertex array, we need to loop over again to find the normals
 
-  for (int i = 0; i < faces.size(); ++i) {
-    Vector3D face = faces[i];
-    Vector3D v1 = vertices[face.x];
-    Vector3D v2 = vertices[face.y];
-    Vector3D v3 = vertices[face.z];
+  // generate a list of pairs of vertex coordinates and normals
 
-    Vector3D normal = cross(v2 - v1, v3 - v1);
-    normal.normalize();
+  // sort so they're in the same order as the vertex list
 
-    normal_string += std::to_string(normal.x) + " " + std::to_string(normal.y) + " " + std::to_string(normal.z) + " ";
-  }
+  // put the normals into a string
 
   std::cout << vertex_string << std::endl;
   std::cout << face_string << std::endl;
   std::cout << normal_string << std::endl;
 
 }
+
 
 std::map<WaterPoint*, Vector> MeshHandler::surface_points(std::vector<WaterPoint*> *water_points) {
 
@@ -173,4 +173,55 @@ std::pair<Vector, float> MeshHandler::find_normal(WaterPoint w, std::vector<Wate
   Vector normal = Vector(norm.x, norm.y, norm.z);
   return std::pair<Vector, float>(normal, length);
 
+}
+void MeshHandler::min_max_dim(std::vector<WaterPoint*> *water_points) {
+  double inf = std::numeric_limits<double>::infinity();
+  water_min = Vector3D(inf, inf, inf);
+  water_max = Vector3D(-inf, -inf, -inf);
+  for (WaterPoint* waterpoint : *water_points) {
+    Vector3D water_pos = waterpoint->position;
+    if (water_pos.x > water_max.x) {
+      water_max.x = water_pos.x;
+    }
+    if (water_pos.y > water_max.y) {
+      water_max.y = water_pos.y;
+    }
+    if (water_pos.z > water_max.z) {
+      water_max.z = water_pos.z;
+    }
+    if (water_pos.x < water_min.x) {
+      water_min.x = water_pos.x;
+    }
+    if (water_pos.y < water_min.y) {
+      water_min.y = water_pos.y;
+    }
+    if (water_pos.z < water_min.z) {
+      water_min.z = water_pos.z;
+    }
+  }
+}
+
+float MeshHandler::find_map_index(Vector3D point) {
+  float xdist = water_max.x - water_min.x;
+  float ydist = water_max.y - water_min.y;
+  float zdist = water_max.z - water_min.z;
+
+}
+
+void MeshHandler::build_map(std::vector<WaterPoint*> *water_points) {
+  for (const auto entry: waterpoint_map) {
+    delete(entry.second);
+  }
+  waterpoint_map.clear();
+  //clear the map and set up the stuff for the indexing
+  min_max_dim(water_points);
+
+  for (WaterPoint* waterpoint : *water_points) {
+    float index = find_map_index(waterpoint->position);
+    if (!waterpoint_map[index]) {
+      waterpoint_map[index] = new std::vector<WaterPoint*>();
+
+    }
+    waterpoint_map[index]->__emplace_back(waterpoint);
+  }
 }

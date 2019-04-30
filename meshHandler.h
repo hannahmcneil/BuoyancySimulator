@@ -16,7 +16,7 @@ class MeshHandler {
 
   void save_png_and_combine_frames(int time_steps, char *png_folder);
 
-  void save_dae(std::vector<WaterPoint*> *water_points, int i, char *dae_folder);
+  void save_dae(std::vector<WaterPoint*> *water_points, int i, char *dae_folder, int num_particles_per_dimension);
 
   std::map<WaterPoint*, Vector> surface_points(std::vector<WaterPoint*> *water_points);
 
@@ -24,4 +24,9 @@ class MeshHandler {
 
   std::pair<Vector, float> find_normal(WaterPoint w, std::vector<WaterPoint*> *water_points);
 
+  float find_map_index(Vector3D point);
+
+  void build_map(std::vector<WaterPoint*> *water_points);
+
+  void min_max_dim(std::vector<WaterPoint*> *water_points);
 };

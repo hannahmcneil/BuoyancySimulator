@@ -382,7 +382,7 @@ Boost_SYSTEM_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 Boost_THREAD_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: Boost_THREAD_LIBRARY_RELEASE
 Boost_THREAD_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
-CGAL_EXECUTABLE_TARGETS:INTERNAL=executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;main;main;main;main;main
+CGAL_EXECUTABLE_TARGETS:INTERNAL=executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;executable;main;main;main;main;main;main
 //Directory containing the GraphicsView package
 CGAL_GRAPHICSVIEW_PACKAGE_DIR:INTERNAL=/usr/local/include/CGAL/
 //Result of TRY_COMPILE
