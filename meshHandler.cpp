@@ -44,7 +44,7 @@ void MeshHandler::save_png_and_combine_frames(int time_steps, char *png_folder, 
         std::string png_string = "-f ./" + s + "/frame_" + std::to_string(i) + ".png ";
         std::string dae_string = "./" + d + "/frame_" + std::to_string(i) + ".dae";
         std::string command_string = "./pathtracer -t 8 -r 480 360 " + png_string + dae_string;
-        system("./pathtracer -t 8 -r 480 360 -f boat_Smallish.png boatSmallish.dae");
+        //system("./pathtracer -t 8 -r 480 360 -f boat_Smallish.png boatSmallish.dae");
         //std::cout << command_string << std::endl;
     }
     return;
@@ -57,11 +57,30 @@ void MeshHandler::save_dae(std::vector<WaterPoint*> *water_points, int i, char *
   std::cout << "saving obj file" << std::endl;
 
   std::ofstream ofs("MeshFile.obj");
-  CGAL::print_polyhedron_wavefront(ofs, surface_mesh);
+  std::ofstream temp("WaterMesh.obj");
+
+  // GIVEN .OBJ FILE WITH WATER MESH AND OUR BOAT.OBJ FILE, COMBINE THE TWO; FIRST ADD BOAT
+  int num_vertices = 0;
+  std::ifstream boatfile ("boat.obj");
+  std::string line;
+  while (std::getline(boatfile, line)) {
+      if ((line[0] == *"o") || (line[0] == *"v") || (line[0] == *"s") || (line[0] == *"f")) {
+         std::cout << line << std::endl;
+         ofs << line << "\n";
+         if (line[0] == *"v") {
+             num_vertices++;
+         }
+      }
+  }
+
+  // WRITE WATER MESH TO FILE
+  ofs << "o Water_Mesh" << "\n";
+  CGAL::print_polyhedron_wavefront(temp, surface_mesh);
 
   std::cout << "reading obj file" << std::endl;
 
-  std::ifstream file("MeshFile.obj");
+  std::ifstream file("WaterMesh.obj");
+
   std::string str;
 
   std::string vertex_string;
@@ -75,21 +94,29 @@ void MeshHandler::save_dae(std::vector<WaterPoint*> *water_points, int i, char *
   float x, y, z;
   int m, n, p;
   char c;
-
+  
   while (std::getline(file, str)) {
     if (str[0] == *"v") {
       std::istringstream iss(str);
       iss >> c >> x >> y >> z;
       vertices.push_back(Vector3D(x, y, z));
       vertex_string += str.substr(1);
+      ofs << str << "\n";
     }
-    if (str[0] == *"f") {
+    else if (str[0] == *"f") {
+      std::string updated_string;
       std::istringstream iss(str);
       iss >> c >> m >> n >> p;
+      m += num_vertices;
+      n += num_vertices;
+      p += num_vertices;
+      updated_string = "f " + std::to_string(m) + " " + std::to_string(n) + " " + std::to_string(p);
       faces.push_back(Vector3D(m, n, p));
-      face_string += str.substr(2);
+      face_string += updated_string.substr(2);
+      ofs << updated_string << "\n";
     }
   }
+
   num_particles_dim = num_particles_per_dimension;
 
   // now that we have the vertex array, we need to loop over again to find the normals
@@ -211,6 +238,9 @@ float MeshHandler::find_map_index(Vector3D point) {
   float xdist = water_max.x - water_min.x;
   float ydist = water_max.y - water_min.y;
   float zdist = water_max.z - water_min.z;
+
+  // placeholder
+  return 1.;
 
 }
 

@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
   // RUN SIMULATION FOR NUM_TIME_STEPS
   for (int i = 0; i < num_time_steps; ++i) {
     if (i % num_time_steps_per_frame == 0) {
-      m.save_dae(&water_points, i, argv[1]);
+      m.save_dae(&water_points, i, argv[1], num_particles_per_dimension);
     }
     std::cout << "simulating movement" << std::endl;
     s.simulate(&water_points, dt, mass);
