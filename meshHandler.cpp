@@ -37,29 +37,29 @@ Vector3D water_min;
 Vector3D water_max;
 int num_particles_dim;
 
-void MeshHandler::save_png_and_combine_frames(int time_steps, char *png_folder, char *dae_folder) {
+void MeshHandler::save_png_and_combine_frames(int time_steps, char *png_folder, char *obj_folder) {
     std::string s(png_folder);
-    std::string d(dae_folder);
+    std::string d(obj_folder);
     for (int i = 0; i < time_steps; i++) {
         std::string png_string = "-f ./" + s + "/frame_" + std::to_string(i) + ".png ";
-        std::string dae_string = "./" + d + "/frame_" + std::to_string(i) + ".dae";
-        std::string command_string = "./pathtracer -t 8 -r 480 360 " + png_string + dae_string;
-        //system("./pathtracer -t 8 -r 480 360 -f boat_Smallish.png boatSmallish.dae");
-        //std::cout << command_string << std::endl;
+        std::string obj_string = "./" + d + "/frame_" + std::to_string(i) + ".obj";
+        // DUMMY RENDERER
+        std::string command_string = "./pathtracer -t 8 -r 480 360 " + png_string + obj_string;
     }
     return;
 }
 
-void MeshHandler::save_dae(std::vector<WaterPoint*> *water_points, int i, char *dae_folder, int num_particles_per_dimension) {
+void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *obj_folder, int num_particles_per_dimension) {
+  std::cout << "extracting surface points" << std::endl;
   std::map<WaterPoint *, Vector> surface = surface_points(water_points);
+
+  std::cout << "reconstructing mesh" << std::endl;
   Polyhedron surface_mesh = water_mesh(surface);
 
-  std::cout << "saving obj file" << std::endl;
+  std::string d(obj_folder);
 
-  std::string d(dae_folder);
-
-  std::ofstream ofs("./" + d + "/MeshFile.obj");
-  std::ofstream temp("./" + d + "/WaterMesh.obj");
+  std::ofstream ofs("./" + d + "/MeshFile_Frame" + std::to_string(i) + ".obj");
+  std::ofstream temp("./" + d + "/WaterMesh_Frame" + std::to_string(i) + ".obj");
 
   // GIVEN .OBJ FILE WITH WATER MESH AND OUR BOAT.OBJ FILE, COMBINE THE TWO; FIRST ADD BOAT
   int num_vertices = 0;
@@ -67,7 +67,7 @@ void MeshHandler::save_dae(std::vector<WaterPoint*> *water_points, int i, char *
   std::string line;
   while (std::getline(boatfile, line)) {
       if ((line[0] == *"o") || (line[0] == *"v") || (line[0] == *"s") || (line[0] == *"f")) {
-         std::cout << line << std::endl;
+         //std::cout << line << std::endl;
          ofs << line << "\n";
          if (line[0] == *"v") {
              num_vertices++;
@@ -79,9 +79,9 @@ void MeshHandler::save_dae(std::vector<WaterPoint*> *water_points, int i, char *
   ofs << "o Water_Mesh" << "\n";
   CGAL::print_polyhedron_wavefront(temp, surface_mesh);
 
-  std::cout << "reading obj file" << std::endl;
+  std::cout << "combining water mesh and boat mesh into single obj file" << std::endl;
 
-  std::ifstream file("./" + d + "/WaterMesh.obj");
+  std::ifstream file("./" + d + "/WaterMesh_Frame" + std::to_string(i) + ".obj");
 
   std::string str;
 
@@ -129,16 +129,16 @@ void MeshHandler::save_dae(std::vector<WaterPoint*> *water_points, int i, char *
 
   // put the normals into a string
 
-  std::cout << vertex_string << std::endl;
-  std::cout << face_string << std::endl;
-  std::cout << normal_string << std::endl;
+  //std::cout << vertex_string << std::endl;
+  //std::cout << face_string << std::endl;
+  //std::cout << normal_string << std::endl;
 
 }
 
 
 std::map<WaterPoint*, Vector> MeshHandler::surface_points(std::vector<WaterPoint*> *water_points) {
 
-  std::cout << "finding surface points" << std::endl;
+  //std::cout << "finding surface points" << std::endl;
 
   std::map<WaterPoint*, Vector> output;
   for (WaterPoint *w : *water_points) {
@@ -165,7 +165,7 @@ Polyhedron MeshHandler::water_mesh(std::map<WaterPoint*, Vector> surface_points)
     points.push_back(std::pair<Point, Vector>(p, n));
   }
 
-  std::cout << "converting points to mesh" << std::endl;
+  //std::cout << "converting points to mesh" << std::endl;
 
   double average_spacing = CGAL::compute_average_spacing<CGAL::Sequential_tag>
           (points, 6, CGAL::parameters::point_map(CGAL::First_of_pair_property_map<Pwn>()));

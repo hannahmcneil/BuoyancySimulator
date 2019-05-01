@@ -53,19 +53,25 @@ int main(int argc, char **argv) {
   water_points.reserve(num_particles_per_dimension * num_particles_per_dimension * num_particles_per_dimension);
 
   // SET INITIAL POSITIONS OF WATER POINTS
+  std::cout << "Generate initial frame:" << std::endl;
   std::cout << "setting initial positions" << std::endl;
   s.generate_initial_positions(&water_points, particle_dist, num_particles_per_dimension);
 
   // RUN SIMULATION FOR NUM_TIME_STEPS
   for (int i = 0; i < num_time_steps; ++i) {
     if (i % num_time_steps_per_frame == 0) {
-      m.save_dae(&water_points, i, argv[1], num_particles_per_dimension);
+      std::cout << "saving .obj file:" << std::endl;
+      m.save_obj(&water_points, i, argv[1], num_particles_per_dimension);
+      std::cout << " " << std::endl;
+      std::cout << "Generate next frame:" << std::endl;
     }
     std::cout << "simulating movement" << std::endl;
     s.simulate(&water_points, dt, mass);
   }
-  m.save_dae(&water_points, num_time_steps, argv[1], num_particles_per_dimension);
+  std::cout << "saving .obj file:" << std::endl;
+  m.save_obj(&water_points, num_time_steps, argv[1], num_particles_per_dimension);
 
+  std::cout << "render .obj files" << std::endl;
   m.save_png_and_combine_frames(num_time_steps, argv[2], argv[1]);
 
   std::cout << "finished main loop" << std::endl;
