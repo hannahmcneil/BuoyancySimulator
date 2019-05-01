@@ -8,7 +8,7 @@
 #include <vector>
 
 void Simulate::generate_initial_positions(std::vector<WaterPoint*> *water_points, float particle_dist, int num_particles) {
-  Vector3D initial_pos = Vector3D(-0.5, 0.25, -0.5);
+  Vector3D initial_pos = Vector3D(-0.25, -1.1, -0.25);
   for (int z = 0; z < num_particles; z++) {
       for (int y = 0; y < num_particles; y++) {
           for (int x = 0; x < num_particles; x++) {

@@ -56,8 +56,10 @@ void MeshHandler::save_dae(std::vector<WaterPoint*> *water_points, int i, char *
 
   std::cout << "saving obj file" << std::endl;
 
-  std::ofstream ofs("MeshFile.obj");
-  std::ofstream temp("WaterMesh.obj");
+  std::string d(dae_folder);
+
+  std::ofstream ofs("./" + d + "/MeshFile.obj");
+  std::ofstream temp("./" + d + "/WaterMesh.obj");
 
   // GIVEN .OBJ FILE WITH WATER MESH AND OUR BOAT.OBJ FILE, COMBINE THE TWO; FIRST ADD BOAT
   int num_vertices = 0;
@@ -79,7 +81,7 @@ void MeshHandler::save_dae(std::vector<WaterPoint*> *water_points, int i, char *
 
   std::cout << "reading obj file" << std::endl;
 
-  std::ifstream file("WaterMesh.obj");
+  std::ifstream file("./" + d + "/WaterMesh.obj");
 
   std::string str;
 

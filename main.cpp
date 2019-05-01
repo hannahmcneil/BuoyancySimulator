@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
   Simulate s = Simulate();
   MeshHandler m = MeshHandler();
 
-  int num_particles_per_dimension = 11;
+  int num_particles_per_dimension = 10;
   float width = 1.;
   float height = 1.;
   float length = 1.;
