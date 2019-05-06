@@ -24,7 +24,7 @@ int NUM_PARTICLES = 0;
 float min_x = -0.3;
 float max_x = 0.3;
 float min_y = -0.6;
-float max_y = 0.15;
+float max_y = 0.3;
 float min_z = -0.4;
 float max_z = 0.5;
 
@@ -57,8 +57,8 @@ int main(int argc, char **argv) {
   MeshHandler m = MeshHandler();
 
   // BELOW, USED TO CALCULATE TOTAL NUMBER OF PARTICLES
-  float width = 0.5;
-  float height = 0.25;
+  float width = .75;
+  float height = 0.3;
   float length = 0.4;
   float particle_dist = (1. / 10.);
 
