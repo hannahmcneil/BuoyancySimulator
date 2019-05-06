@@ -16,7 +16,7 @@ class MeshHandler {
 
   void save_png_and_combine_frames(int time_steps, char *png_folder, char *obj_folder);
 
-  void save_obj(std::vector<WaterPoint*> *water_points, int i, char *obj_folder, int num_particles_per_dimension);
+  void save_obj(std::vector<WaterPoint*> *water_points, int i, char *obj_folder, int num_particles);
 
   std::map<WaterPoint*, Vector> surface_points(std::vector<WaterPoint*> *water_points);
 

@@ -28,6 +28,28 @@ ostream
 cmath
 -
 
+/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/globals.h
+iostream
+-
+fstream
+-
+vector
+-
+stdio.h
+-
+stdlib.h
+-
+sys/stat.h
+-
+sys/types.h
+-
+misc/getopt.h
+/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/misc/getopt.h
+getopt.h
+-
+unistd.h
+-
+
 /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/main.cpp
 iostream
 -
@@ -57,6 +79,8 @@ simulate.cpp
 /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/simulate.cpp
 meshHandler.cpp
 /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/meshHandler.cpp
+globals.h
+/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/globals.h
 
 /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/meshHandler.cpp
 meshHandler.h
@@ -87,6 +111,8 @@ stdlib.h
 -
 stdio.h
 -
+globals.h
+/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/globals.h
 CGAL/IO/print_wavefront.h
 -
 

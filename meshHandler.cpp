@@ -14,6 +14,7 @@
 #include <sys/types.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "globals.h"
 
 #include <CGAL/IO/print_wavefront.h>
 
@@ -49,7 +50,7 @@ void MeshHandler::save_png_and_combine_frames(int time_steps, char *png_folder, 
     return;
 }
 
-void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *obj_folder, int num_particles_per_dimension) {
+void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *obj_folder, int num_particles) {
   std::cout << "extracting surface points" << std::endl;
   std::map<WaterPoint *, Vector> surface = surface_points(water_points);
 
@@ -96,6 +97,7 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
   float x, y, z;
   int m, n, p;
   char c;
+  int num_vertices_water = 0;
   
   while (std::getline(file, str)) {
     if (str[0] == *"v") {
@@ -104,6 +106,7 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
       vertices.push_back(Vector3D(x, y, z));
       vertex_string += str.substr(1);
       ofs << str << "\n";
+      num_vertices_water++;
     }
     else if (str[0] == *"f") {
       std::string updated_string;
@@ -119,7 +122,38 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
     }
   }
 
-  num_particles_dim = num_particles_per_dimension;
+  int total = num_vertices + num_vertices_water + 1;
+
+  // WRITE WALLS TO FILE
+  ofs << "o Back Wall" << "\n";
+  ofs << "v " + std::to_string(vertex_1.x) + " " + std::to_string(vertex_1.y) + " " + std::to_string(vertex_1.z) << "\n";
+  ofs << "v " + std::to_string(vertex_2.x) + " " + std::to_string(vertex_2.y) + " " + std::to_string(vertex_2.z) << "\n";
+  ofs << "v " + std::to_string(vertex_3.x) + " " + std::to_string(vertex_3.y) + " " + std::to_string(vertex_3.z) << "\n";
+  ofs << "v " + std::to_string(vertex_4.x) + " " + std::to_string(vertex_4.y) + " " + std::to_string(vertex_4.z) << "\n";
+  ofs << "f " + std::to_string(total) + " " + std::to_string(total + 1) + " " + std::to_string(total + 2) << "\n";
+  ofs << "f " + std::to_string(total + 1) + " " + std::to_string(total + 2) + " " + std::to_string(total + 3) << "\n";
+
+  ofs << "o Left Wall" << "\n";
+  ofs << "v " + std::to_string(vertex_5.x) + " " + std::to_string(vertex_5.y) + " " + std::to_string(vertex_5.z) << "\n";
+  ofs << "v " + std::to_string(vertex_7.x) + " " + std::to_string(vertex_7.y) + " " + std::to_string(vertex_7.z) << "\n";
+  ofs << "f " + std::to_string(total + 4) + " " + std::to_string(total) + " " + std::to_string(total + 5) << "\n";
+  ofs << "f " + std::to_string(total) + " " + std::to_string(total + 5) + " " + std::to_string(total + 2) << "\n";
+
+  ofs << "o Right Wall" << "\n";
+  ofs << "v " + std::to_string(vertex_6.x) + " " + std::to_string(vertex_6.y) + " " + std::to_string(vertex_6.z) << "\n";
+  ofs << "v " + std::to_string(vertex_8.x) + " " + std::to_string(vertex_8.y) + " " + std::to_string(vertex_8.z) << "\n";
+  ofs << "f " + std::to_string(total + 6) + " " + std::to_string(total + 1) + " " + std::to_string(total + 7) << "\n";
+  ofs << "f " + std::to_string(total + 1) + " " + std::to_string(total + 7) + " " + std::to_string(total + 3) << "\n";
+
+  ofs << "o Floor" << "\n";
+  ofs << "f " + std::to_string(total + 2) + " " + std::to_string(total + 3) + " " + std::to_string(total + 5) << "\n";
+  ofs << "f " + std::to_string(total + 3) + " " + std::to_string(total + 5) + " " + std::to_string(total + 7) << "\n";
+
+  ofs << "o Ceiling" << "\n";
+  ofs << "f " + std::to_string(total) + " " + std::to_string(total + 1) + " " + std::to_string(total + 4) << "\n";
+  ofs << "f " + std::to_string(total + 1) + " " + std::to_string(total + 4) + " " + std::to_string(total + 6) << "\n";
+
+  num_particles_dim = num_particles;
 
   // now that we have the vertex array, we need to loop over again to find the normals
 
@@ -165,7 +199,7 @@ Polyhedron MeshHandler::water_mesh(std::map<WaterPoint*, Vector> surface_points)
     points.push_back(std::pair<Point, Vector>(p, n));
   }
 
-  //std::cout << "converting points to mesh" << std::endl;
+  std::cout << "converting points to mesh" << std::endl;
 
   double average_spacing = CGAL::compute_average_spacing<CGAL::Sequential_tag>
           (points, 6, CGAL::parameters::point_map(CGAL::First_of_pair_property_map<Pwn>()));

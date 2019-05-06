@@ -16,6 +16,27 @@
 #include "CGL/CGL.h"
 #include "simulate.cpp"
 #include "meshHandler.cpp"
+#include "globals.h"
+
+int NUM_PARTICLES = 0;
+
+// ROOM DIMENSIONS
+float min_x = -0.3;
+float max_x = 0.3;
+float min_y = -0.6;
+float max_y = 0.15;
+float min_z = -0.4;
+float max_z = 0.5;
+
+// ROOM VERTICES
+Vector3D vertex_1 = Vector3D(min_x, max_y, max_z);
+Vector3D vertex_2 = Vector3D(min_x, max_y, min_z);
+Vector3D vertex_3 = Vector3D(min_x, min_y, max_z);
+Vector3D vertex_4 = Vector3D(min_x, min_y, min_z);
+Vector3D vertex_5 = Vector3D(max_x, max_y, max_z);
+Vector3D vertex_6 = Vector3D(max_x, max_y, min_z);
+Vector3D vertex_7 = Vector3D(max_x, min_y, max_z);
+Vector3D vertex_8 = Vector3D(max_x, min_y, min_z);
 
 
 int main(int argc, char **argv) {
@@ -35,13 +56,23 @@ int main(int argc, char **argv) {
   Simulate s = Simulate();
   MeshHandler m = MeshHandler();
 
-  int num_particles_per_dimension = 10;
-  float width = 1.;
-  float height = 1.;
-  float length = 1.;
+  // BELOW, USED TO CALCULATE TOTAL NUMBER OF PARTICLES
+  float width = 0.5;
+  float height = 0.25;
+  float length = 0.4;
+  float particle_dist = (1. / 10.);
+
+  // CALCULATE NUMBER OF PARTICLES
+  int z_particles = ((int) (width / particle_dist)) + 1;
+  int y_particles = ((int) (height / particle_dist)) + 1;
+  int x_particles = ((int) (length / particle_dist)) + 1;
+  NUM_PARTICLES = x_particles * y_particles * z_particles;
+  
+  // WATERPOINT PARAMETERS
   float density = 997.;
-  float mass = width * height * length * density / num_particles_per_dimension / num_particles_per_dimension / num_particles_per_dimension;
-  float particle_dist = 1. / (num_particles_per_dimension - 1);
+  float mass = width * height * length * density / x_particles / y_particles / z_particles;
+  
+  // FRAMERATE PARAMETERS
   float dt = 0.05;
   int num_time_steps = 5;
   int num_time_steps_per_frame = 1;
@@ -50,18 +81,18 @@ int main(int argc, char **argv) {
   std::vector<WaterPoint*> water_points;
 
   // RESERVE SPACE TO AVOID SEGFAULTS
-  water_points.reserve(num_particles_per_dimension * num_particles_per_dimension * num_particles_per_dimension);
+  water_points.reserve(x_particles * y_particles * z_particles);
 
   // SET INITIAL POSITIONS OF WATER POINTS
   std::cout << "Generate initial frame:" << std::endl;
   std::cout << "setting initial positions" << std::endl;
-  s.generate_initial_positions(&water_points, particle_dist, num_particles_per_dimension);
+  s.generate_initial_positions(&water_points, particle_dist, x_particles, y_particles, z_particles);
 
   // RUN SIMULATION FOR NUM_TIME_STEPS
   for (int i = 0; i < num_time_steps; ++i) {
     if (i % num_time_steps_per_frame == 0) {
       std::cout << "saving .obj file:" << std::endl;
-      m.save_obj(&water_points, i, argv[1], num_particles_per_dimension);
+      m.save_obj(&water_points, i, argv[1], NUM_PARTICLES);
       std::cout << " " << std::endl;
       std::cout << "Generate next frame:" << std::endl;
     }
@@ -69,7 +100,7 @@ int main(int argc, char **argv) {
     s.simulate(&water_points, dt, mass);
   }
   std::cout << "saving .obj file:" << std::endl;
-  m.save_obj(&water_points, num_time_steps, argv[1], num_particles_per_dimension);
+  m.save_obj(&water_points, num_time_steps, argv[1], NUM_PARTICLES);
 
   std::cout << "render .obj files" << std::endl;
   m.save_png_and_combine_frames(num_time_steps, argv[2], argv[1]);

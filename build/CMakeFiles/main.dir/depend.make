@@ -5,6 +5,7 @@ CMakeFiles/main.dir/main.cpp.o: ../CGAL-4.14/include/CGAL/compiler_config.h
 CMakeFiles/main.dir/main.cpp.o: ../CGL/include/CGL/CGL.h
 CMakeFiles/main.dir/main.cpp.o: ../CGL/include/CGL/misc.h
 CMakeFiles/main.dir/main.cpp.o: ../CGL/include/CGL/vector3D.h
+CMakeFiles/main.dir/main.cpp.o: ../globals.h
 CMakeFiles/main.dir/main.cpp.o: ../main.cpp
 CMakeFiles/main.dir/main.cpp.o: ../meshHandler.cpp
 CMakeFiles/main.dir/main.cpp.o: ../meshHandler.h
