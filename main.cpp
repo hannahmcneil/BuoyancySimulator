@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
+#include <vector>
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -17,6 +18,7 @@
 #include "simulate.cpp"
 #include "meshHandler.cpp"
 #include "globals.h"
+#include "KDTree/KDTree.cpp"
 
 int NUM_PARTICLES = 0;
 
@@ -37,6 +39,7 @@ Vector3D vertex_5 = Vector3D(max_x, max_y, max_z);
 Vector3D vertex_6 = Vector3D(max_x, max_y, min_z);
 Vector3D vertex_7 = Vector3D(max_x, min_y, max_z);
 Vector3D vertex_8 = Vector3D(max_x, min_y, min_z);
+
 
 
 int main(int argc, char **argv) {
