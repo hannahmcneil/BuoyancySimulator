@@ -27,3 +27,6 @@ extern Vector3D vertex_5;
 extern Vector3D vertex_6;
 extern Vector3D vertex_7;
 extern Vector3D vertex_8;
+extern int x_particles;
+extern int y_particles;
+extern int z_particles;
