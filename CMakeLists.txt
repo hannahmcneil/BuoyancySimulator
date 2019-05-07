@@ -25,3 +25,6 @@ find_package(Eigen3 3.3.7)
 if (EIGEN3_FOUND)
     include( ${EIGEN3_USE_FILE} )
 endif()
+
+set(GCC_COVERAGE_COMPILE_FLAGS "-std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}" )

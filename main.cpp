@@ -20,7 +20,10 @@
 #include "simulate.cpp"
 #include "meshHandler.cpp"
 #include "globals.h"
+
+#include "KDTree/KDTree.hpp"
 #include "KDTree/KDTree.cpp"
+
 
 int NUM_PARTICLES = 0;
 
@@ -42,6 +45,21 @@ Vector3D vertex_6 = Vector3D(max_x, max_y, min_z);
 Vector3D vertex_7 = Vector3D(max_x, min_y, max_z);
 Vector3D vertex_8 = Vector3D(max_x, min_y, min_z);
 
+std::map<int, int> function() {
+  return std::map<int, int>();
+}
+
+std::map<Vector3D, WaterPoint> function2() {
+  return std::map<Vector3D, WaterPoint>();
+}
+
+/*
+std::map<Vector3D, WaterPoint> function3() {
+  return water_map;
+}
+*/
+
+/*
 WaterPoint get_waterPoint_from_location(Vector3D v) {
   return water_map[v];
 }
@@ -54,9 +72,38 @@ void create_map(std::vector<WaterPoint*> water_points) {
   }
 }
 
-
+*/
 
 int main(int argc, char **argv) {
+
+  std::cout << "starting KDTree test" << std::endl;
+
+  pointVec points;
+  point_t pt;
+
+  pt = {0.0, 0.0};
+  points.push_back(pt);
+  pt = {1.0, 0.0};
+  points.push_back(pt);
+  pt = {0.0, 1.0};
+  points.push_back(pt);
+  pt = {1.0, 1.0};
+  points.push_back(pt);
+  pt = {0.5, 0.5};
+  points.push_back(pt);
+
+  KDTree tree(points);
+
+  std::cout << "nearest test\n";
+  pt = {0.8, 0.2};
+  auto res = tree.nearest_point(pt);
+  for (double b : res) {
+    std::cout << b << " ";
+  }
+  std::cout << '\n';
+
+  std::cout << "ending KDTree test" << std::endl;
+
 
   if (argc != 3) {
       printf("please provide names for 2 destination folders\n");

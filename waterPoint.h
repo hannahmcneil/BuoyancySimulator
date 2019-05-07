@@ -22,6 +22,8 @@ class WaterPoint {
   Vector3D last_position;
   Vector3D forces;
 
+  bool isBoat = false;
+
 };
 
 
