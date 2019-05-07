@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <map>
 #ifdef _WIN32
 #include "misc/getopt.h" // getopt for windows
 #else
@@ -30,3 +31,5 @@ extern Vector3D vertex_8;
 extern int x_particles;
 extern int y_particles;
 extern int z_particles;
+
+extern std::map<Vector3D, WaterPoint> water_map;
