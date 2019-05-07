@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <map>
+
 #ifdef _WIN32
 #include "misc/getopt.h" // getopt for windows
 #else
@@ -39,6 +41,18 @@ Vector3D vertex_5 = Vector3D(max_x, max_y, max_z);
 Vector3D vertex_6 = Vector3D(max_x, max_y, min_z);
 Vector3D vertex_7 = Vector3D(max_x, min_y, max_z);
 Vector3D vertex_8 = Vector3D(max_x, min_y, min_z);
+
+WaterPoint get_waterPoint_from_location(Vector3D v) {
+  return water_map[v];
+}
+
+void create_map(std::vector<WaterPoint*> water_points) {
+  water_map.clear();
+  for (int i = 0; i < water_points.size(); i++) {
+    WaterPoint *p = water_points[i];
+    water_map[p->position] = *p;
+  }
+}
 
 
 
