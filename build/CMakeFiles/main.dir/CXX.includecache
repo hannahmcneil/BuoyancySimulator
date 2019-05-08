@@ -71,7 +71,7 @@ sys/stat.h
 -
 sys/types.h
 -
-map
+KDTree/KDTree.hpp
 -
 misc/getopt.h
 /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/misc/getopt.h
@@ -115,6 +115,10 @@ meshHandler.cpp
 /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/meshHandler.cpp
 globals.h
 /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/globals.h
+waterPoint.h
+/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/waterPoint.h
+waterPoint.cpp
+/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/waterPoint.cpp
 KDTree/KDTree.hpp
 /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/KDTree/KDTree.hpp
 KDTree/KDTree.cpp
@@ -187,6 +191,10 @@ vector
 /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/simulate.h
 waterPoint.h
 -
+
+/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/waterPoint.cpp
+waterPoint.h
+/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/waterPoint.h
 
 /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/waterPoint.h
 CGL/CGL.h

@@ -48,10 +48,12 @@ Vector3D vertex_6 = Vector3D(max_x, max_y, min_z);
 Vector3D vertex_7 = Vector3D(max_x, min_y, max_z);
 Vector3D vertex_8 = Vector3D(max_x, min_y, min_z);
 
-std::map<std::vector<float>, WaterPoint*> water_map = std::map<std::vector<float>, WaterPoint*>();
+std::map<std::vector<double>, WaterPoint*> water_map = std::map<std::vector<double>, WaterPoint*>();
+
+KDTree neighbor_tree = KDTree();
 
 WaterPoint* get_waterPoint_from_location(Vector3D v) {
-  std::vector<float> vect;
+  std::vector<double> vect;
   vect.push_back(v.x);
   vect.push_back(v.y);
   vect.push_back(v.z);
@@ -62,7 +64,7 @@ void create_map(std::vector<WaterPoint*> water_points) {
   water_map.clear();
   for (int i = 0; i < water_points.size(); i++) {
     WaterPoint *p = water_points[i];
-    std::vector<float> vect;
+    std::vector<double> vect;
     vect.push_back(p->position.x);
     vect.push_back(p->position.y);
     vect.push_back(p->position.z);
@@ -70,10 +72,20 @@ void create_map(std::vector<WaterPoint*> water_points) {
   }
 }
 
+void populate_tree(std::vector<WaterPoint*> water_points) {
+    pointVec points;
+    for (int i = 0; i < water_points.size(); i++) {
+        WaterPoint *p = water_points[i];
+        point_t point = {p->position.x, p->position.y, p->position.z};
+        points.push_back(point);
+    }
+    neighbor_tree = KDTree(points);
+}
+
 
 int main(int argc, char **argv) {
 
-  std::cout << "starting KDTree test" << std::endl;
+  /* std::cout << "starting KDTree test" << std::endl;
 
   pointVec points;
   point_t pt;
@@ -111,6 +123,7 @@ int main(int argc, char **argv) {
   }
 
   std::cout << "ending KDTree test" << std::endl;
+  */
 
 
   if (argc != 3) {
@@ -159,6 +172,8 @@ int main(int argc, char **argv) {
   std::cout << "Generate initial frame:" << std::endl;
   std::cout << "setting initial positions" << std::endl;
   s.generate_initial_positions(&water_points, particle_dist, x_particles, y_particles, z_particles);
+  populate_tree(water_points);
+  create_map(water_points);
 
   // RUN SIMULATION FOR NUM_TIME_STEPS
   for (int i = 0; i < num_time_steps; ++i) {
@@ -170,6 +185,8 @@ int main(int argc, char **argv) {
     }
     std::cout << "simulating movement" << std::endl;
     s.simulate(&water_points, dt, mass);
+    populate_tree(water_points);
+    create_map(water_points);
   }
   std::cout << "saving .obj file:" << std::endl;
   m.save_obj(&water_points, num_time_steps, argv[1], NUM_PARTICLES);

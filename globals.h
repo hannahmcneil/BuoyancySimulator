@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <unordered_map>
+#include <KDTree/KDTree.hpp>
 #ifdef _WIN32
 #include "misc/getopt.h" // getopt for windows
 #else
@@ -32,5 +32,5 @@ extern int x_particles;
 extern int y_particles;
 extern int z_particles;
 
-extern std::map<std::vector<float>, WaterPoint*> water_map;
-
+extern std::map<std::vector<double>, WaterPoint*> water_map;
+extern KDTree neighbor_tree;
