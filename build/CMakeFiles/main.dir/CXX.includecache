@@ -187,6 +187,10 @@ stdlib.h
 -
 vector
 -
+globals.h
+/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/globals.h
+KDTree/KDTree.hpp
+/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/KDTree/KDTree.hpp
 
 /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/simulate.h
 waterPoint.h

@@ -16,8 +16,8 @@
 #include <memory>
 #include <vector>
 
-#ifndef tree
-#define tree
+#ifndef kdtree
+#define kdtree
 
 using point_t = std::vector< double >;
 using indexArr = std::vector< size_t >;
