@@ -16,6 +16,9 @@
 #include <memory>
 #include <vector>
 
+#ifndef kdtree
+#define kdtree
+
 using point_t = std::vector< double >;
 using indexArr = std::vector< size_t >;
 using pointIndex = typename std::pair< std::vector< double >, size_t >;
@@ -123,3 +126,5 @@ class KDTree {
         const point_t &pt,          //
         const double &rad);
 };
+
+#endif
