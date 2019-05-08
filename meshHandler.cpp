@@ -63,16 +63,34 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
   std::ofstream temp("./" + d + "/WaterMesh_Frame" + std::to_string(i) + ".obj");
 
   // GIVEN .OBJ FILE WITH WATER MESH AND OUR BOAT.OBJ FILE, COMBINE THE TWO; FIRST ADD BOAT
-  int num_vertices = 0;
+  /*int num_vertices = 0;
   std::ifstream boatfile ("smallboatmorepoints.obj");
   std::string line;
   while (std::getline(boatfile, line)) {
       if ((line[0] == *"o") || (line[0] == *"v") || (line[0] == *"s") || (line[0] == *"f")) {
-         //std::cout << line << std::endl;
          ofs << line << "\n";
          if (line[0] == *"v") {
              num_vertices++;
          }
+      }
+  }*/
+
+  ofs << "o Boat_Mesh" << "\n";
+  for (int i = 0; i < water_points->size(); i++) {
+      if ((*water_points)[i]->isBoat == true) {
+          Vector3D pos = (*water_points)[i]->position;
+          ofs << "v " + std::to_string(pos.x) + " " + std::to_string(pos.y) + " " + std::to_string(pos.z) << "\n";
+      }
+  }
+
+  int num_vertices = 0;
+  std::ifstream boatfile ("smallboatmorepoints.obj");
+  std::string line;
+  while (std::getline(boatfile, line)) {
+      if ((line[0] == *"s") || (line[0] == *"f")) {
+         ofs << line << "\n";
+      } else if (line[0] == *"v") {
+         num_vertices++;
       }
   }
 
@@ -176,12 +194,14 @@ std::map<WaterPoint*, Vector> MeshHandler::surface_points(std::vector<WaterPoint
 
   std::map<WaterPoint*, Vector> output;
   for (WaterPoint *w : *water_points) {
-    std::pair<Vector, float> pair = find_normal(*w, water_points);
-    Vector normal = pair.first;
-    float length = pair.second;
-    if (length > 0.05) {
-      std::pair<WaterPoint*, Vector> pp = std::pair<WaterPoint*, Vector>(w, normal);
-      output.insert(pp);
+    if (w->isBoat == false) {
+        std::pair<Vector, float> pair = find_normal(*w, water_points);
+        Vector normal = pair.first;
+        float length = pair.second;
+        if (length > 0.05) {
+            std::pair<WaterPoint*, Vector> pp = std::pair<WaterPoint*, Vector>(w, normal);
+            output.insert(pp);
+        }
     }
   }
   return output;
@@ -219,7 +239,7 @@ std::pair<Vector, float> MeshHandler::find_normal(WaterPoint w, std::vector<Wate
   std::array<WaterPoint*, 10> neighbors;
   Vector3D average_neighbor = Vector3D(0, 0, 0);
   for (WaterPoint *neighbor : *water_points) {
-      if (neighbor == &w) {
+      if (neighbor == &w || neighbor->isBoat == true) {
           continue;
       }
       double dist = (w.position - neighbor->position).norm();
@@ -241,9 +261,9 @@ std::pair<Vector, float> MeshHandler::find_normal(WaterPoint w, std::vector<Wate
   norm.normalize();
   Vector normal = Vector(norm.x, norm.y, norm.z);
   return std::pair<Vector, float>(normal, length);
-
 }
-void MeshHandler::min_max_dim(std::vector<WaterPoint*> *water_points) {
+
+/*void MeshHandler::min_max_dim(std::vector<WaterPoint*> *water_points) {
   double inf = std::numeric_limits<double>::infinity();
   water_min = Vector3D(inf, inf, inf);
   water_max = Vector3D(-inf, -inf, -inf);
@@ -297,3 +317,4 @@ void MeshHandler::build_map(std::vector<WaterPoint*> *water_points) {
     waterpoint_map[index]->__emplace_back(waterpoint);
   }
 }
+*/

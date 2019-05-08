@@ -10,16 +10,34 @@
 #include "globals.h"
 #include "KDTree/KDTree.hpp"
 
-void Simulate::generate_initial_positions(std::vector<WaterPoint*> *water_points, float particle_dist, int x_particles, int y_particles, int z_particles) {
+void Simulate::generate_initial_positions(std::vector<WaterPoint*> *water_points, float dist, int x_dim, int y_dim, int z_dim) {
   Vector3D initial_pos = Vector3D(-0.2, -0.35, -0.3);
-  for (int z = 0; z < z_particles; z++) {
-      for (int y = 0; y < y_particles; y++) {
-          for (int x = 0; x < x_particles; x++) {
-              Vector3D offsets = Vector3D(x * particle_dist, y * particle_dist, z * particle_dist);
+
+  // CREATE WATER POINTS
+  for (int z = 0; z < z_dim; z++) {
+      for (int y = 0; y < y_dim; y++) {
+          for (int x = 0; x < x_dim; x++) {
+              Vector3D offsets = Vector3D(x * dist, y * dist, z * dist);
               WaterPoint *point = new WaterPoint(initial_pos + offsets);
               point->forces = Vector3D(0, 0, 0);
               water_points->push_back(point);
           }
+      }
+  }
+
+  // CREATE BOAT POINTS
+  float x, y, z;
+  char c;
+  std::ifstream boatfile ("smallboatmorepoints.obj");
+  std::string line;
+  while (std::getline(boatfile, line)) {
+      if (line[0] == *"v") {
+          std::istringstream iss(line);
+          iss >> c >> x >> y >> z;
+          WaterPoint *point = new WaterPoint(Vector3D(x, y, z));
+          point->forces = Vector3D(0, 0, 0);
+          point->isBoat = true;
+          water_points->push_back(point);
       }
   }
 }

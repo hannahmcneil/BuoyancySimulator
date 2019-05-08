@@ -131,6 +131,17 @@ int main(int argc, char **argv) {
       exit(EXIT_FAILURE);
   }
 
+  // COUNT NUMBER OF BOAT POINTS
+  int num_vertices = 0;
+  std::ifstream boatfile ("smallboatmorepoints.obj");
+  std::string line;
+  while (std::getline(boatfile, line)) {
+      if (line[0] == *"v") {
+          num_vertices++;
+      }
+  }
+
+
   int check1;
   int check2;
   check1 = mkdir(argv[1], S_IRWXU);
@@ -166,7 +177,7 @@ int main(int argc, char **argv) {
   std::vector<WaterPoint*> water_points;
 
   // RESERVE SPACE TO AVOID SEGFAULTS
-  water_points.reserve(x_particles * y_particles * z_particles);
+  water_points.reserve(x_particles * y_particles * z_particles + num_vertices);
 
   // SET INITIAL POSITIONS OF WATER POINTS
   std::cout << "Generate initial frame:" << std::endl;
