@@ -20,6 +20,9 @@
 #include "simulate.cpp"
 #include "meshHandler.cpp"
 #include "globals.h"
+#include "waterPoint.h"
+#include "waterPoint.cpp"
+
 
 #include "KDTree/KDTree.hpp"
 #include "KDTree/KDTree.cpp"
@@ -45,34 +48,28 @@ Vector3D vertex_6 = Vector3D(max_x, max_y, min_z);
 Vector3D vertex_7 = Vector3D(max_x, min_y, max_z);
 Vector3D vertex_8 = Vector3D(max_x, min_y, min_z);
 
-std::map<int, int> function() {
-  return std::map<int, int>();
-}
+std::map<std::vector<float>, WaterPoint*> water_map = std::map<std::vector<float>, WaterPoint*>();
 
-std::map<Vector3D, WaterPoint> function2() {
-  return std::map<Vector3D, WaterPoint>();
-}
-
-/*
-std::map<Vector3D, WaterPoint> function3() {
-  return water_map;
-}
-*/
-
-/*
-WaterPoint get_waterPoint_from_location(Vector3D v) {
-  return water_map[v];
+WaterPoint* get_waterPoint_from_location(Vector3D v) {
+  std::vector<float> vect;
+  vect.push_back(v.x);
+  vect.push_back(v.y);
+  vect.push_back(v.z);
+  return water_map[vect];
 }
 
 void create_map(std::vector<WaterPoint*> water_points) {
   water_map.clear();
   for (int i = 0; i < water_points.size(); i++) {
     WaterPoint *p = water_points[i];
-    water_map[p->position] = *p;
+    std::vector<float> vect;
+    vect.push_back(p->position.x);
+    vect.push_back(p->position.y);
+    vect.push_back(p->position.z);
+    water_map[vect] = p;
   }
 }
 
-*/
 
 int main(int argc, char **argv) {
 
@@ -101,6 +98,17 @@ int main(int argc, char **argv) {
     std::cout << b << " ";
   }
   std::cout << '\n';
+
+  std::cout << "nearest in range test\n";
+
+  auto res2 = tree.neighborhood_points(pt, .55);
+
+  for (point_t a : res2) {
+    for (double b : a) {
+      std::cout << b << " ";
+    }
+    std::cout << '\n';
+  }
 
   std::cout << "ending KDTree test" << std::endl;
 
