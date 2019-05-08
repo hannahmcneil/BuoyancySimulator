@@ -71,6 +71,8 @@ sys/stat.h
 -
 sys/types.h
 -
+map
+-
 misc/getopt.h
 /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/misc/getopt.h
 getopt.h
@@ -93,6 +95,8 @@ sys/stat.h
 -
 sys/types.h
 -
+map
+-
 misc/getopt.h
 /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/misc/getopt.h
 getopt.h
@@ -111,6 +115,8 @@ meshHandler.cpp
 /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/meshHandler.cpp
 globals.h
 /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/globals.h
+KDTree/KDTree.hpp
+/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/KDTree/KDTree.hpp
 KDTree/KDTree.cpp
 /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/KDTree/KDTree.cpp
 
