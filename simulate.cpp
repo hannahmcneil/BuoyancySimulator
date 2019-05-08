@@ -27,4 +27,6 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt, float 
     for (int i = 0; i < water_points->size(); i++) {
         (*water_points)[i]->forces = gravity * mass;
     }
+
+
 }

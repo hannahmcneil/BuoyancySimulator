@@ -48,6 +48,21 @@ Vector3D vertex_6 = Vector3D(max_x, max_y, min_z);
 Vector3D vertex_7 = Vector3D(max_x, min_y, max_z);
 Vector3D vertex_8 = Vector3D(max_x, min_y, min_z);
 
+// Euler angles for boat
+float phi = 0;
+float theta = 0;
+float phi_prime = 0;
+
+// Previous euler angles for boat
+float phi_prev = 0;
+float theta_prev = 0;
+float phi_prime_prev = 0;
+
+// Angular velocity of boat
+float wx = 0;
+float wy = 0;
+float wz = 0;
+
 std::map<std::vector<float>, WaterPoint*> water_map = std::map<std::vector<float>, WaterPoint*>();
 
 WaterPoint* get_waterPoint_from_location(Vector3D v) {
@@ -89,7 +104,7 @@ int main(int argc, char **argv) {
   pt = {0.5, 0.5};
   points.push_back(pt);
 
-  KDTree tree(points);
+  KDTree tree = KDTree(points);
 
   std::cout << "nearest test\n";
   pt = {0.8, 0.2};

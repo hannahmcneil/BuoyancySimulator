@@ -34,3 +34,17 @@ extern int z_particles;
 
 extern std::map<std::vector<float>, WaterPoint*> water_map;
 
+// Euler angles for boat
+extern float phi;
+extern float theta;
+extern float phi_prime;
+
+// Previous euler angles for boat
+extern float phi_prev;
+extern float theta_prev;
+extern float phi_prime_prev;
+
+// Angular velocity of boat
+extern float wx;
+extern float wy;
+extern float wz;
