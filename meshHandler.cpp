@@ -64,7 +64,7 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
 
   // GIVEN .OBJ FILE WITH WATER MESH AND OUR BOAT.OBJ FILE, COMBINE THE TWO; FIRST ADD BOAT
   int num_vertices = 0;
-  std::ifstream boatfile ("smallboat.obj");
+  std::ifstream boatfile ("smallboatmorepoints.obj");
   std::string line;
   while (std::getline(boatfile, line)) {
       if ((line[0] == *"o") || (line[0] == *"v") || (line[0] == *"s") || (line[0] == *"f")) {
