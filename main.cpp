@@ -148,18 +148,18 @@ int main(int argc, char **argv) {
 
 
   if (argc != 3) {
-      printf("please provide names for 2 destination folders\n");
-      exit(EXIT_FAILURE);
+    printf("please provide names for 2 destination folders\n");
+    exit(EXIT_FAILURE);
   }
 
   // COUNT NUMBER OF BOAT POINTS
   int num_vertices = 0;
-  std::ifstream boatfile ("smallboatmorepoints.obj");
+  std::ifstream boatfile ("build/smallboatmorepoints.obj");
   std::string line;
   while (std::getline(boatfile, line)) {
-      if (line[0] == *"v") {
-          num_vertices++;
-      }
+    if (line[0] == *"v") {
+        num_vertices++;
+    }
   }
 
 

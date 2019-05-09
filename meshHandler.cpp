@@ -41,6 +41,14 @@ Vector3D water_min;
 Vector3D water_max;
 int num_particles_dim;
 
+WaterPoint* get_waterPoint_from_location_3(Vector3D v) {
+  std::vector<double> vect;
+  vect.push_back(v.x);
+  vect.push_back(v.y);
+  vect.push_back(v.z);
+  return water_map[vect];
+}
+
 void MeshHandler::save_png_and_combine_frames(int time_steps, char *png_folder, char *obj_folder) {
     std::string s(png_folder);
     std::string d(obj_folder);
@@ -231,7 +239,9 @@ Polyhedron MeshHandler::water_mesh(std::map<WaterPoint*, Vector> surface_points)
 
   std::cout << "surface reconstruction" << std::endl;
   for (Pwn point : points) {
-      std::cout << point.first.x() << std::endl;
+    std::cout << point.first.x() << std::endl;
+    std::cout << point.first.y() << std::endl;
+    std::cout << point.first.z() << std::endl;
   }
 
   CGAL::poisson_surface_reconstruction_delaunay
@@ -247,7 +257,6 @@ Polyhedron MeshHandler::water_mesh(std::map<WaterPoint*, Vector> surface_points)
 }
 
 std::pair<Vector, float> MeshHandler::find_normal(WaterPoint w, std::vector<WaterPoint*> *water_points) {
-  std::cout << "erroring here maybe" << std::endl;
 
 
   /**std::map<double, WaterPoint*> point_distances;
@@ -274,16 +283,24 @@ std::pair<Vector, float> MeshHandler::find_normal(WaterPoint w, std::vector<Wate
   point_t point;
   point = {w.position.x, w.position.y, w.position.z};
   auto neighbors_ = neighbor_tree.neighborhood_points(point, (max_z - min_z / 5.));
+  int num_non_boat = 0;
   for (int i = 0; i < neighbors_.size(); i++) {
-      average_neighbor += Vector3D(neighbors_[i][0], neighbors_[i][1], neighbors_[i][2]);
+    Vector3D pos = Vector3D(neighbors_[i][0], neighbors_[i][1], neighbors_[i][2]);
+    WaterPoint *n = get_waterPoint_from_location_3(pos);
+    if (!(n->isBoat)) {
+      num_non_boat += 1;
+      average_neighbor += pos;
+    }
   }
-  average_neighbor = average_neighbor / neighbors_.size();
+  if (num_non_boat == 0) {
+    return std::pair<Vector, float>(Vector(0, 0, 0), 0);
+  }
+  average_neighbor = average_neighbor / num_non_boat;
   Vector3D diff_vec = (average_neighbor - w.position);
   Vector3D norm = -1. * diff_vec;
   float length = norm.norm();
   norm.normalize();
   Vector normal = Vector(norm.x, norm.y, norm.z);
-  std::cout << "nope you're wrong" << std::endl;
 
   return std::pair<Vector, float>(normal, length);
 }
