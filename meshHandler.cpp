@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "globals.h"
+#include <map>
 
 #include <CGAL/IO/print_wavefront.h>
 
@@ -52,6 +53,7 @@ void MeshHandler::save_png_and_combine_frames(int time_steps, char *png_folder, 
 
 void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *obj_folder, int num_particles) {
   std::cout << "extracting surface points" << std::endl;
+  std::cout << "num water points: " << water_points->size() << std::endl;
   std::map<WaterPoint *, Vector> surface = surface_points(water_points);
 
   std::cout << "reconstructing mesh" << std::endl;
@@ -84,7 +86,7 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
   }
 
   int num_vertices = 0;
-  std::ifstream boatfile ("smallboatmorepoints.obj");
+  std::ifstream boatfile ("build/smallboatmorepoints.obj");
   std::string line;
   while (std::getline(boatfile, line)) {
       if ((line[0] == *"s") || (line[0] == *"f")) {
@@ -193,15 +195,16 @@ std::map<WaterPoint*, Vector> MeshHandler::surface_points(std::vector<WaterPoint
   //std::cout << "finding surface points" << std::endl;
 
   std::map<WaterPoint*, Vector> output;
+
   for (WaterPoint *w : *water_points) {
-    if (w->isBoat == false) {
-        std::pair<Vector, float> pair = find_normal(*w, water_points);
-        Vector normal = pair.first;
-        float length = pair.second;
-        if (length > 0.05) {
-            std::pair<WaterPoint*, Vector> pp = std::pair<WaterPoint*, Vector>(w, normal);
-            output.insert(pp);
-        }
+    if (!w->isBoat) {
+      std::pair<Vector, float> pair = find_normal(*w, water_points);
+      Vector normal = pair.first;
+      float length = pair.second;
+      if (length > 0.05) {
+        std::pair<WaterPoint*, Vector> pp = std::pair<WaterPoint*, Vector>(w, normal);
+        output.insert(pp);
+      }
     }
   }
   return output;
@@ -235,6 +238,9 @@ Polyhedron MeshHandler::water_mesh(std::map<WaterPoint*, Vector> surface_points)
 }
 
 std::pair<Vector, float> MeshHandler::find_normal(WaterPoint w, std::vector<WaterPoint*> *water_points) {
+  std::cout << "erroring here maybe" << std::endl;
+
+
   std::map<double, WaterPoint*> point_distances;
   std::array<WaterPoint*, 10> neighbors;
   Vector3D average_neighbor = Vector3D(0, 0, 0);
@@ -260,6 +266,8 @@ std::pair<Vector, float> MeshHandler::find_normal(WaterPoint w, std::vector<Wate
   float length = norm.norm();
   norm.normalize();
   Vector normal = Vector(norm.x, norm.y, norm.z);
+  std::cout << "nope you're wrong" << std::endl;
+
   return std::pair<Vector, float>(normal, length);
 }
 

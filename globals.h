@@ -47,5 +47,10 @@ extern float wx;
 extern float wy;
 extern float wz;
 
+extern float rho_0;
+extern float h;
+extern float epsilon;
+
+
 extern std::map<std::vector<double>, WaterPoint*> water_map;
 extern KDTree neighbor_tree;

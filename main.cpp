@@ -63,6 +63,11 @@ float wx = 0;
 float wy = 0;
 float wz = 0;
 
+float rho_0 = 1;
+float h = 0.1;
+float epsilon = 0.01;
+
+
 
 std::map<std::vector<double>, WaterPoint*> water_map = std::map<std::vector<double>, WaterPoint*>();
 
@@ -211,7 +216,7 @@ int main(int argc, char **argv) {
       std::cout << "Generate next frame:" << std::endl;
     }
     std::cout << "simulating movement" << std::endl;
-    s.simulate(&water_points, dt, mass);
+    s.simulate(&water_points, dt);
     populate_tree(water_points);
     create_map(water_points);
   }
