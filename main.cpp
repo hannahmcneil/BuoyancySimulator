@@ -30,6 +30,9 @@
 
 int NUM_PARTICLES = 0;
 
+// CREATE VECTOR OF WATER POINTS
+std::vector<WaterPoint*> water_points;
+
 // ROOM DIMENSIONS
 float min_x = -0.3;
 float max_x = 0.3;
@@ -48,6 +51,8 @@ Vector3D vertex_6 = Vector3D(max_x, max_y, min_z);
 Vector3D vertex_7 = Vector3D(max_x, min_y, max_z);
 Vector3D vertex_8 = Vector3D(max_x, min_y, min_z);
 
+float particle_dist = (1. / 40.);
+
 // Euler angles for boat
 float phi = 0;
 float theta = 0;
@@ -63,9 +68,9 @@ float wx = 0;
 float wy = 0;
 float wz = 0;
 
-float rho_0 = 1;
-float h = 0.1;
-float epsilon = 0.01;
+float rho_0 = 1 / (particle_dist * particle_dist * particle_dist);
+float h = 1.5 * particle_dist;
+float epsilon = 0.0001;
 
 
 
@@ -154,7 +159,7 @@ int main(int argc, char **argv) {
 
   // COUNT NUMBER OF BOAT POINTS
   int num_vertices = 0;
-  std::ifstream boatfile ("build/smallboatmorepoints.obj");
+  std::ifstream boatfile ("small4points.obj");
   std::string line;
   while (std::getline(boatfile, line)) {
     if (line[0] == *"v") {
@@ -174,16 +179,24 @@ int main(int argc, char **argv) {
   MeshHandler m = MeshHandler();
 
   // BELOW, USED TO CALCULATE TOTAL NUMBER OF PARTICLES
-  float width = .75;
+  float width = 0.75;
   float height = 0.3;
   float length = 0.4;
-  float particle_dist = (1. / 10.);
 
   // CALCULATE NUMBER OF PARTICLES
   int z_particles = ((int) (width / particle_dist)) + 1;
   int y_particles = ((int) (height / particle_dist)) + 1;
   int x_particles = ((int) (length / particle_dist)) + 1;
+  std::cout << z_particles << std::endl;
+  std::cout << y_particles << std::endl;
+  std::cout << x_particles << std::endl;
   NUM_PARTICLES = x_particles * y_particles * z_particles;
+
+  std::cout << "number of water and boat points, respectively:" << std::endl;
+  std::cout << NUM_PARTICLES << std::endl;
+  std::cout << num_vertices << std::endl;
+  std::cout << "expected number of initial surface points" << std::endl;
+  std::cout << 2 * z_particles * y_particles + 2 * z_particles * x_particles + 2 * x_particles * y_particles << std::endl; 
   
   // WATERPOINT PARAMETERS
   float density = 997.;
@@ -191,11 +204,8 @@ int main(int argc, char **argv) {
   
   // FRAMERATE PARAMETERS
   float dt = 0.05;
-  int num_time_steps = 5;
+  int num_time_steps = 7;
   int num_time_steps_per_frame = 1;
-
-  // CREATE VECTOR OF WATER POINTS
-  std::vector<WaterPoint*> water_points;
 
   // RESERVE SPACE TO AVOID SEGFAULTS
   water_points.reserve(x_particles * y_particles * z_particles + num_vertices);

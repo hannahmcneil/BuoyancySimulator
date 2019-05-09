@@ -37,7 +37,7 @@ void Simulate::generate_initial_positions(std::vector<WaterPoint*> *water_points
   // CREATE BOAT POINTS
   float x, y, z;
   char c;
-  std::ifstream boatfile ("build/smallboatmorepoints.obj");
+  std::ifstream boatfile ("small4points.obj");
   std::string line;
   while (std::getline(boatfile, line)) {
       if (line[0] == *"v") {
@@ -51,49 +51,69 @@ void Simulate::generate_initial_positions(std::vector<WaterPoint*> *water_points
 }
 
 float W(float r) {
-  return 1.56668 / pow(h, 9) * pow(h * h - r * r , 3);
+  float val = 1.56668 / pow(h, 9) * pow(h * h - r * r , 3);
+  //std::cout << "r:" << r << std::endl;
+  //std::cout << "W:" << val << std::endl;
+  return val;
 }
 
 Vector3D Grad_W(Vector3D r) {
-  return 1.56668147106 / pow(h, 9) * 3 * pow(h * h - r.norm() * r.norm(), 2) * -2 * r;
+  //std::cout << "vector r:" << r.x << r.y << r.z << std::endl;
+  Vector3D val = 1.56668147106 / pow(h, 9) * 3 * pow(h * h - r.norm() * r.norm(), 2) * -2 * r;
+  //std::cout << "grad_w:" << val.x << val.y << val.z << std::endl;
+  return val;
 }
 
 float rho(int i, std::vector<Vector3D> neighbors) {
   float sum = 0;
   for (int j = 0; j < neighbors.size(); ++j) {
-    sum += W((neighbors[i] - neighbors[j]).norm());
+    //std::cout << "point i pos:" << water_points[i]->position.x << water_points[i]->position.y << water_points[i]->position.z << std::endl;
+    //std::cout << "neighbor j pos:" << neighbors[j].x << neighbors[j].y << neighbors[j].z << std::endl;
+    sum += W((water_points[i]->position - neighbors[j]).norm());
   }
+  //std::cout << "rho:" << sum << std::endl;
   return sum;
 }
 
 float C(int i, std::vector<Vector3D> neighbors) {
-  return rho(i, neighbors) / rho_0 - 1;
+  float val = rho(i, neighbors) / rho_0 - 1;
+  //std::cout << "C:" << val << std::endl;
+  return val;
 }
 
 Vector3D Grad_C(int k, int i, std::vector<Vector3D> neighbors) {
-  if (i == k) {
-    Vector3D sum = 0;
+  if (water_points[i]->position == neighbors[k]) {
+    Vector3D sum = Vector3D(0, 0, 0);
     for (int j = 0; j < neighbors.size(); ++j) {
-      sum += Grad_W(neighbors[i] - neighbors[j]);
+      sum += Grad_W(water_points[i]->position - neighbors[j]);
     }
     return 1. / rho_0 * sum;
   }
-  return 1. / rho_0 * Grad_W(neighbors[i] - neighbors[k]);
+  return 1. / rho_0 * Grad_W(water_points[i]->position - neighbors[k]);
 }
 
 float lambda(int i, std::vector<Vector3D> neighbors) {
   float sum = 0;
   for (int k = 0; k < neighbors.size(); ++k) {
-    sum += Grad_C(k, i, neighbors).norm();
+      float grad_c = Grad_C(k, i, neighbors).norm();
+      //std::cout << "grad_c:" << grad_c << std::endl;
+      sum += grad_c;
   }
-  return -C(i, neighbors) / (sum + epsilon);
+  float neg_c = -C(i, neighbors) / (sum + epsilon);
+  //std::cout << "lambda:" << neg_c << std::endl;
+  return neg_c;
 }
 
 Vector3D delta_p(int i, std::vector<Vector3D> neighbors) {
-  Vector3D sum = 0;
+  Vector3D sum = Vector3D(0, 0, 0);
   for (int j = 0; j < neighbors.size(); ++j) {
+    std::cout << "neighbor:" << neighbors[j].x << neighbors[j].y << neighbors[j].z << std::endl;
     // can add tensile instability term here later if we want
-    sum += (lambda(i, neighbors) + lambda(j, neighbors)) * Grad_W(neighbors[i] - neighbors[j]);
+    float lamb = lambda(i, neighbors) + lambda(j, neighbors);
+    //std::cout << "lambda:" << lamb << std::endl;
+    Vector3D grad_w = Grad_W(water_points[i]->position - neighbors[j]);
+    //std::cout << "grad_w:" << grad_w.x << grad_w.y << grad_w.z << std::endl;
+    sum += lamb * grad_w;
   }
   return 1. / rho_0 * sum;
 }
@@ -102,8 +122,6 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt) {
 
   for (int i = 0; i < water_points->size(); i++) {
 
-    std::cout << (100. * i / water_points->size()) << "% complete" << std::endl;
-
     WaterPoint *p = (*water_points)[i];
 
     if (p->isBoat) {
@@ -111,11 +129,11 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt) {
     }
 
     // finding neigbors
-    std::cout << "finding neighbors" << std::endl;
+    //std::cout << "finding neighbors" << std::endl;
 
     point_t point;
     point = {(*water_points)[i]->position.x, (*water_points)[i]->position.y, (*water_points)[i]->position.z};
-    auto neighbors_ = neighbor_tree.neighborhood_points(point, (max_z - min_z) / 5.);
+    auto neighbors_ = neighbor_tree.neighborhood_points(point, 1.5 * particle_dist);
 
     std::vector<Vector3D> neighbor_positions;
     for (int j = 0; j < neighbors_.size(); ++j) {
@@ -146,18 +164,23 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt) {
       water_neighbor_positions.push_back(water_neighbors[j]->position);
     }
 
-    std::cout << "num boat neighbors: " << boat_neighbors.size() << std::endl;
-    std::cout << "num water neighbors: " << water_neighbors.size() << std::endl;
+    if (i % 100 == 0) {
+        std::cout << (100. * i / water_points->size()) << "% complete" << std::endl;
+        std::cout << "num boat neighbors: " << boat_neighbors.size() << std::endl;
+        std::cout << "num water neighbors: " << water_neighbors.size() << std::endl;
+    }
 
     // move particle from velocity and gravity
-    std::cout << "moving particle from velocity and gravity" << std::endl;
+    //std::cout << "moving particle from velocity and gravity" << std::endl;
 
-    Vector3D temp = p->position;
+    /*Vector3D temp = p->position;
     p->position = 2. * p->position - p->last_position + Vector3D(0., -10., 0.) * dt * dt;
     p->last_position = temp;
 
+
+
     // move particle from boat collisions
-    std::cout << "moving particle from boat collisions" << std::endl;
+    //std::cout << "moving particle from boat collisions" << std::endl;
 
     for (int j = 0; j < boat_neighbors.size(); ++j) {
       Vector3D diff = (neighbor_positions[j] - p->position);
@@ -168,31 +191,35 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt) {
     }
 
     // move particle from plane collisions
-    std::cout << "moving particle from plane collisions" << std::endl;
+    //std::cout << "moving particle from plane collisions" << std::endl;
 
     if (p->position.x < min_x) {
-      p->position.x = min_x;
+      p->position.x = min_x + .01;
     }
     if (max_x < p->position.x) {
-      p->position.x = max_x;
+      p->position.x = max_x - .01;
     }
     if (p->position.y < min_y) {
-      p->position.y = min_y;
+      p->position.y = min_y + .01;
     }
     if (max_y < p->position.y) {
-      p->position.y = max_y;
+      p->position.y = max_y - .01;
     }
     if (p->position.z < min_z) {
-      p->position.z = min_z;
+      p->position.z = min_z + .01;
     }
     if (max_z < p->position.z) {
-      p->position.z = max_z;
-    }
+      p->position.z = max_z - .01;
+    }*/
+    
 
     // move particle from water collisions
-    std::cout << "moving particles from water collisions" << std::endl;
+    std::cout << "starting new point WRRRRRRRRRRY" << std::endl;
+    Vector3D delta = delta_p(i, water_neighbor_positions);
+    std::cout << "delta value:" << std::to_string(delta.x) << std::to_string(delta.y) << std::to_string(delta.z) << std::endl;
 
     p->position += delta_p(i, water_neighbor_positions);
+    
   }
 
   return;

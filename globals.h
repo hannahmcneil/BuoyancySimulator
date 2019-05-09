@@ -31,6 +31,7 @@ extern Vector3D vertex_8;
 extern int x_particles;
 extern int y_particles;
 extern int z_particles;
+extern float particle_dist;
 
 // Euler angles for boat
 extern float phi;
@@ -51,6 +52,6 @@ extern float rho_0;
 extern float h;
 extern float epsilon;
 
-
+extern std::vector<WaterPoint*> water_points;
 extern std::map<std::vector<double>, WaterPoint*> water_map;
 extern KDTree neighbor_tree;

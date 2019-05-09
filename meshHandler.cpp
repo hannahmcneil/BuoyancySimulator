@@ -65,6 +65,8 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
   std::cout << "extracting surface points" << std::endl;
   std::cout << "num water points: " << water_points->size() << std::endl;
   std::map<WaterPoint *, Vector> surface = surface_points(water_points);
+  std::cout << "actual number of surface points" << std::endl;
+  std::cout << surface.size() << std::endl;
 
   std::cout << "reconstructing mesh" << std::endl;
   Polyhedron surface_mesh = water_mesh(surface);
@@ -75,18 +77,6 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
   std::ofstream temp("./" + d + "/WaterMesh_Frame" + std::to_string(i) + ".obj");
 
   // GIVEN .OBJ FILE WITH WATER MESH AND OUR BOAT.OBJ FILE, COMBINE THE TWO; FIRST ADD BOAT
-  /*int num_vertices = 0;
-  std::ifstream boatfile ("smallboatmorepoints.obj");
-  std::string line;
-  while (std::getline(boatfile, line)) {
-      if ((line[0] == *"o") || (line[0] == *"v") || (line[0] == *"s") || (line[0] == *"f")) {
-         ofs << line << "\n";
-         if (line[0] == *"v") {
-             num_vertices++;
-         }
-      }
-  }*/
-
   ofs << "o Boat_Mesh" << "\n";
   for (int i = 0; i < water_points->size(); i++) {
       if ((*water_points)[i]->isBoat == true) {
@@ -96,7 +86,7 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
   }
 
   int num_vertices = 0;
-  std::ifstream boatfile ("build/smallboatmorepoints.obj");
+  std::ifstream boatfile ("small4points.obj");
   std::string line;
   while (std::getline(boatfile, line)) {
       if ((line[0] == *"s") || (line[0] == *"f")) {
@@ -211,7 +201,7 @@ std::map<WaterPoint*, Vector> MeshHandler::surface_points(std::vector<WaterPoint
       std::pair<Vector, float> pair = find_normal(*w, water_points);
       Vector normal = pair.first;
       float length = pair.second;
-      if (length > 0.05) {
+      if (length > particle_dist / 4.) {
         std::pair<WaterPoint*, Vector> pp = std::pair<WaterPoint*, Vector>(w, normal);
         output.insert(pp);
       }
@@ -238,11 +228,12 @@ Polyhedron MeshHandler::water_mesh(std::map<WaterPoint*, Vector> surface_points)
           (points, 6, CGAL::parameters::point_map(CGAL::First_of_pair_property_map<Pwn>()));
 
   std::cout << "surface reconstruction" << std::endl;
-  for (Pwn point : points) {
+  /*for (Pwn point : points) {
     std::cout << point.first.x() << std::endl;
     std::cout << point.first.y() << std::endl;
     std::cout << point.first.z() << std::endl;
   }
+  */
 
   CGAL::poisson_surface_reconstruction_delaunay
           (points.begin(), points.end(),
@@ -282,7 +273,7 @@ std::pair<Vector, float> MeshHandler::find_normal(WaterPoint w, std::vector<Wate
   Vector3D average_neighbor = Vector3D(0, 0, 0);
   point_t point;
   point = {w.position.x, w.position.y, w.position.z};
-  auto neighbors_ = neighbor_tree.neighborhood_points(point, (max_z - min_z / 5.));
+  auto neighbors_ = neighbor_tree.neighborhood_points(point, 1.5 * particle_dist);
   int num_non_boat = 0;
   for (int i = 0; i < neighbors_.size(); i++) {
     Vector3D pos = Vector3D(neighbors_[i][0], neighbors_[i][1], neighbors_[i][2]);
