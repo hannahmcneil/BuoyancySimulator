@@ -155,6 +155,10 @@ stdio.h
 -
 globals.h
 /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/globals.h
+KDTree/KDTree.hpp
+/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/KDTree/KDTree.hpp
+map
+-
 CGAL/IO/print_wavefront.h
 -
 
@@ -189,6 +193,8 @@ vector
 -
 globals.h
 /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/globals.h
+KDTree/KDTree.hpp
+/Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/KDTree/KDTree.hpp
 KDTree/KDTree.hpp
 /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/KDTree/KDTree.hpp
 

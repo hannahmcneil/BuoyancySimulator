@@ -15,6 +15,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "globals.h"
+#include "KDTree/KDTree.hpp"
+
 #include <map>
 
 #include <CGAL/IO/print_wavefront.h>
@@ -223,15 +225,22 @@ Polyhedron MeshHandler::water_mesh(std::map<WaterPoint*, Vector> surface_points)
   }
 
   std::cout << "converting points to mesh" << std::endl;
-
+  std::cout << points.size() << std::endl;
   double average_spacing = CGAL::compute_average_spacing<CGAL::Sequential_tag>
           (points, 6, CGAL::parameters::point_map(CGAL::First_of_pair_property_map<Pwn>()));
+
+  std::cout << "surface reconstruction" << std::endl;
+  for (Pwn point : points) {
+      std::cout << point.first.x() << std::endl;
+  }
 
   CGAL::poisson_surface_reconstruction_delaunay
           (points.begin(), points.end(),
            CGAL::First_of_pair_property_map<Pwn>(),
            CGAL::Second_of_pair_property_map<Pwn>(),
            output_mesh, average_spacing);
+
+  std::cout << "not surface reconstruction" << std::endl;
 
   return output_mesh;
 
@@ -241,7 +250,7 @@ std::pair<Vector, float> MeshHandler::find_normal(WaterPoint w, std::vector<Wate
   std::cout << "erroring here maybe" << std::endl;
 
 
-  std::map<double, WaterPoint*> point_distances;
+  /**std::map<double, WaterPoint*> point_distances;
   std::array<WaterPoint*, 10> neighbors;
   Vector3D average_neighbor = Vector3D(0, 0, 0);
   for (WaterPoint *neighbor : *water_points) {
@@ -260,7 +269,15 @@ std::pair<Vector, float> MeshHandler::find_normal(WaterPoint w, std::vector<Wate
   for (int i = 0; i < neighbors.size(); i++) {
       average_neighbor += neighbors[i]->position;
   }
-  average_neighbor = average_neighbor / 10.;
+  **/
+  Vector3D average_neighbor = Vector3D(0, 0, 0);
+  point_t point;
+  point = {w.position.x, w.position.y, w.position.z};
+  auto neighbors_ = neighbor_tree.neighborhood_points(point, (max_z - min_z / 5.));
+  for (int i = 0; i < neighbors_.size(); i++) {
+      average_neighbor += Vector3D(neighbors_[i][0], neighbors_[i][1], neighbors_[i][2]);
+  }
+  average_neighbor = average_neighbor / neighbors_.size();
   Vector3D diff_vec = (average_neighbor - w.position);
   Vector3D norm = -1. * diff_vec;
   float length = norm.norm();
