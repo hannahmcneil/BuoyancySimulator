@@ -52,7 +52,6 @@ Vector3D vertex_7 = Vector3D(max_x, min_y, max_z);
 Vector3D vertex_8 = Vector3D(max_x, min_y, min_z);
 
 float particle_dist = (1. / 40.);
-
 // Euler angles for boat
 float phi = 0;
 float theta = 0;
@@ -68,7 +67,7 @@ float wx = 0;
 float wy = 0;
 float wz = 0;
 
-float rho_0 = 1 / (particle_dist * particle_dist * particle_dist);
+float rho_0 = .1 / (particle_dist * particle_dist * particle_dist);
 float h = 1.5 * particle_dist;
 float epsilon = 0.0001;
 
@@ -159,7 +158,7 @@ int main(int argc, char **argv) {
 
   // COUNT NUMBER OF BOAT POINTS
   int num_vertices = 0;
-  std::ifstream boatfile ("small4points.obj");
+  std::ifstream boatfile ("build/small4points.obj");
   std::string line;
   while (std::getline(boatfile, line)) {
     if (line[0] == *"v") {
@@ -203,7 +202,7 @@ int main(int argc, char **argv) {
   float mass = width * height * length * density / x_particles / y_particles / z_particles;
   
   // FRAMERATE PARAMETERS
-  float dt = 0.05;
+  float dt = 0.0001;
   int num_time_steps = 7;
   int num_time_steps_per_frame = 1;
 

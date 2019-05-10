@@ -18,6 +18,7 @@ class WaterPoint {
   }
 
   // dynamic values
+  Vector3D next_position;
   Vector3D position;
   Vector3D last_position;
 
