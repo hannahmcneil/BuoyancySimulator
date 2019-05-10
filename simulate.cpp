@@ -404,6 +404,16 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt) {
     std::cout << (*water_points)[i]->position.y << std::endl;
   }
 
+  // SIMULATE BUOYANT FORCE BETWEEN BOAT POINTS AND WATER POINTS
+  //
+  // first apply gravity to boat 
+  for (int i = 0; i < water_points->size(); i++) {
+      WaterPoint *point = ((*water_points)[i];
+      if (p->isBoat) {
+          p->next_position = 2. * p->position - p->last_position + Vector3D(0., -10., 0.) * dt * dt;
+      }
+  }
+
 
 
   return;

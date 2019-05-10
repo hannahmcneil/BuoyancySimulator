@@ -214,6 +214,8 @@ CGL/misc.h
 CGL/vector3D.h
 /Users/HannahMcNeil/Desktop/CS184/BuoyancySimulator/CGL/vector3D.h
 
+/usr/include/float.h
+
 /usr/local/include/CGAL/Aff_transformation_2.h
 CGAL/config.h
 -
