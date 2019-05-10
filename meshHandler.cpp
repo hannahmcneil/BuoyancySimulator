@@ -201,7 +201,7 @@ std::map<WaterPoint*, Vector> MeshHandler::surface_points(std::vector<WaterPoint
       std::pair<Vector, float> pair = find_normal(*w, water_points);
       Vector normal = pair.first;
       float length = pair.second;
-      if (length > particle_dist / 4.) {
+      if (length > particle_dist/2.) {
         std::pair<WaterPoint*, Vector> pp = std::pair<WaterPoint*, Vector>(w, normal);
         output.insert(pp);
       }
@@ -249,27 +249,6 @@ Polyhedron MeshHandler::water_mesh(std::map<WaterPoint*, Vector> surface_points)
 
 std::pair<Vector, float> MeshHandler::find_normal(WaterPoint w, std::vector<WaterPoint*> *water_points) {
 
-
-  /**std::map<double, WaterPoint*> point_distances;
-  std::array<WaterPoint*, 10> neighbors;
-  Vector3D average_neighbor = Vector3D(0, 0, 0);
-  for (WaterPoint *neighbor : *water_points) {
-      if (neighbor == &w || neighbor->isBoat == true) {
-          continue;
-      }
-      double dist = (w.position - neighbor->position).norm();
-      std::pair<double, WaterPoint*> point_dist_pair = std::pair<double, WaterPoint*>(dist, neighbor);
-      point_distances.insert(point_dist_pair);
-  }
-  std::map<double, WaterPoint*>::iterator iter = point_distances.begin();
-  for (int i = 0; i < neighbors.size(); i++) {
-      neighbors[i] = iter->second;
-      iter++;
-  }
-  for (int i = 0; i < neighbors.size(); i++) {
-      average_neighbor += neighbors[i]->position;
-  }
-  **/
   Vector3D average_neighbor = Vector3D(0, 0, 0);
   point_t point;
   point = {w.position.x, w.position.y, w.position.z};
@@ -296,58 +275,3 @@ std::pair<Vector, float> MeshHandler::find_normal(WaterPoint w, std::vector<Wate
   return std::pair<Vector, float>(normal, length);
 }
 
-/*void MeshHandler::min_max_dim(std::vector<WaterPoint*> *water_points) {
-  double inf = std::numeric_limits<double>::infinity();
-  water_min = Vector3D(inf, inf, inf);
-  water_max = Vector3D(-inf, -inf, -inf);
-  for (WaterPoint* waterpoint : *water_points) {
-    Vector3D water_pos = waterpoint->position;
-    if (water_pos.x > water_max.x) {
-      water_max.x = water_pos.x;
-    }
-    if (water_pos.y > water_max.y) {
-      water_max.y = water_pos.y;
-    }
-    if (water_pos.z > water_max.z) {
-      water_max.z = water_pos.z;
-    }
-    if (water_pos.x < water_min.x) {
-      water_min.x = water_pos.x;
-    }
-    if (water_pos.y < water_min.y) {
-      water_min.y = water_pos.y;
-    }
-    if (water_pos.z < water_min.z) {
-      water_min.z = water_pos.z;
-    }
-  }
-}
-
-float MeshHandler::find_map_index(Vector3D point) {
-  float xdist = water_max.x - water_min.x;
-  float ydist = water_max.y - water_min.y;
-  float zdist = water_max.z - water_min.z;
-
-  // placeholder
-  return 1.;
-
-}
-
-void MeshHandler::build_map(std::vector<WaterPoint*> *water_points) {
-  for (const auto entry: waterpoint_map) {
-    delete(entry.second);
-  }
-  waterpoint_map.clear();
-  //clear the map and set up the stuff for the indexing
-  min_max_dim(water_points);
-
-  for (WaterPoint* waterpoint : *water_points) {
-    float index = find_map_index(waterpoint->position);
-    if (!waterpoint_map[index]) {
-      waterpoint_map[index] = new std::vector<WaterPoint*>();
-
-    }
-    waterpoint_map[index]->__emplace_back(waterpoint);
-  }
-}
-*/

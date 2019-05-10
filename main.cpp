@@ -67,9 +67,9 @@ float wx = 0;
 float wy = 0;
 float wz = 0;
 
-float rho_0 = .1 / (particle_dist * particle_dist * particle_dist);
+float rho_0 = 1. / (particle_dist * particle_dist * particle_dist);
 float h = 1.5 * particle_dist;
-float epsilon = 0.0001;
+float epsilon = 1000.;
 
 
 
@@ -98,13 +98,13 @@ void create_map(std::vector<WaterPoint*> water_points) {
 }
 
 void populate_tree(std::vector<WaterPoint*> water_points) {
-    pointVec points;
-    for (int i = 0; i < water_points.size(); i++) {
-        WaterPoint *p = water_points[i];
-        point_t point = {p->position.x, p->position.y, p->position.z};
-        points.push_back(point);
-    }
-    neighbor_tree = KDTree(points);
+  pointVec points;
+  for (int i = 0; i < water_points.size(); i++) {
+    WaterPoint *p = water_points[i];
+    point_t point = {p->position.x, p->position.y, p->position.z};
+    points.push_back(point);
+  }
+  neighbor_tree = KDTree(points);
 }
 
 
@@ -196,13 +196,9 @@ int main(int argc, char **argv) {
   std::cout << num_vertices << std::endl;
   std::cout << "expected number of initial surface points" << std::endl;
   std::cout << 2 * z_particles * y_particles + 2 * z_particles * x_particles + 2 * x_particles * y_particles << std::endl; 
-  
-  // WATERPOINT PARAMETERS
-  float density = 997.;
-  float mass = width * height * length * density / x_particles / y_particles / z_particles;
-  
+
   // FRAMERATE PARAMETERS
-  float dt = 0.0001;
+  float dt = 0.05;
   int num_time_steps = 7;
   int num_time_steps_per_frame = 1;
 
