@@ -51,7 +51,7 @@ Vector3D vertex_6 = Vector3D(max_x, max_y, min_z);
 Vector3D vertex_7 = Vector3D(max_x, min_y, max_z);
 Vector3D vertex_8 = Vector3D(max_x, min_y, min_z);
 
-float particle_dist = (1. / 40.);
+float particle_dist = (1. / 80.);
 // Euler angles for boat
 float phi = 0;
 float theta = 0;
@@ -67,7 +67,7 @@ float wx = 0;
 float wy = 0;
 float wz = 0;
 
-float rho_0 = 3. / (particle_dist * particle_dist * particle_dist);
+float rho_0 = 0.7 / (particle_dist * particle_dist * particle_dist);
 float h = 1.5 * particle_dist;
 float epsilon = 1000.;
 
@@ -177,7 +177,7 @@ int main(int argc, char **argv) {
 
   // BELOW, USED TO CALCULATE TOTAL NUMBER OF PARTICLES
   float width = 0.8;
-  float height = 0.4;
+  float height = 0.8;
   float length = 0.5;
 
   // CALCULATE NUMBER OF PARTICLES
