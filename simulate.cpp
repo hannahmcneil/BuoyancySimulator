@@ -43,9 +43,7 @@ void populate_tree_2(std::vector<WaterPoint*> water_points) {
 
 
 void Simulate::generate_initial_positions(std::vector<WaterPoint*> *water_points, float dist, int x_dim, int y_dim, int z_dim) {
-  Vector3D initial_pos = Vector3D(-0.2, -0.55, -0.3);
-
-
+  Vector3D initial_pos = Vector3D(-0.25, -0.55, -0.35);
 
   // CREATE WATER POINTS
   for (int z = 0; z < z_dim; z++) {
@@ -154,18 +152,27 @@ float lambda(int i, std::vector<Vector3D> neighbors) {
   //std::cout << "lambda:" << neg_c << std::endl;
   return neg_c;
 }
+float scorr(int i, int j, std::vector<Vector3D> neighbors) {
+  float k = .1;
+  return -k*pow(W((water_points[i]->position - neighbors[j]).norm()),4);
+}
+
 
 Vector3D delta_p(int i, std::vector<Vector3D> neighbors) {
   Vector3D sum = Vector3D(0, 0, 0);
+  //Vector3D scorr_sum = Vector3D();
   for (int j = 0; j < neighbors.size(); ++j) {
     // can add tensile instability term here later if we want
     float lamb = lambda(i, neighbors) + lambda(j, neighbors);
     //std::cout << "lambda:" << lamb << std::endl;
     Vector3D grad_w = Grad_W(water_points[i]->position - neighbors[j]);
     //std::cout << "grad_w:" << grad_w.x << grad_w.y << grad_w.z << std::endl;
+    //scorr_sum += scorr(i,j,neighbors)*grad_w;
     sum += lamb * grad_w;
   }
-  return 1. / rho_0 * sum;
+  //scorr_sum = scorr_sum/W(.2*h)  ;
+  //sum += scorr_sum;
+  return (1. / rho_0) * (sum);
 }
 
 void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt) {
@@ -181,12 +188,10 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt) {
     if (p->position.x < min_x) {
       p->next_position.x = min_x + .001;
       p->last_position.x = min_x;
-
     }
     if (max_x < p->position.x) {
       p->next_position.x = max_x - .001;
       p->last_position.x = max_x;
-
     }
     if (p->position.y < min_y) {
       p->next_position.y = min_y + .001;
@@ -195,17 +200,14 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt) {
     if (max_y < p->position.y) {
       p->next_position.y = max_y - .001;
       p->last_position.y = max_y;
-
     }
     if (p->position.z < min_z) {
       p->next_position.z = min_z + .001;
       p->last_position.z = min_z;
-
     }
     if (max_z < p->position.z) {
       p->next_position.z = max_z - .001;
       p->last_position.z = max_z;
-
     }
   }
   for (int i = 0; i < water_points->size(); ++i) {
@@ -355,7 +357,7 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt) {
                 water_neighbor_positions[j].y << " " << water_neighbor_positions[j].z << std::endl;
     }
     */
-    Vector3D delta = delta_p(i, water_neighbor_positions);
+    //Vector3D delta = delta_p(i, water_neighbor_positions);
     //std::cout << "delta value:" << std::to_string(delta.x) << " " << std::to_string(delta.y) << " " << std::to_string(delta.z) << std::endl;
     p->next_position += delta_p(i, water_neighbor_positions);
   }
@@ -401,9 +403,10 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt) {
   }
   for (int i = 0; i < water_points->size(); ++i) {
     (*water_points)[i]->position = (*water_points)[i]->next_position;
-    std::cout << (*water_points)[i]->position.y << std::endl;
+    std::cout << (*water_points)[i]->position.x << " " << (*water_points)[i]->position.y  << " " << (*water_points)[i]->position.z  << std::endl;
   }
 
+  /*
   // SIMULATE BUOYANT FORCE BETWEEN BOAT POINTS AND WATER POINTS
   //
   // first apply gravity to boat 
@@ -413,7 +416,7 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt) {
           p->next_position = 2. * p->position - p->last_position + Vector3D(0., -10., 0.) * dt * dt;
       }
   }
-
+  */
 
 
   return;

@@ -201,7 +201,7 @@ std::map<WaterPoint*, Vector> MeshHandler::surface_points(std::vector<WaterPoint
       std::pair<Vector, float> pair = find_normal(*w, water_points);
       Vector normal = pair.first;
       float length = pair.second;
-      if (length > particle_dist/2.) {
+      if (length > particle_dist/4.) {
         std::pair<WaterPoint*, Vector> pp = std::pair<WaterPoint*, Vector>(w, normal);
         output.insert(pp);
       }

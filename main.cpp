@@ -67,11 +67,9 @@ float wx = 0;
 float wy = 0;
 float wz = 0;
 
-float rho_0 = 1. / (particle_dist * particle_dist * particle_dist);
+float rho_0 = 3. / (particle_dist * particle_dist * particle_dist);
 float h = 1.5 * particle_dist;
 float epsilon = 1000.;
-
-
 
 std::map<std::vector<double>, WaterPoint*> water_map = std::map<std::vector<double>, WaterPoint*>();
 
@@ -162,7 +160,7 @@ int main(int argc, char **argv) {
   std::string line;
   while (std::getline(boatfile, line)) {
     if (line[0] == *"v") {
-        num_vertices++;
+      num_vertices++;
     }
   }
 
@@ -178,9 +176,9 @@ int main(int argc, char **argv) {
   MeshHandler m = MeshHandler();
 
   // BELOW, USED TO CALCULATE TOTAL NUMBER OF PARTICLES
-  float width = 0.75;
-  float height = 0.3;
-  float length = 0.4;
+  float width = 0.8;
+  float height = 0.4;
+  float length = 0.5;
 
   // CALCULATE NUMBER OF PARTICLES
   int z_particles = ((int) (width / particle_dist)) + 1;
@@ -199,7 +197,7 @@ int main(int argc, char **argv) {
 
   // FRAMERATE PARAMETERS
   float dt = 0.05;
-  int num_time_steps = 7;
+  int num_time_steps = 20;
   int num_time_steps_per_frame = 1;
 
   // RESERVE SPACE TO AVOID SEGFAULTS
