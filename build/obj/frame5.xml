@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	Automatically converted from Wavefront OBJ
+
+-->
+
+<scene version="0.5.0">
+	<integrator id="integrator" type="direct"/>
+
+	<bsdf id="initialShadingGroup_material" type="diffuse">
+		<rgb name="reflectance" value="0.214041 0.214041 0.214041"/>
+	</bsdf>
+
+	<shape id="Water_Mesh_mesh" type="serialized">
+		<string name="filename" value="frame5.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<bsdf type="diffuse"/>
+	</shape>
+
+	<shape id="BackWall_mesh" type="serialized">
+		<string name="filename" value="frame5.serialized"/>
+		<integer name="shapeIndex" value="1"/>
+		<bsdf type="diffuse"/>
+	</shape>
+
+	<shape id="LeftWall_mesh" type="serialized">
+		<string name="filename" value="frame5.serialized"/>
+		<integer name="shapeIndex" value="2"/>
+		<bsdf type="diffuse"/>
+	</shape>
+
+	<shape id="RightWall_mesh" type="serialized">
+		<string name="filename" value="frame5.serialized"/>
+		<integer name="shapeIndex" value="3"/>
+		<bsdf type="diffuse"/>
+	</shape>
+
+	<shape id="Floor_mesh" type="serialized">
+		<string name="filename" value="frame5.serialized"/>
+		<integer name="shapeIndex" value="4"/>
+		<bsdf type="diffuse"/>
+	</shape>
+
+	<shape id="Ceiling_mesh" type="serialized">
+		<string name="filename" value="frame5.serialized"/>
+		<integer name="shapeIndex" value="5"/>
+		<bsdf type="diffuse"/>
+	</shape>
+
+</scene>
