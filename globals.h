@@ -43,10 +43,14 @@ extern float phi_prev;
 extern float theta_prev;
 extern float phi_prime_prev;
 
-// Angular velocity of boat
-extern float wx;
-extern float wy;
-extern float wz;
+// Center of mass of boat
+extern Vector3D com;
+extern Vector3D com_next;
+extern Vector3D com_prev;
+extern Vector3D com_initial;
+
+
+extern Vector3D torque;
 
 extern float rho_0;
 extern float h;

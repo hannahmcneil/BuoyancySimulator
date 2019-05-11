@@ -21,6 +21,7 @@ class WaterPoint {
   Vector3D next_position;
   Vector3D position;
   Vector3D last_position;
+  Vector3D initial_position;
 
   bool isBoat = false;
 

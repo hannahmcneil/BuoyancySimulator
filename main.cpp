@@ -51,21 +51,25 @@ Vector3D vertex_6 = Vector3D(max_x, max_y, min_z);
 Vector3D vertex_7 = Vector3D(max_x, min_y, max_z);
 Vector3D vertex_8 = Vector3D(max_x, min_y, min_z);
 
-float particle_dist = (1. / 80.);
+float particle_dist = (1. / 40.);
 // Euler angles for boat
-float phi = 0;
-float theta = 0;
-float phi_prime = 0;
+float phi = 0.001;
+float theta = 0.001;
+float phi_prime = 0.001;
 
 // Previous euler angles for boat
-float phi_prev = 0;
-float theta_prev = 0;
-float phi_prime_prev = 0;
+float phi_prev = 0.001;
+float theta_prev = 0.001;
+float phi_prime_prev = 0.001;
+
+Vector3D torque = Vector3D(0, 0, 0);
 
 // Angular velocity of boat
-float wx = 0;
-float wy = 0;
-float wz = 0;
+Vector3D com = Vector3D(0, 0, 0);
+Vector3D com_prev = Vector3D(0, 0, 0);
+Vector3D com_next = Vector3D(0, 0, 0);
+Vector3D com_initial = Vector3D(0, 0, 0);
+
 
 float rho_0 = 0.7 / (particle_dist * particle_dist * particle_dist);
 float h = 1.5 * particle_dist;
@@ -177,7 +181,7 @@ int main(int argc, char **argv) {
 
   // BELOW, USED TO CALCULATE TOTAL NUMBER OF PARTICLES
   float width = 0.8;
-  float height = 0.8;
+  float height = 0.4;
   float length = 0.5;
 
   // CALCULATE NUMBER OF PARTICLES
@@ -196,8 +200,8 @@ int main(int argc, char **argv) {
   std::cout << 2 * z_particles * y_particles + 2 * z_particles * x_particles + 2 * x_particles * y_particles << std::endl; 
 
   // FRAMERATE PARAMETERS
-  float dt = 0.05;
-  int num_time_steps = 20;
+  float dt = 0.03;
+  int num_time_steps = 50;
   int num_time_steps_per_frame = 1;
 
   // RESERVE SPACE TO AVOID SEGFAULTS
@@ -219,7 +223,7 @@ int main(int argc, char **argv) {
       std::cout << "Generate next frame:" << std::endl;
     }
     std::cout << "simulating movement" << std::endl;
-    s.simulate(&water_points, dt);
+    s.simulate(&water_points, dt, i);
     populate_tree(water_points);
     create_map(water_points);
   }
