@@ -11,6 +11,22 @@
 #include "KDTree/KDTree.hpp"
 #include "KDTree/KDTree.hpp"
 
+Vector3D rotate_x(Vector3D v, float theta) {
+  Vector3D ret;
+  ret.x = v.x;
+  ret.y = cos(theta) * v.y - sin(theta) * v.z;
+  ret.z = sin(theta) * v.y + cos(theta) * v.z;
+  return ret;
+}
+
+Vector3D rotate_y(Vector3D v, float theta) {
+  Vector3D ret;
+  ret.x = cos(theta) * v.x + sin(theta) * v.z;
+  ret.y = v.y;
+  ret.z = -sin(theta) * v.x + cos(theta) * v.z;
+  return ret;
+}
+
 WaterPoint* get_waterPoint_from_location_2(Vector3D v) {
   std::vector<double> vect;
   vect.push_back(v.x);
@@ -58,6 +74,9 @@ void Simulate::generate_initial_positions(std::vector<WaterPoint*> *water_points
         double zoff = -off*(1. - rnz) + rnz*off;
         Vector3D offsets = Vector3D(x * dist + xoff, y * dist + yoff, z * dist + zoff);
         WaterPoint *point = new WaterPoint(initial_pos + offsets);
+        point->last_position = initial_pos + offsets;
+        point->next_position = initial_pos + offsets;
+        point->initial_position = initial_pos + offsets;
         water_points->push_back(point);
       }
     }
@@ -66,17 +85,28 @@ void Simulate::generate_initial_positions(std::vector<WaterPoint*> *water_points
   // CREATE BOAT POINTS
   float x, y, z;
   char c;
+  Vector3D sum = Vector3D(0,0,0);
+  float count = 0.0;
   std::ifstream boatfile ("build/small4points.obj");
   std::string line;
   while (std::getline(boatfile, line)) {
-      if (line[0] == *"v") {
-          std::istringstream iss(line);
-          iss >> c >> x >> y >> z;
-          WaterPoint *point = new WaterPoint(Vector3D(x, y, z));
-          point->isBoat = true;
-          water_points->push_back(point);
-      }
+    if (line[0] == *"v") {
+      std::istringstream iss(line);
+      iss >> c >> x >> y >> z;
+      WaterPoint *point = new WaterPoint(Vector3D(x, y, z));
+      point->last_position = Vector3D(x, y, z);
+      point->next_position = Vector3D(x, y, z);
+      point->initial_position = Vector3D(x, y, z);
+      point->isBoat = true;
+      water_points->push_back(point);
+      sum += point->position;
+      count += 1.;
+    }
   }
+  com = sum/count;
+  com_prev = com;
+  com_next = com;
+  com_initial = com;
 }
 
 float W_new(float r) {
@@ -175,7 +205,7 @@ Vector3D delta_p(int i, std::vector<Vector3D> neighbors) {
   return (1. / rho_0) * (sum);
 }
 
-void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt) {
+void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt, int time_step) {
 
   for (int i = 0; i < water_points->size(); ++i) {
     (*water_points)[i]->next_position = (*water_points)[i]->position;
@@ -214,6 +244,7 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt) {
   for (int i = 0; i < water_points->size(); ++i) {
     (*water_points)[i]->position = (*water_points)[i]->next_position;
   } */
+
   // move particle from velocity and gravity
   std::cout << "moving particles from velocity and gravity" << std::endl;
   for (int i = 0; i < water_points->size(); i++) {
@@ -227,49 +258,101 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt) {
     (*water_points)[i]->last_position = (*water_points)[i]->position;
     (*water_points)[i]->position = (*water_points)[i]->next_position;
   }
+  if (time_step > 3) {
+    // move boat from velocity and gravity
+    com_next = 2. * com - com_prev + Vector3D(0., -10., 0.) * dt * dt;
 
-  /*
-  // move particle from boat collisions
+    com_prev = com;
+    com = com_next;
+
+    float phi_dot = (phi - phi_prev) / dt;
+    float theta_dot = (theta - theta_prev) / dt;
+    float phi_prime_dot = (phi_prime - phi_prime_prev) / dt;
+
+    Vector3D w;
+
+    w.x = cos(theta) * phi_dot + phi_prime_dot;
+    w.y = sin(theta) * sin(phi_prime) * phi_dot + cos(phi_prime) * theta_dot;
+    w.z = cos(phi_prime) * sin(theta) * phi_dot - sin(phi_prime) * theta_dot;
+
+    w += torque;
+
+    phi_dot = w.y * sin(phi_prime) / sin(theta) + w.z * cos(phi_prime) / sin(theta);
+    theta_dot = w.y * cos(phi_prime) - w.z * sin(phi_prime);
+    phi_prime_dot = w.x - w.y * sin(phi_prime) / tan(theta) - w.z * cos(phi_prime) / tan(theta);
+
+    phi += phi_dot * dt * 0.5;
+    theta += theta_dot * dt * 0.5;
+    phi_prime += phi_prime_dot * dt * 0.5;
+  }
+
   for (int i = 0; i < water_points->size(); i++) {
     WaterPoint *p = (*water_points)[i];
     if (p->isBoat) {
-      continue;
-    }
-    point_t point;
-    point = {(*water_points)[i]->next_position.x, (*water_points)[i]->next_position.y,
-             (*water_points)[i]->next_position.z};
-    auto neighbors_ = neighbor_tree.neighborhood_points(point, 1.5 * particle_dist);
+      p->next_position = rotate_x(p->initial_position, phi);
+      p->next_position = rotate_y(p->next_position, theta);
+      p->next_position = rotate_x(p->next_position, phi_prime);
 
-    std::vector<Vector3D> neighbor_positions;
-    for (int j = 0; j < neighbors_.size(); ++j) {
-      neighbor_positions.push_back(Vector3D(neighbors_[j][0], neighbors_[j][1], neighbors_[j][2]));
-    }
-
-    std::vector<WaterPoint *> neighbors;
-    for (int j = 0; j < neighbors_.size(); ++j) {
-      WaterPoint *w = get_waterPoint_from_location_2(neighbor_positions[j]);
-      neighbors.push_back(w);
-    }
-
-    std::vector<WaterPoint *> boat_neighbors;
-    for (int j = 0; j < neighbors.size(); ++j) {
-      if (neighbors[j]->isBoat) {
-        boat_neighbors.push_back(get_waterPoint_from_location_2(neighbor_positions[j]));
-      }
-    }
-
-    for (int j = 0; j < boat_neighbors.size(); ++j) {
-      Vector3D diff = (neighbor_positions[j] - p->next_position);
-      float diff_norm = diff.norm();
-      if (diff_norm < h) {
-        p->next_position += diff / diff.norm() * h;
-      }
+      p->next_position += com - com_initial;
     }
   }
-  for (int i = 0; i < water_points->size(); ++i) {
-    (*water_points)[i]->position = (*water_points)[i]->next_position;
+
+  Vector3D yhat = Vector3D(0, 1, 0);
+  yhat = rotate_x(yhat, phi);
+  yhat = rotate_y(yhat, theta);
+  yhat = rotate_x(yhat, phi_prime);
+
+  torque += 10 * cross(yhat, Vector3D(0, 1, 0) - yhat);
+
+  if (time_step > 3) {
+
+    // move particles and boat from collisions
+    for (int i = 0; i < water_points->size(); i++) {
+      WaterPoint *p = (*water_points)[i];
+      if (p->isBoat) {
+        continue;
+      }
+      point_t point;
+      point = {(*water_points)[i]->next_position.x, (*water_points)[i]->next_position.y,
+               (*water_points)[i]->next_position.z};
+      auto neighbors_ = neighbor_tree.neighborhood_points(point, 1.5 * particle_dist);
+
+      std::vector<Vector3D> neighbor_positions;
+      for (int j = 0; j < neighbors_.size(); ++j) {
+        neighbor_positions.push_back(Vector3D(neighbors_[j][0], neighbors_[j][1], neighbors_[j][2]));
+      }
+
+      std::vector<WaterPoint *> neighbors;
+      for (int j = 0; j < neighbors_.size(); ++j) {
+        WaterPoint *w = get_waterPoint_from_location_2(neighbor_positions[j]);
+        neighbors.push_back(w);
+      }
+
+      std::vector<WaterPoint *> boat_neighbors;
+      for (int j = 0; j < neighbors.size(); ++j) {
+        if (neighbors[j]->isBoat) {
+          boat_neighbors.push_back(get_waterPoint_from_location_2(neighbor_positions[j]));
+        }
+      }
+
+      for (int j = 0; j < boat_neighbors.size(); ++j) {
+        Vector3D diff = (boat_neighbors[j]->position - p->position);
+        float diff_norm = diff.norm();
+        if (diff_norm < h) {
+          // move particle
+          p->next_position -= diff / diff.norm() * h;
+
+          // move boat
+          com_next += 0.001 * diff / diff.norm() * h;
+          torque += 0.000001 * cross(p->position - com, -diff / diff.norm());
+        }
+      }
+    }
+    for (int i = 0; i < water_points->size(); ++i) {
+      (*water_points)[i]->position = (*water_points)[i]->next_position;
+    }
+    com = com_next;
   }
-  */
 
   //move particle from plane collision
   for (int i = 0; i < water_points->size(); i++) {
