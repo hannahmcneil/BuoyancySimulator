@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	Automatically converted from Wavefront OBJ
+
+-->
+
+<scene version="0.5.0">
+	<integrator id="integrator" type="direct"/>
+
+	<bsdf id="initialShadingGroup_material" type="diffuse">
+		<rgb name="reflectance" value="0.214041 0.214041 0.214041"/>
+    </bsdf>
+
+    <bsdf type="roughplastic" id="AurichalciteMaterial">
+		<string name="distribution" value="ggx"/>
+		<float name="alpha" value="0.05"/>
+		<float name="intIOR" value="1.46"/>
+
+		<texture type="bitmap" name="diffuseReflectance">
+            <string name="filename" value="../texture_files/wood.png"/>
+		</texture>
+	</bsdf>
+
+	<shape type="obj">
+<string name="filename" value="../simulation/BoatMesh_Frame27.obj"/>
+        <bsdf type="conductor">
+            <string name="material" value="Au"/>
+        </bsdf>	
+    </shape>
+
+	<shape type="obj">
+<string name="filename" value="../simulation/WaterMesh_Frame27.obj"/>
+		<bsdf type="dielectric"/>
+            <float name="intIOR" value="1.333"/>
+    </shape>
+
+
+    <sensor type="perspective">
+		<float name="farClip" value="50.864"/>
+		<float name="focusDistance" value="1.114"/>
+		<float name="fov" value="45"/>
+		<string name="fovAxis" value="x"/>
+		<float name="nearClip" value="0.10864"/>
+		<transform name="toWorld">
+
+			<lookat target="-0.75, -0.4, 0" origin="1.7, 0.3, 0.2" up="0, 1, 0"/>
+		</transform>
+
+		<sampler type="ldsampler">
+			<integer name="sampleCount" value="64"/>
+		</sampler>
+
+		<film type="hdrfilm">
+			<integer name="height" value="576"/>
+			<integer name="width" value="768"/>
+
+			<rfilter type="gaussian"/>
+		</film>
+	</sensor>
+
+
+</scene>

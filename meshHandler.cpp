@@ -61,7 +61,7 @@ void MeshHandler::save_png_and_combine_frames(int time_steps, char *png_folder, 
     return;
 }
 
-void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *obj_folder, int num_particles) {
+void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *obj_folder, char *png_folder, int num_particles) {
   std::cout << "extracting surface points" << std::endl;
   std::cout << "num water points: " << water_points->size() << std::endl;
   std::map<WaterPoint *, Vector> surface = surface_points(water_points);
@@ -72,11 +72,14 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
   Polyhedron surface_mesh = water_mesh(surface);
 
   std::string d(obj_folder);
+  std::string png(png_folder);
 
-  std::ofstream ofs("./" + d + "/MeshFile_Frame" + std::to_string(i) + ".obj");
+  std::ofstream ofs("./" + d + "/BoatMesh_Frame" + std::to_string(i) + ".obj");
   std::ofstream temp("./" + d + "/WaterMesh_Frame" + std::to_string(i) + ".obj");
+  std::ofstream xml("./" + png + "/Mesh_Frame" + std::to_string(i) + ".xml");
 
   // GIVEN .OBJ FILE WITH WATER MESH AND OUR BOAT.OBJ FILE, COMBINE THE TWO; FIRST ADD BOAT
+  ofs << "mtllib ../texture_files/TestScene.mtl" << "\n";
   ofs << "o Boat_Mesh" << "\n";
   for (int i = 0; i < water_points->size(); i++) {
       if ((*water_points)[i]->isBoat == true) {
@@ -89,7 +92,7 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
   std::ifstream boatfile ("small4points.obj");
   std::string line;
   while (std::getline(boatfile, line)) {
-      if ((line[0] == *"s") || (line[0] == *"f")) {
+      if (line[0] == *"f") {
          ofs << line << "\n";
       } else if (line[0] == *"v") {
          num_vertices++;
@@ -97,8 +100,33 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
   }
 
   // WRITE WATER MESH TO FILE
-  ofs << "o Water_Mesh" << "\n";
+  // ofs << "o Water_Mesh" << "\n";
+  temp << "mtllib ../texture_files/TestScene.mtl" << "\n";
   CGAL::print_polyhedron_wavefront(temp, surface_mesh);
+
+  // CREATE UNIQUE XML FILE FOR FRAME BASED ON TEMPLATE
+  // template parameters
+  auto name = "<string name=\"filename\" value=\"../";
+  std::string s1(name);
+  auto boat_mesh_template = "/BoatMesh_Frame";
+  std::string b(boat_mesh_template);
+  auto water_mesh_template = "/WaterMesh_Frame";
+  std::string w(water_mesh_template);
+  auto obj_suffix = ".obj\"/>";
+  std::string ob(obj_suffix);
+  std::ifstream xml_template ("template.xml");
+  std::string nextline;
+  std::string boat_string = "INSERT_BOAT_NAME_HERE";
+  std::string water_string = "INSERT_WATER_NAME_HERE";
+  while (std::getline(xml_template, nextline)) {
+      if (nextline.find(boat_string) != std::string::npos) {
+          xml << s1 + d + b + std::to_string(i) + ob << "\n";
+      } else if (nextline.find(water_string) != std::string::npos) {
+          xml << s1 + d + w + std::to_string(i) + ob << "\n";
+      } else {
+          xml << nextline << "\n";
+      }
+  }
 
   std::cout << "combining water mesh and boat mesh into single obj file" << std::endl;
 
@@ -145,6 +173,7 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
   int total = num_vertices + num_vertices_water + 1;
 
   // WRITE WALLS TO FILE
+  /*
   ofs << "o Back Wall" << "\n";
   ofs << "v " + std::to_string(vertex_1.x) + " " + std::to_string(vertex_1.y) + " " + std::to_string(vertex_1.z) << "\n";
   ofs << "v " + std::to_string(vertex_2.x) + " " + std::to_string(vertex_2.y) + " " + std::to_string(vertex_2.z) << "\n";
@@ -172,8 +201,9 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
   ofs << "o Ceiling" << "\n";
   ofs << "f " + std::to_string(total) + " " + std::to_string(total + 1) + " " + std::to_string(total + 4) << "\n";
   ofs << "f " + std::to_string(total + 1) + " " + std::to_string(total + 4) + " " + std::to_string(total + 6) << "\n";
+  */
 
-  num_particles_dim = num_particles;
+  //num_particles_dim = num_particles;
 
   // now that we have the vertex array, we need to loop over again to find the normals
 

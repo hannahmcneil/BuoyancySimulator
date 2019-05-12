@@ -160,7 +160,7 @@ int main(int argc, char **argv) {
 
   // COUNT NUMBER OF BOAT POINTS
   int num_vertices = 0;
-  std::ifstream boatfile ("build/small4points.obj");
+  std::ifstream boatfile ("small4points.obj");
   std::string line;
   while (std::getline(boatfile, line)) {
     if (line[0] == *"v") {
@@ -218,7 +218,7 @@ int main(int argc, char **argv) {
   for (int i = 0; i < num_time_steps; ++i) {
     if (i % num_time_steps_per_frame == 0) {
       std::cout << "saving .obj file:" << std::endl;
-      m.save_obj(&water_points, i, argv[1], NUM_PARTICLES);
+      m.save_obj(&water_points, i, argv[1], argv[2], NUM_PARTICLES);
       std::cout << " " << std::endl;
       std::cout << "Generate next frame:" << std::endl;
     }
@@ -228,7 +228,7 @@ int main(int argc, char **argv) {
     create_map(water_points);
   }
   std::cout << "saving .obj file:" << std::endl;
-  m.save_obj(&water_points, num_time_steps, argv[1], NUM_PARTICLES);
+  m.save_obj(&water_points, num_time_steps, argv[1], argv[2], NUM_PARTICLES);
 
   std::cout << "render .obj files" << std::endl;
   m.save_png_and_combine_frames(num_time_steps, argv[2], argv[1]);
