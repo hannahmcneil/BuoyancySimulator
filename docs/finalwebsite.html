@@ -9,12 +9,13 @@ div.padded {
       padding-left: 100px;  
     } 
   body {
-  	margin: 150px;
+  	margin: 200px;
     font-size: 125%;
     background-color: #f2f2f2;
   }
   p {
   	font-family: Palatino;
+    line-height: 30px;
   }
 
 </style>
@@ -49,22 +50,61 @@ div.padded {
 
 <p><b>Representation</b></p>
 
-<p>We represent both our water particles and our boat particles as the same class, the class <code>WaterPoint</code>. Each <code>WaterPoint</code> has several attributes, including <code>position, last_position, next_position, velocity,</code> and an <code>isBoat</code> boolean that is true if the particle belongs to the boat object, and false otherwise.</p>
+<p>We represent both our water particles and our boat particles as the same class, the class <code>WaterPoint</code>. Each <code>WaterPoint</code> has several attributes, including <code>position, last_position, next_position, velocity,</code> and an <code>isBoat</code> boolean that is true if the particle belongs to the boat object, and false otherwise. As the main output of our program is a sequence of XML files to be subsequently rendered into video frames, we first initialize all of the appropriate parameters, such as framerate (the amount of simulation time that elapses between frames), as well as the number of total frames.</p>
+
+<p><b>Physical Simulation</b></p>
+
+<p>At each time step we calculate the appropriate displacement value for each particle.</p>
+
+<div align="middle">
+        <table style="width=100%">
+          <tr>
+              <td>
+                <img src="images/equations.png" align="middle" width="500px"/>
+              </td>
+          </tr>
+        </table>
+    </div>
+
+<p>Once we have all of our displacements calculated and appropriately update each point's position, we can now generate the next frame.</p>
+
+<p><b>Generating Frames & Mesh Reconstruction</b></p>
+
+<p>To generate a frame we first do mesh reconstruction on the surface of the water. We first attempted to use the CGAL library in order to do Poisson surface reconstruction. For each water particle we do a nearest-neighbor search within a set radius in order to calculate the position of the average neighbor. Taking the difference vector between our particle and its average neighbor and then normalizing it gives us our normal for that particle. Taking the distance between the average neighbor and the particle tells us how far away the point is from its neighbors. This is what we use to determine which points roughly lie on the surface of the water. From this we use CGAL's Poisson reconstruction function to generate a mesh for the surface of the water. This mesh is then translated into a Wavefront OBJ file containing our water mesh. Similarly, we generate an OBJ file for our boat, using its updated vertex positions. From both of these OBJ files we then create an XML file that can be rendered with Mitsuba.</p>
+
+<p><b>Problems Encountered</b></p>
+
+<p>One of the most prominent issues we faced was that of surface mesh reconstruction. Initially, we planned to use CGAL to do the surface reconstruction, but it became apparent when we started to implement the simulation aspect of our project that it was not as feasible as we'd hoped. This is because the algorithm we designed in order to generate our surface points was not as effective as we initially thought, leading to inaccurate mesh reconstructions. For this reason we considered switching to a cube marching algorithm in order to reconstruct our water's surface.</p>
+
+<p><b>Lessons Learned</b></p>
+
+<p>It is useful to use methods in addition to mesh reconstruction in order to keep track of how the points are behaving, because sometimes the reconstruction is inaccurate and misleading.</p>
+
+
+<h2 align="middle"><i>Results</i></h2>
+
+
+<h2 align="middle"><i>References</i></h2>
+
+
+<p>B. Solenthaler, J. Schläfli, R. Pajarola. "A Unified Particle Model for Fluid-Solid Interactions." Computer Animation and Virtual Worlds 18, 1 (2007), 69-82.</p>
+
+<p>David Browne, https://davidbrown3.github.io/2017-07-25/EulerAngles/.</p>
+
+<p>Gauthier Dieppedalle, Utkarsh Singhal, YiDing Jiang. "3D Position Based Fluid Simulation and Surfacing." https://yidingjiang.github.io/cs184sp18_final/.</p>
+
+<p>J. Frederico Carvalho, https://github.com/crvs/KDTree.</p>
+
+<p>Jihun Yu, Greg Turk. "Reconstructing Surfaces of Particle-Based Fluids Using Anisotropic Kernels." Eurographics/ACM SIGGRAPH Symposium on Computer Animation (2010).</p>
+
+<p>Miles Macklin, Matthias Muller. "Position Based Fluids." ACM TOG 32(4).</p>
+
+<p>The CGAL Project. CGAL User and Reference Manual. CGAL Editorial Board, 4.14 edition, 2019.</p>
+
+
+<h2 align="middle"><i>Contributions</i></h2>
+
 
 <div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </body>
 </html>
