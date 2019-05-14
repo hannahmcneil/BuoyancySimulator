@@ -32,6 +32,7 @@ extern int x_particles;
 extern int y_particles;
 extern int z_particles;
 extern float particle_dist;
+extern float size_particle;
 
 // Euler angles for boat
 extern float phi;

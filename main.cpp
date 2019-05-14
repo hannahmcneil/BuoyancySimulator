@@ -52,6 +52,8 @@ Vector3D vertex_7 = Vector3D(max_x, min_y, max_z);
 Vector3D vertex_8 = Vector3D(max_x, min_y, min_z);
 
 float particle_dist = (1. / 40.);
+float size_particle = particle_dist;
+
 // Euler angles for boat
 float phi = 0.001;
 float theta = 0.001;
@@ -152,7 +154,6 @@ int main(int argc, char **argv) {
   std::cout << "ending KDTree test" << std::endl;
   */
 
-
   if (argc != 3) {
     printf("please provide names for 2 destination folders\n");
     exit(EXIT_FAILURE);
@@ -167,7 +168,6 @@ int main(int argc, char **argv) {
       num_vertices++;
     }
   }
-
 
   int check1;
   int check2;
@@ -201,7 +201,7 @@ int main(int argc, char **argv) {
 
   // FRAMERATE PARAMETERS
   float dt = 0.03;
-  int num_time_steps = 50;
+  int num_time_steps = 100;
   int num_time_steps_per_frame = 1;
 
   // RESERVE SPACE TO AVOID SEGFAULTS
@@ -215,17 +215,64 @@ int main(int argc, char **argv) {
   create_map(water_points);
 
   // RUN SIMULATION FOR NUM_TIME_STEPS
-  for (int i = 0; i < num_time_steps; ++i) {
-    if (i % num_time_steps_per_frame == 0) {
-      std::cout << "saving .obj file:" << std::endl;
-      m.save_obj(&water_points, i, argv[1], argv[2], NUM_PARTICLES);
-      std::cout << " " << std::endl;
-      std::cout << "Generate next frame:" << std::endl;
+  for (int i = 0; i < num_time_steps; i+=2) {
+    std::cout << "saving obj file:" << std::endl;
+    m.save_obj(&water_points, i, argv[1], argv[2], NUM_PARTICLES);
+
+    std::vector<Vector3D> old_water_points_positions = std::vector<Vector3D>();
+    for (int j = 0; j < water_points.size(); j++){
+      old_water_points_positions.push_back(water_points[j]->position);
+      //11781
+      if (water_points[j]->isBoat) {
+        //std::cout << "boat, initial position: " << water_points[i]->position.x << " " << j << std::endl;
+      }
     }
+
+    std::cout << " " << std::endl;
+    std::cout << "Generate next frame:" << std::endl;
     std::cout << "simulating movement" << std::endl;
+
+    std::cout << "initial water point: " << water_points[11781]->position.x << std::endl;
+    std::cout << "initial: " << old_water_points_positions[11781].x << std::endl;
+
     s.simulate(&water_points, dt, i);
+
+    std::vector<Vector3D> new_water_points_positions = std::vector<Vector3D>();
+    for (int j = 0; j < water_points.size(); j++){
+      new_water_points_positions.push_back(water_points[j]->position);
+    }
+
+    std::cout << "initial: " << old_water_points_positions[11781].x << std::endl;
+    std::cout << "intermediate: " << (new_water_points_positions[11781].x + old_water_points_positions[11781].x) / 2. << std::endl;
+    std::cout << "final: " << new_water_points_positions[11781].x << std::endl;
+
+    // change waterpoint positions to save obj
+    for (int j = 0; j < water_points.size(); j++) {
+      WaterPoint *p = water_points[j];
+      //std::cout << old_water_points_positions[j].x << " " << new_water_points_positions[j].x << std::endl;
+      p->position = (old_water_points_positions[j] + new_water_points_positions[j]) / 2.;
+    }
+    std::cout << "intermediate water point: " << water_points[11781]->position.x << std::endl;
+
     populate_tree(water_points);
     create_map(water_points);
+
+    if (i > 0) {
+      std::cout << "saving intermediate obj file:" << std::endl;
+      m.save_obj(&water_points, i + 1, argv[1], argv[2], NUM_PARTICLES);
+    }
+
+    // change positions back to original
+    for (int j = 0; j < water_points.size(); j++){
+      WaterPoint *p = water_points[j];
+      p->position = new_water_points_positions[j];
+    }
+
+    std::cout << "final water point: " << water_points[11781]->position.x << std::endl;
+
+    populate_tree(water_points);
+    create_map(water_points);
+
   }
   std::cout << "saving .obj file:" << std::endl;
   m.save_obj(&water_points, num_time_steps, argv[1], argv[2], NUM_PARTICLES);

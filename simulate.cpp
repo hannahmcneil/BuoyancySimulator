@@ -246,7 +246,6 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt, int ti
   } */
 
   // move particle from velocity and gravity
-  std::cout << "moving particles from velocity and gravity" << std::endl;
   for (int i = 0; i < water_points->size(); i++) {
     WaterPoint *p = (*water_points)[i];
     if (p->isBoat) {
@@ -270,19 +269,14 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt, int ti
     float phi_prime_dot = (phi_prime - phi_prime_prev) / dt;
 
 
-    if (time_step > 21) {
-      std::cout << "dt: " << dt << std::endl;
-      std::cout << "prev: " << phi_prev << ' ' << theta_prev << ' ' << phi_prime_prev << std::endl;
-      std::cout << "cur: " << phi << ' ' << theta << ' ' << phi_prime << std::endl;
-      std::cout << "dots: " << phi_dot << ' ' << theta_dot << ' ' << phi_prime_dot << std::endl;
-      std::cout << "theta: " << theta << std::endl;
-      std::cout << "torque: " << torque.x << ' ' << torque.y << ' ' << torque.z << std::endl;
-    }
+    std::cout << "dt: " << dt << std::endl;
+    std::cout << "prev: " << phi_prev << ' ' << theta_prev << ' ' << phi_prime_prev << std::endl;
+    std::cout << "cur: " << phi << ' ' << theta << ' ' << phi_prime << std::endl;
+    std::cout << "dots: " << phi_dot << ' ' << theta_dot << ' ' << phi_prime_dot << std::endl;
+    std::cout << "theta: " << theta << std::endl;
+    std::cout << "torque: " << torque.x << ' ' << torque.y << ' ' << torque.z << std::endl;
 
     Vector3D w = Vector3D();
-
-
-
     w.x = cos(theta) * phi_dot + phi_prime_dot;
     w.y = sin(theta) * sin(phi_prime) * phi_dot + cos(phi_prime) * theta_dot;
     w.z = cos(phi_prime) * sin(theta) * phi_dot - sin(phi_prime) * theta_dot;
@@ -306,9 +300,9 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt, int ti
     phi_prime_dot = w.x - w.y * sin(phi_prime) / tan(theta) - w.z * cos(phi_prime) / tan(theta);
 
     // damping
-    phi += phi_dot * dt * 0.3;
-    theta += theta_dot * dt * 0.3;
-    phi_prime += phi_prime_dot * dt * 0.3;
+    phi += phi_dot * dt * 0.1;
+    theta += theta_dot * dt * 0.1;
+    phi_prime += phi_prime_dot * dt * 0.1;
   }
 
   for (int i = 0; i < water_points->size(); i++) {
@@ -333,14 +327,15 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt, int ti
   std::cout << yhat.x << " " << yhat.y << " " << yhat.z << std::endl;
 
   Vector3D vectyBoi = Vector3D(0.0000001, 1.0000001, 0.0000001);
-  vectyBoi.normalize();
+  vectyBoi = vectyBoi / (vectyBoi.norm() + 0.0000001);
+  //vectyBoi /= 1.01;
   float theta = acos(dot(yhat, vectyBoi));
   float theta_max = 5. * PI / 180.;
   Vector3D dir = cross(yhat, vectyBoi);
   std::cout << dir.x << " " << dir.y << " " << dir.z << std::endl;
   dir.normalize();
   std::cout << dir.x << " " << dir.y << " " << dir.z << std::endl;
-  torque += pow(theta / theta_max, 2) * dir;
+  torque += pow(theta / theta_max, 4) * dir;
   if (time_step > 21) {
     std::cout << "dir:" << " " << dir.x << " " << dir.y << " " << dir.z << std::endl;
     std::cout << "theta: " << theta << std::endl;
@@ -386,8 +381,8 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt, int ti
           p->next_position -= diff / diff.norm() * h;
 
           // move boat
-          com_next += 0.001 * diff / diff.norm() * h;
-          torque += 0.000001 * cross(p->position - com, -diff / diff.norm());
+          com_next += 0.0005 * diff / diff.norm() * h;
+          torque += 0.01 * cross(p->position - com, -diff / diff.norm());
         }
       }
     }
@@ -444,7 +439,7 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt, int ti
   // move particles from water
   for (int i = 0; i < water_points->size(); i++) {
     if (i % 1000 == 0) {
-      std::cout << (float) i / water_points->size() * 100. << "% done"<< std::endl;
+      std::cout << (float) i / water_points->size() * 100. << "% done, time step" << time_step << std::endl;
     }
 
     WaterPoint *p = (*water_points)[i];
@@ -492,7 +487,6 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt, int ti
     (*water_points)[i]->position = (*water_points)[i]->next_position;
     (*water_points)[i]->last_position = .6*((*water_points)[i]->last_position) + .4*((*water_points)[i]->position);
   }
-
 
   for (int i = 0; i < water_points->size(); i++) {
     WaterPoint *p = (*water_points)[i];
