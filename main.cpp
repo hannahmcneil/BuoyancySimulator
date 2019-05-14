@@ -52,6 +52,8 @@ Vector3D vertex_7 = Vector3D(max_x, min_y, max_z);
 Vector3D vertex_8 = Vector3D(max_x, min_y, min_z);
 
 float particle_dist = (1. / 40.);
+float size_particle = particle_dist;
+
 // Euler angles for boat
 float phi = 0.001;
 float theta = 0.001;

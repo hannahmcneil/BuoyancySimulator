@@ -6,10 +6,12 @@
 #include <CGAL/HalfedgeDS_default.h>
 #include <CGAL/HalfedgeDS_decorator.h>
 #include <CGAL/poisson_surface_reconstruction.h>
+#include <CGAL/Advancing_front_surface_reconstruction.h>
 #include <vector>
 #include <fstream>
 #include <waterPoint.h> 
 #include <iostream>
+#include <algorithm>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <stdlib.h>
@@ -74,6 +76,7 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
   std::string d(obj_folder);
   std::string png(png_folder);
 
+  std::ofstream wat("./" + d + "/WaterParticle_Frame" + std::to_string(i) + ".obj");
   std::ofstream ofs("./" + d + "/BoatMesh_Frame" + std::to_string(i) + ".obj");
   std::ofstream temp("./" + d + "/WaterMesh_Frame" + std::to_string(i) + ".obj");
   std::ofstream xml("./" + png + "/Mesh_Frame" + std::to_string(i) + ".xml");
@@ -128,9 +131,48 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
       }
   }
 
-  std::cout << "combining water mesh and boat mesh into single obj file" << std::endl;
+  int num = 0;
+  int num_particle = 0;
+  for (int i = 0; i < water_points->size(); i++) {
+      if (!(*water_points)[i]->isBoat) {
+        wat << "o Water_Particle" + std::to_string(num_particle) << "\n";
+        Vector3D p = (*water_points)[i]->position;
+        Vector3D v1 = Vector3D(p.x - size_particle / 2., p.y - size_particle / 2., p.z - size_particle / 2.);
+        Vector3D v2 = Vector3D(p.x - size_particle / 2., p.y - size_particle / 2., p.z + size_particle / 2.);
+        Vector3D v3 = Vector3D(p.x - size_particle / 2., p.y + size_particle / 2., p.z - size_particle / 2.);
+        Vector3D v4 = Vector3D(p.x - size_particle / 2., p.y + size_particle / 2., p.z + size_particle / 2.);
+        Vector3D v5 = Vector3D(p.x + size_particle / 2., p.y - size_particle / 2., p.z - size_particle / 2.);
+        Vector3D v6 = Vector3D(p.x + size_particle / 2., p.y - size_particle / 2., p.z + size_particle / 2.);
+        Vector3D v7 = Vector3D(p.x + size_particle / 2., p.y + size_particle / 2., p.z - size_particle / 2.);
+        Vector3D v8 = Vector3D(p.x + size_particle / 2., p.y + size_particle / 2., p.z + size_particle / 2.);
+        wat << "v " + std::to_string(v1.x) + " " + std::to_string(v1.y) + " " + std::to_string(v1.z) << "\n";
+        wat << "v " + std::to_string(v2.x) + " " + std::to_string(v2.y) + " " + std::to_string(v2.z) << "\n";
+        wat << "v " + std::to_string(v3.x) + " " + std::to_string(v3.y) + " " + std::to_string(v3.z) << "\n";
+        wat << "v " + std::to_string(v4.x) + " " + std::to_string(v4.y) + " " + std::to_string(v4.z) << "\n";
+        wat << "v " + std::to_string(v5.x) + " " + std::to_string(v5.y) + " " + std::to_string(v5.z) << "\n";
+        wat << "v " + std::to_string(v6.x) + " " + std::to_string(v6.y) + " " + std::to_string(v6.z) << "\n";
+        wat << "v " + std::to_string(v7.x) + " " + std::to_string(v7.y) + " " + std::to_string(v7.z) << "\n";
+        wat << "v " + std::to_string(v8.x) + " " + std::to_string(v8.y) + " " + std::to_string(v8.z) << "\n";
+        wat << "f " + std::to_string(num + 4) + " " + std::to_string(num + 3) + " " + std::to_string(num + 1) << "\n";
+        wat << "f " + std::to_string(num + 1) + " " + std::to_string(num + 2) + " " + std::to_string(num + 4) << "\n";
+        wat << "f " + std::to_string(num + 8) + " " + std::to_string(num + 6) + " " + std::to_string(num + 5) << "\n";
+        wat << "f " + std::to_string(num + 5) + " " + std::to_string(num + 7) + " " + std::to_string(num + 8) << "\n";
+        wat << "f " + std::to_string(num + 6) + " " + std::to_string(num + 2) + " " + std::to_string(num + 1) << "\n";
+        wat << "f " + std::to_string(num + 1) + " " + std::to_string(num + 5) + " " + std::to_string(num + 6) << "\n";
+        wat << "f " + std::to_string(num + 8) + " " + std::to_string(num + 7) + " " + std::to_string(num + 3) << "\n";
+        wat << "f " + std::to_string(num + 3) + " " + std::to_string(num + 4) + " " + std::to_string(num + 8) << "\n";
+        wat << "f " + std::to_string(num + 7) + " " + std::to_string(num + 5) + " " + std::to_string(num + 1) << "\n";
+        wat << "f " + std::to_string(num + 1) + " " + std::to_string(num + 3) + " " + std::to_string(num + 7) << "\n";
+        wat << "f " + std::to_string(num + 8) + " " + std::to_string(num + 4) + " " + std::to_string(num + 2) << "\n";
+        wat << "f " + std::to_string(num + 2) + " " + std::to_string(num + 6) + " " + std::to_string(num + 8) << "\n";
+        num += 8;
+        num_particle++;
+      }
+  }
 
-  std::ifstream file("./" + d + "/WaterMesh_Frame" + std::to_string(i) + ".obj");
+  // std::cout << "combining water mesh and boat mesh into single obj file" << std::endl;
+
+  /*std::ifstream file("./" + d + "/WaterMesh_Frame" + std::to_string(i) + ".obj");
 
   std::string str;
 
@@ -169,8 +211,7 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
       ofs << updated_string << "\n";
     }
   }
-
-  int total = num_vertices + num_vertices_water + 1;
+  */
 
   // WRITE WALLS TO FILE
   /*
