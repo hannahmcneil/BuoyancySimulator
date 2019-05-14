@@ -101,7 +101,7 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
   }
 
   int num_boat_vertices = 0;
-  std::ifstream boatfile ("small4points.obj");
+  std::ifstream boatfile ("build/small4points.obj");
   std::string line;
   while (std::getline(boatfile, line)) {
       if (line[0] == *"f") {
