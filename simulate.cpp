@@ -87,7 +87,7 @@ void Simulate::generate_initial_positions(std::vector<WaterPoint*> *water_points
   char c;
   Vector3D sum = Vector3D(0,0,0);
   float count = 0.0;
-  std::ifstream boatfile ("small4points.obj");
+  std::ifstream boatfile ("build/small4points.obj");
   std::string line;
   while (std::getline(boatfile, line)) {
     if (line[0] == *"v") {
@@ -269,21 +269,46 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt, int ti
     float theta_dot = (theta - theta_prev) / dt;
     float phi_prime_dot = (phi_prime - phi_prime_prev) / dt;
 
-    Vector3D w;
+
+    if (time_step > 21) {
+      std::cout << "dt: " << dt << std::endl;
+      std::cout << "prev: " << phi_prev << ' ' << theta_prev << ' ' << phi_prime_prev << std::endl;
+      std::cout << "cur: " << phi << ' ' << theta << ' ' << phi_prime << std::endl;
+      std::cout << "dots: " << phi_dot << ' ' << theta_dot << ' ' << phi_prime_dot << std::endl;
+      std::cout << "theta: " << theta << std::endl;
+      std::cout << "torque: " << torque.x << ' ' << torque.y << ' ' << torque.z << std::endl;
+    }
+
+    Vector3D w = Vector3D();
+
+
 
     w.x = cos(theta) * phi_dot + phi_prime_dot;
     w.y = sin(theta) * sin(phi_prime) * phi_dot + cos(phi_prime) * theta_dot;
     w.z = cos(phi_prime) * sin(theta) * phi_dot - sin(phi_prime) * theta_dot;
 
+    if (time_step > 22) {
+      std::cout << "w value: " << w.x << ' ' << w.y << ' ' << w.z << std::endl;
+    }
+
     w += torque;
+
+    if (abs(theta) < 0.0001) {
+      theta = 0.0001;
+    }
+
+    if (time_step > 22) {
+      std::cout << "w value: " << w.x << ' ' << w.y << ' ' << w.z << std::endl;
+    }
 
     phi_dot = w.y * sin(phi_prime) / sin(theta) + w.z * cos(phi_prime) / sin(theta);
     theta_dot = w.y * cos(phi_prime) - w.z * sin(phi_prime);
     phi_prime_dot = w.x - w.y * sin(phi_prime) / tan(theta) - w.z * cos(phi_prime) / tan(theta);
 
-    phi += phi_dot * dt * 0.5;
-    theta += theta_dot * dt * 0.5;
-    phi_prime += phi_prime_dot * dt * 0.5;
+    // damping
+    phi += phi_dot * dt * 0.3;
+    theta += theta_dot * dt * 0.3;
+    phi_prime += phi_prime_dot * dt * 0.3;
   }
 
   for (int i = 0; i < water_points->size(); i++) {
@@ -297,12 +322,30 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt, int ti
     }
   }
 
+  std::cout << "new step" << std::endl;
+  std::cout << phi << " " << theta << " " << phi_prime << " " << std::endl;
+
   Vector3D yhat = Vector3D(0, 1, 0);
   yhat = rotate_x(yhat, phi);
   yhat = rotate_y(yhat, theta);
   yhat = rotate_x(yhat, phi_prime);
 
-  torque += 10 * cross(yhat, Vector3D(0, 1, 0) - yhat);
+  std::cout << yhat.x << " " << yhat.y << " " << yhat.z << std::endl;
+
+  Vector3D vectyBoi = Vector3D(0.0000001, 1.0000001, 0.0000001);
+  vectyBoi.normalize();
+  float theta = acos(dot(yhat, vectyBoi));
+  float theta_max = 5. * PI / 180.;
+  Vector3D dir = cross(yhat, vectyBoi);
+  std::cout << dir.x << " " << dir.y << " " << dir.z << std::endl;
+  dir.normalize();
+  std::cout << dir.x << " " << dir.y << " " << dir.z << std::endl;
+  torque += pow(theta / theta_max, 2) * dir;
+  if (time_step > 21) {
+    std::cout << "dir:" << " " << dir.x << " " << dir.y << " " << dir.z << std::endl;
+    std::cout << "theta: " << theta << std::endl;
+    std::cout << "torque:" << " " << torque.x << " " << torque.y << " " << torque.z << std::endl;
+  }
 
   if (time_step > 3) {
 
@@ -400,7 +443,7 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt, int ti
 
   // move particles from water
   for (int i = 0; i < water_points->size(); i++) {
-    if (i % 100 == 0) {
+    if (i % 1000 == 0) {
       std::cout << (float) i / water_points->size() * 100. << "% done"<< std::endl;
     }
 
@@ -448,7 +491,6 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt, int ti
   for (int i = 0; i < water_points->size(); ++i) {
     (*water_points)[i]->position = (*water_points)[i]->next_position;
     (*water_points)[i]->last_position = .6*((*water_points)[i]->last_position) + .4*((*water_points)[i]->position);
-
   }
 
 
