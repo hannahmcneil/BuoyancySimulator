@@ -79,6 +79,7 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
   std::ofstream wat("./" + d + "/WaterParticle_Frame" + std::to_string(i) + ".obj");
   std::ofstream ofs("./" + d + "/BoatMesh_Frame" + std::to_string(i) + ".obj");
   std::ofstream temp("./" + d + "/WaterMesh_Frame" + std::to_string(i) + ".obj");
+  std::ofstream comb("./" + d + "/Combined_Frame" + std::to_string(i) + ".obj");
   std::ofstream xml("./" + png + "/Mesh_Frame" + std::to_string(i) + ".xml");
 
   // GIVEN .OBJ FILE WITH WATER MESH AND OUR BOAT.OBJ FILE, COMBINE THE TWO; FIRST ADD BOAT
@@ -88,17 +89,21 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
       if ((*water_points)[i]->isBoat == true) {
           Vector3D pos = (*water_points)[i]->position;
           ofs << "v " + std::to_string(pos.x) + " " + std::to_string(pos.y) + " " + std::to_string(pos.z) << "\n";
+          comb << "v " + std::to_string(pos.x) + " " + std::to_string(pos.y) + " " + std::to_string(pos.z) << "\n";
+          wat << "v " + std::to_string(pos.x) + " " + std::to_string(pos.y) + " " + std::to_string(pos.z) << "\n";
       }
   }
 
-  int num_vertices = 0;
+  int num_boat_vertices = 0;
   std::ifstream boatfile ("small4points.obj");
   std::string line;
   while (std::getline(boatfile, line)) {
       if (line[0] == *"f") {
          ofs << line << "\n";
+         comb << line << "\n";
+         wat << line << "\n";
       } else if (line[0] == *"v") {
-         num_vertices++;
+         num_boat_vertices++;
       }
   }
 
@@ -106,7 +111,7 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
   // ofs << "o Water_Mesh" << "\n";
   temp << "mtllib ../texture_files/TestScene.mtl" << "\n";
   CGAL::print_polyhedron_wavefront(temp, surface_mesh);
-
+  
   // CREATE UNIQUE XML FILE FOR FRAME BASED ON TEMPLATE
   // template parameters
   auto name = "<string name=\"filename\" value=\"../";
@@ -131,7 +136,7 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
       }
   }
 
-  int num = 0;
+  int num = num_boat_vertices;
   int num_particle = 0;
   for (int i = 0; i < water_points->size(); i++) {
       if (!(*water_points)[i]->isBoat) {
@@ -170,9 +175,11 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
       }
   }
 
-  // std::cout << "combining water mesh and boat mesh into single obj file" << std::endl;
+  std::cout << "combining water mesh and boat mesh into single obj file" << std::endl;
 
-  /*std::ifstream file("./" + d + "/WaterMesh_Frame" + std::to_string(i) + ".obj");
+  comb << "o Water_Mesh" << "\n";
+
+  std::ifstream file("./" + d + "/WaterMesh_Frame" + std::to_string(i) + ".obj");
 
   std::string str;
 
@@ -195,23 +202,23 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
       iss >> c >> x >> y >> z;
       vertices.push_back(Vector3D(x, y, z));
       vertex_string += str.substr(1);
-      ofs << str << "\n";
+      comb << str << "\n";
       num_vertices_water++;
     }
     else if (str[0] == *"f") {
       std::string updated_string;
       std::istringstream iss(str);
       iss >> c >> m >> n >> p;
-      m += num_vertices;
-      n += num_vertices;
-      p += num_vertices;
+      m += num_boat_vertices;
+      n += num_boat_vertices;
+      p += num_boat_vertices;
       updated_string = "f " + std::to_string(m) + " " + std::to_string(n) + " " + std::to_string(p);
       faces.push_back(Vector3D(m, n, p));
       face_string += updated_string.substr(2);
-      ofs << updated_string << "\n";
+      comb << updated_string << "\n";
     }
   }
-  */
+  
 
   // WRITE WALLS TO FILE
   /*
