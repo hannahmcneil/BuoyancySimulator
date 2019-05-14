@@ -64,6 +64,7 @@ void MeshHandler::save_png_and_combine_frames(int time_steps, char *png_folder, 
 }
 
 void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *obj_folder, char *png_folder, int num_particles) {
+  int frame_num = i;
   std::cout << "extracting surface points" << std::endl;
   std::cout << "num water points: " << water_points->size() << std::endl;
   std::map<WaterPoint *, Vector> surface = surface_points(water_points);
@@ -81,10 +82,15 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
   std::ofstream temp("./" + d + "/WaterMesh_Frame" + std::to_string(i) + ".obj");
   std::ofstream comb("./" + d + "/Combined_Frame" + std::to_string(i) + ".obj");
   std::ofstream xml("./" + png + "/Mesh_Frame" + std::to_string(i) + ".xml");
+  std::ofstream xml_particle("./" + png + "/Particle_Frame" + std::to_string(i) + ".xml");
 
   // GIVEN .OBJ FILE WITH WATER MESH AND OUR BOAT.OBJ FILE, COMBINE THE TWO; FIRST ADD BOAT
   ofs << "mtllib ../texture_files/TestScene.mtl" << "\n";
+  comb << "mtllib ../texture_files/TestScene.mtl" << "\n";
+  wat << "mtllib ../texture_files/TestScene.mtl" << "\n";
   ofs << "o Boat_Mesh" << "\n";
+  comb << "g Boat_Mesh" << "\n";
+  wat << "g Boat_Mesh" << "\n";
   for (int i = 0; i < water_points->size(); i++) {
       if ((*water_points)[i]->isBoat == true) {
           Vector3D pos = (*water_points)[i]->position;
@@ -140,7 +146,9 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
   int num_particle = 0;
   for (int i = 0; i < water_points->size(); i++) {
       if (!(*water_points)[i]->isBoat) {
-        wat << "o Water_Particle" + std::to_string(num_particle) << "\n";
+        wat << "s off" << "\n";
+        wat << "g Water_Particle" + std::to_string(num_particle) << "\n";
+        wat << "usemtl initialShadingGroup" << "\n";
         Vector3D p = (*water_points)[i]->position;
         Vector3D v1 = Vector3D(p.x - size_particle / 2., p.y - size_particle / 2., p.z - size_particle / 2.);
         Vector3D v2 = Vector3D(p.x - size_particle / 2., p.y - size_particle / 2., p.z + size_particle / 2.);
@@ -174,6 +182,36 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
         num_particle++;
       }
   }
+
+  // CREATE UNIQUE XML FILE FOR PARTICLE FRAME
+  // template parameters
+  auto water_particle_template = "/WaterParticle_Frame";
+  std::string wp(water_particle_template);
+  std::ifstream xml_particle_template("template_particles.xml");
+  std::string next_line;
+  std::string water_line = "WRITE_WATER_PARTICLES_HERE";
+  while (std::getline(xml_particle_template, next_line)) {
+      if (next_line.find(boat_string) != std::string::npos) {
+          xml_particle << s1 + d + b + std::to_string(i) + ob << "\n";
+      } else if (next_line.find(water_line) != std::string::npos) {
+          int num = 0;
+          for (int i = 0; i < water_points->size(); i++) {
+              if (!(*water_points)[i]->isBoat) {
+                  xml_particle << "<shape id=\"Water_Particle" + std::to_string(num) + "_mesh\" type=\"serialized\">" << "\n";
+                  xml_particle << "<string name=\"filename\" value=\"WaterParticle_Frame" + std::to_string(frame_num) + ".serialized\"/>" << "\n";
+                  xml_particle << "<integer name=\"shapeIndex\" value=\"" + std::to_string(num + 1) + "\"/>" << "\n";
+                  xml_particle << "<bsdf type=\"dielectric\"/>" << "\n";
+                  xml_particle << "<float name=\"intIOR\" value=\"1.333\"/>" << "\n";
+                  xml_particle << "</shape>" << "\n";
+                  xml_particle << " " << "\n";
+                  num++;
+              }
+          }
+      } else {
+          xml_particle << next_line << "\n";
+      }
+  }
+
 
   std::cout << "combining water mesh and boat mesh into single obj file" << std::endl;
 
