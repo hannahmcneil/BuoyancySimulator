@@ -91,12 +91,13 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
   ofs << "o Boat_Mesh" << "\n";
   comb << "g Boat_Mesh" << "\n";
   wat << "g Boat_Mesh" << "\n";
+  float y_offset = -0.05;
   for (int i = 0; i < water_points->size(); i++) {
       if ((*water_points)[i]->isBoat == true) {
           Vector3D pos = (*water_points)[i]->position;
-          ofs << "v " + std::to_string(pos.x) + " " + std::to_string(pos.y) + " " + std::to_string(pos.z) << "\n";
-          comb << "v " + std::to_string(pos.x) + " " + std::to_string(pos.y) + " " + std::to_string(pos.z) << "\n";
-          wat << "v " + std::to_string(pos.x) + " " + std::to_string(pos.y) + " " + std::to_string(pos.z) << "\n";
+          ofs << "v " + std::to_string(pos.x) + " " + std::to_string(pos.y + y_offset) + " " + std::to_string(pos.z) << "\n";
+          comb << "v " + std::to_string(pos.x) + " " + std::to_string(pos.y + y_offset) + " " + std::to_string(pos.z) << "\n";
+          wat << "v " + std::to_string(pos.x) + " " + std::to_string(pos.y + y_offset) + " " + std::to_string(pos.z) << "\n";
       }
   }
 
@@ -150,14 +151,14 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
         wat << "g Water_Particle" + std::to_string(num_particle) << "\n";
         wat << "usemtl initialShadingGroup" << "\n";
         Vector3D p = (*water_points)[i]->position;
-        Vector3D v1 = Vector3D(p.x - size_particle / 2., p.y - size_particle / 2., p.z - size_particle / 2.);
-        Vector3D v2 = Vector3D(p.x - size_particle / 2., p.y - size_particle / 2., p.z + size_particle / 2.);
-        Vector3D v3 = Vector3D(p.x - size_particle / 2., p.y + size_particle / 2., p.z - size_particle / 2.);
-        Vector3D v4 = Vector3D(p.x - size_particle / 2., p.y + size_particle / 2., p.z + size_particle / 2.);
-        Vector3D v5 = Vector3D(p.x + size_particle / 2., p.y - size_particle / 2., p.z - size_particle / 2.);
-        Vector3D v6 = Vector3D(p.x + size_particle / 2., p.y - size_particle / 2., p.z + size_particle / 2.);
-        Vector3D v7 = Vector3D(p.x + size_particle / 2., p.y + size_particle / 2., p.z - size_particle / 2.);
-        Vector3D v8 = Vector3D(p.x + size_particle / 2., p.y + size_particle / 2., p.z + size_particle / 2.);
+        Vector3D v1 = Vector3D(p.x - size_particle / 4., p.y - size_particle / 4., p.z - size_particle / 4.);
+        Vector3D v2 = Vector3D(p.x - size_particle / 4., p.y - size_particle / 4., p.z + size_particle / 4.);
+        Vector3D v3 = Vector3D(p.x - size_particle / 4., p.y + size_particle / 4., p.z - size_particle / 4.);
+        Vector3D v4 = Vector3D(p.x - size_particle / 4., p.y + size_particle / 4., p.z + size_particle / 4.);
+        Vector3D v5 = Vector3D(p.x + size_particle / 4., p.y - size_particle / 4., p.z - size_particle / 4.);
+        Vector3D v6 = Vector3D(p.x + size_particle / 4., p.y - size_particle / 4., p.z + size_particle / 4.);
+        Vector3D v7 = Vector3D(p.x + size_particle / 4., p.y + size_particle / 4., p.z - size_particle / 4.);
+        Vector3D v8 = Vector3D(p.x + size_particle / 4., p.y + size_particle / 4., p.z + size_particle / 4.);
         wat << "v " + std::to_string(v1.x) + " " + std::to_string(v1.y) + " " + std::to_string(v1.z) << "\n";
         wat << "v " + std::to_string(v2.x) + " " + std::to_string(v2.y) + " " + std::to_string(v2.z) << "\n";
         wat << "v " + std::to_string(v3.x) + " " + std::to_string(v3.y) + " " + std::to_string(v3.z) << "\n";
