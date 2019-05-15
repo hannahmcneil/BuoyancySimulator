@@ -16,15 +16,17 @@
 
     <shape type="obj">
 		<string name="filename" value="INSERT_BOAT_NAME_HERE.obj"/>
-        <bsdf type="conductor">
-            <string name="material" value="Au"/>
+        <bsdf type="diffuse">
         </bsdf>	
     </shape>
 
     <!--WRITE_WATER_PARTICLES_HERE-->
 
-
-
+    <shape type="obj">
+		<string name="filename" value="INSERT_WATER_NAME_HERE.obj"/>
+        <bsdf type="diffuse">
+        </bsdf>
+    </shape>
 
     <sensor type="perspective">
 		<float name="farClip" value="50.864"/>

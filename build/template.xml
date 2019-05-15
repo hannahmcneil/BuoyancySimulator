@@ -7,7 +7,7 @@
 -->
 
 <scene version="0.5.0">
-	<integrator id="integrator" type="direct"/>
+	<integrator id="integrator" type="path"/>
 
 	<bsdf id="initialShadingGroup_material" type="diffuse">
 		<rgb name="reflectance" value="0.214041 0.214041 0.214041"/>
@@ -48,8 +48,8 @@
 			<lookat target="-0.75, -0.4, 0" origin="1.7, 0.3, 0.2" up="0, 1, 0"/>
 		</transform>
 
-		<sampler type="ldsampler">
-			<integer name="sampleCount" value="64"/>
+		<sampler type="independent">
+			<integer name="sampleCount" value="128"/>
 		</sampler>
 
 		<film type="hdrfilm">

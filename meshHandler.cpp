@@ -101,7 +101,7 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
   }
 
   int num_boat_vertices = 0;
-  std::ifstream boatfile ("build/small4points.obj");
+  std::ifstream boatfile ("small4points.obj");
   std::string line;
   while (std::getline(boatfile, line)) {
       if (line[0] == *"f") {
@@ -193,8 +193,9 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
   while (std::getline(xml_particle_template, next_line)) {
       if (next_line.find(boat_string) != std::string::npos) {
           xml_particle << s1 + d + b + std::to_string(i) + ob << "\n";
-      } else if (next_line.find(water_line) != std::string::npos) {
-          int num = 0;
+      } else if (next_line.find(water_string) != std::string::npos) {
+          xml_particle << s1 + d + "/WaterParticle_Frame" + std::to_string(i) + ".obj\"/>" << "\n";
+          /*int num = 0;
           for (int i = 0; i < water_points->size(); i++) {
               if (!(*water_points)[i]->isBoat) {
                   xml_particle << "<shape id=\"Water_Particle" + std::to_string(num) + "_mesh\" type=\"serialized\">" << "\n";
@@ -206,7 +207,7 @@ void MeshHandler::save_obj(std::vector<WaterPoint*> *water_points, int i, char *
                   xml_particle << " " << "\n";
                   num++;
               }
-          }
+          }*/
       } else {
           xml_particle << next_line << "\n";
       }
