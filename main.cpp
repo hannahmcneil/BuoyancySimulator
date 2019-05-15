@@ -216,7 +216,7 @@ int main(int argc, char **argv) {
   create_map(water_points);
 
   // RUN SIMULATION FOR NUM_TIME_STEPS
-  for (int i = 0; i < num_time_steps; i += num_interpolations + 1) {
+  for (int i = 0; i < num_time_steps; i += num_interpolations) {
     std::cout << "saving obj file:" << std::endl;
     m.save_obj(&water_points, i, argv[1], argv[2], NUM_PARTICLES);
 

@@ -300,9 +300,9 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt, int ti
     phi_prime_dot = w.x - w.y * sin(phi_prime) / tan(theta) - w.z * cos(phi_prime) / tan(theta);
 
     // damping
-    phi += phi_dot * dt * 0.1;
-    theta += theta_dot * dt * 0.1;
-    phi_prime += phi_prime_dot * dt * 0.1;
+    phi += phi_dot * dt * 0.2;
+    theta += theta_dot * dt * 0.2;
+    phi_prime += phi_prime_dot * dt * 0.2;
   }
 
   for (int i = 0; i < water_points->size(); i++) {
@@ -382,7 +382,7 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt, int ti
 
           // move boat
           com_next += 0.0005 * diff / diff.norm() * h;
-          torque += 0.02 * cross(p->position - com, -diff / diff.norm());
+          torque += 0.01 * cross(p->position - com, -diff / diff.norm());
         }
       }
     }
