@@ -203,6 +203,7 @@ int main(int argc, char **argv) {
   float dt = 0.03;
   int num_time_steps = 100;
   int num_time_steps_per_frame = 1;
+  int num_interpolations = 3;
 
   // RESERVE SPACE TO AVOID SEGFAULTS
   water_points.reserve(x_particles * y_particles * z_particles + num_vertices);
@@ -215,7 +216,7 @@ int main(int argc, char **argv) {
   create_map(water_points);
 
   // RUN SIMULATION FOR NUM_TIME_STEPS
-  for (int i = 0; i < num_time_steps; i+=2) {
+  for (int i = 0; i < num_time_steps; i += num_interpolations + 1) {
     std::cout << "saving obj file:" << std::endl;
     m.save_obj(&water_points, i, argv[1], argv[2], NUM_PARTICLES);
 
@@ -232,8 +233,8 @@ int main(int argc, char **argv) {
     std::cout << "Generate next frame:" << std::endl;
     std::cout << "simulating movement" << std::endl;
 
-    std::cout << "initial water point: " << water_points[11781]->position.x << std::endl;
-    std::cout << "initial: " << old_water_points_positions[11781].x << std::endl;
+    //std::cout << "initial water point: " << water_points[11781]->position.x << std::endl;
+    //std::cout << "initial: " << old_water_points_positions[11781].x << std::endl;
 
     s.simulate(&water_points, dt, i);
 
@@ -242,24 +243,26 @@ int main(int argc, char **argv) {
       new_water_points_positions.push_back(water_points[j]->position);
     }
 
-    std::cout << "initial: " << old_water_points_positions[11781].x << std::endl;
-    std::cout << "intermediate: " << (new_water_points_positions[11781].x + old_water_points_positions[11781].x) / 2. << std::endl;
-    std::cout << "final: " << new_water_points_positions[11781].x << std::endl;
+    //std::cout << "initial: " << old_water_points_positions[11781].x << std::endl;
+    //std::cout << "intermediate: " << (new_water_points_positions[11781].x + old_water_points_positions[11781].x) / 2. << std::endl;
+    //std::cout << "final: " << new_water_points_positions[11781].x << std::endl;
 
-    // change waterpoint positions to save obj
-    for (int j = 0; j < water_points.size(); j++) {
-      WaterPoint *p = water_points[j];
-      //std::cout << old_water_points_positions[j].x << " " << new_water_points_positions[j].x << std::endl;
-      p->position = (old_water_points_positions[j] + new_water_points_positions[j]) / 2.;
-    }
-    std::cout << "intermediate water point: " << water_points[11781]->position.x << std::endl;
+    for (int k = 0; k < num_interpolations; k++) {
+      // change waterpoint positions to save obj
+      for (int j = 0; j < water_points.size(); j++) {
+        WaterPoint *p = water_points[j];
+        //std::cout << old_water_points_positions[j].x << " " << new_water_points_positions[j].x << std::endl;
+        p->position = (old_water_points_positions[j] * (num_interpolations - k) + new_water_points_positions[j] * k) / (num_interpolations);
+      }
+      //std::cout << "intermediate water point: " << water_points[11781]->position.x << std::endl;
 
-    populate_tree(water_points);
-    create_map(water_points);
+      populate_tree(water_points);
+      create_map(water_points);
 
-    if (i > 0) {
-      std::cout << "saving intermediate obj file:" << std::endl;
-      m.save_obj(&water_points, i + 1, argv[1], argv[2], NUM_PARTICLES);
+      if (i > 0) {
+        std::cout << "saving intermediate obj file:" << std::endl;
+        m.save_obj(&water_points, i + k, argv[1], argv[2], NUM_PARTICLES);
+      }
     }
 
     // change positions back to original

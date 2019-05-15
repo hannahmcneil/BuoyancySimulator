@@ -382,7 +382,7 @@ void Simulate::simulate(std::vector<WaterPoint*> *water_points, float dt, int ti
 
           // move boat
           com_next += 0.0005 * diff / diff.norm() * h;
-          torque += 0.01 * cross(p->position - com, -diff / diff.norm());
+          torque += 0.02 * cross(p->position - com, -diff / diff.norm());
         }
       }
     }
