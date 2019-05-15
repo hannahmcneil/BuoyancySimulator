@@ -1,67 +1,169 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<style>  
-    div.padded {  
+<style>
+div.padded {  
       padding-top: 0px;  
       padding-right: 100px;  
       padding-bottom: 0.25in;  
       padding-left: 100px;  
-    }  
-
-    body {
-      margin: 150px;
+    } 
+  body {
+  	margin: 200px;
     font-size: 125%;
+    background-color: #f2f2f2;
+  }
+  p {
+  	font-family: Palatino;
+    line-height: 30px;
   }
 
-  </style> 
-<title>Hannah McNeil, Lee Hagaman, Walker Snedaker  |  CS 184</title>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+</style>
+
+<title>Buoyancy Simulator</title>
 </head>
+
 <body>
-<br />
-<h1 align="middle">CS184 Final Project Milestone: Buoyancy Simulator</h1>
 
-<h2 align="middle">Hannah McNeil, Lee Hagaman, Walker Snedaker</h2>
+<h1 align="middle"><i>CS 184: Computer Graphics and Imaging, Spring 2019</i></h1>
+<h1 align="middle"><i>Final Project: Buoyancy Simulator</i></h1>
+<h2 align="middle"><i>Hannah McNeil, Lee Hagaman, Walker Snedaker</i></h2>
 
-<h2 align="middle">Progress</h2>
+<a href='./milestone.html'>For Milestone Report, Click Here</a>
 
-<p>So far our team has finished setting up the basic framework for our project, as well as the construction of our particle system and mesh boat. Our code works as follows: all of our particles are initialized in a 1 x 1 x 1 cube in our scene. They are evenly spaced apart. Each particle of water has the same density and mass. Other attributes include current position, former position, velocity, and the accumulated forces acting on it. As for our boat, we constructed a mesh object using Blender.</p>
+<div align="middle">
+        <table style="width=100%">
+          <tr>
+              <td>
+                <img src="images/frame_example.png" align="middle" width="500px"/>
+              </td>
+              <td>
+                <img src="images/water_mesh.png" align="middle" width="500px"/>
+              </td>
+          </tr>
+        </table>
+    </div>
 
-<p>Once we have initialized our points, we then begin the simulation. At each time step, we run one step of the simulation; while this code is not yet complete (it only adds gravity to each of the water points' <i>forces</i> vector) we plan to fill it in with code to simulate fluid dynamics soon. Basically, this involves changing the position of each of the particles in predictable ways, based on the forces that are acting on them (nearest neighbors, gravity, solid surfaces/planes, etc.). We then determine if we should create a frame for our video. (This is because we might want to have more or fewer time steps between frames depending on what we want our framerate to be; this will be one of the parameters to our program once we complete the user command line interface.) If so, then we go about the process of creating an OBJ file.</p>
+<h2 align="middle"><i>Abstract</i></h2>
 
-<p>Creating a OBJ file first involves creating a mesh surface from our water points. The reason for this is that we only want to render the surface of the water; this saves on time, but involves creating a method for determining which particles are closest to the surface. This we have already implemented. We use a nearest-neighbors search to determine (for every point) if that point is significantly farther from the average of its neighbors. If it is, then we consider it a surface point. We then have a collection of all the coordinates of our surface points. We are using the CGAL library in order to reconstruct a mesh surface based on these points. We use the Poisson surface reconstruction function to generate a mesh via Delaunay refinement.</p>
+<p>While fluid simulation is a significant and interesting part of computer graphics, modeling the interaction between solid and fluid objects can be just as important. We wanted to generate a realistic simulation of the interaction between a solid object (a boat) and a body of water. Throughout this project we have implemented fluid simulation using techniques outlined in the paper "Position Based Fluids" and used Euler angles and the center of mass position in order to track the position of our boat as it interacts with the water. We perform mesh reconstruction for the water at each time step by using using Poisson surface reconstruction implemented via the CGAL library.</p>
 
-<p>The next step is to use our newly constructed mesh to create an OBJ file that can then be rendered. We once again use a function from the CGAL library in order to do this conversion. We plan to then use an external renderer, such as Mitsuba or Blender, in order to create the PNG files that serve as our frames, which we can then reconstruct into a movie of our simulation.</p>
+<h2 align="middle"><i>Technical Approach</i></h2>
 
-<h2 align="middle">Preliminary Results</h2>
+<p><b>Representation</b></p>
 
-<p>Preliminary results show that we are able to construct a water mesh object (with the boat mesh included) for each frame and have its corresponding OBJ file exported to a prespecified folder created by our code. (Currently, we are only using the 10 nearest neighbors in our code to decide if a given point is on the surface. We plan to change this method to see if it gives us a more accurate reconstruction.)</p>
+<p>We represent both our water particles and our boat particles as the same class, the class <code>WaterPoint</code>. Each <code>WaterPoint</code> has several attributes, including <code>position, last_position, next_position, velocity,</code> and an <code>isBoat</code> boolean that is true if the particle belongs to the boat object, and false otherwise. As the main output of our program is a sequence of XML files to be subsequently rendered into video frames, we first initialize all of the appropriate parameters, such as density of water particles, the time step used in our simulation, and several parameters governing the magnitudes of the forces between the water particles and the boat.</p>
 
-<h2 align="middle">Future Plans/Changes</h2>
+<p><b>Physical Simulation</b></p>
 
-<p>The next step is obviously to complete the simulation by adding realistic fluid dynamics, as well as methods that detect plane and self-collisions. Once this is done, we will be able to render a more realistic scene. In conclusion, we still must implement functionality for the following:</p>
+<p>At each time step we calculate the appropriate displacement value for each water particle due to interactions with each other, interactions with the boat, interactions with the walls, the velocity, and gravity. We also calculate the displacement of the boat and the torque acting on the boat caused by interactions with the water particles.</p>
 
-<ul>
-  <li>Particle self-collisions; forces & fluid dynamics</li>
-  <li>Particle-plane collisions (this can be applied to any walls we decide to create and the boat itself); fluid-solid dynamics</li>
-  <li>Plane-plane collisions (between boat and walls); this may not be necessary if we constrain the boat’s position</li>
-  <li>Fine-tune the way we construct our surface mesh</li>
-</ul>
+<p>We are mostly treating the boat not so differently from the water particles, having the boat pushed away from the water particles. One important difference, however, is that we must keep track of the rotation of the boat, and how it changes in response to torques generated by the interaction with the water points. To do this, we use Euler angles, and the previous values of the Euler angles, which encode information about the angular velocity of our boboat. We use the following equations, from David Browne's website, in order to translate back and forth between the representation using derivatives of the Euler angles and the the angular velocity representation, which is necessary since the torques that we generate can be directly applied to the angular velocity. Once we change the Euler angles and center of mass position of the boat, we translate that to a simple transformation which we use to update the position of each of the boat's vertices.</p>
 
-<h2 align="middle">Google Slides</h2>
+<div align="middle">
+        <table style="width=100%">
+          <tr>
+              <td>
+                <img src="images/equations.png" align="middle" width="500px"/>
+              </td>
+          </tr>
+        </table>
+    </div>
 
-<p><a href="https://docs.google.com/presentation/d/e/2PACX-1vQBxtTesM1OAqwwfoO4IDhNUrA-2dPFFrKOedc-wkUrFdAU6g6t5P6sxtYFygqKfdon7t5JyENkfWZb/pub?start=true&loop=true&delayms=10000">Link to our milestone slides.</a></p>
+<p>Several of these steps rely on the calculation of the nearest neighbors for each point. To do this efficiently, we use a KD tree, implemented by J. Frederico Carvalho. This algorithm lets us find a list of nearest neighbors in O(M * log N) time, where M is the desired number of neighbors and N is the total number of points that we are searching for neighbors in.</p>
 
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQBxtTesM1OAqwwfoO4IDhNUrA-2dPFFrKOedc-wkUrFdAU6g6t5P6sxtYFygqKfdon7t5JyENkfWZb/embed?start=true&loop=true&delayms=10000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+<p><b>Generating Frames & Mesh Reconstruction</b></p>
 
-<h2 align="middle">Milestone Video</h2>
+<p>To generate a frame we first do mesh reconstruction on the surface of the water. We use the CGAL library in order to do Poisson surface reconstruction. For each water particle we do a nearest-neighbor search within a set radius in order to calculate the position of the average neighbor. Taking the difference vector between our particle and its average neighbor gives us a vector associated with each water point. We use a cutoff to choose only those points which have a large enough magnitude of this vector, which implies that their neighbors are not evenly distributed about the particle, so we determine that this point must be on the surface of the water. For these surface points, we normalize that vector and use it as the normal for that point. From this we use CGAL's Poisson reconstruction function to generate a mesh for the surface of the water. This mesh is then translated into a Wavefront OBJ file containing our water mesh. Similarly, we generate an OBJ file for our boat, using its updated vertex positions. From both of these OBJ files we then create an XML file that can be rendered with Mitsuba.</p>
 
-<p><a href="https://youtu.be/wv02Kfv0yBg">Link to our milestone video on YouTube.</a></p>
+<p>We also interpolate between the positions of the points in order to try to smooth out the motion of the water more. In this render, we use three interpolated frames between each pair of simulated frames.</p>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/wv02Kfv0yBg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+<p><b>Problems Encountered</b></p>
+
+<p>One of the most prominent issues we faced was that of surface mesh reconstruction. We encountered some issues with our algorithm, and did a lot of research into different algorithms we could use, but we decided to stick with Poisson reconstruction rather than redoing a lot of our code. In hindsight, we would have tried using a cube marching algorithm like that used in Gauthier Dieppedalle, Utkarsh Singhal, and YiDing Jiangh's Spring 2018 Final project. Our algorithm makes the water look smoother, which is definitely a benefit, but ultimately it doesn't represent the true positions of our particles as well as we expect different algorithms could.</p>
+
+<p><b>Lessons Learned</b></p>
+
+<p>It is useful to use methods in addition to mesh reconstruction in order to keep track of how the points are behaving, because sometimes the reconstruction is inaccurate and misleading. This also could have helped us determine that switching mesh reconstruction algorithms would have been a good idea earlier in the project when it would have been easier to change our approach.</p>
+
+
+<h2 align="middle"><i>Results</i></h2>
+
+<p>Our first attempt at modeling boat-water physics did not go over well, mostly attributed to the fact that we had not yet implemented any methods to keep the boat steady. At that point we were not varying the force applied to the boat according to its depth in the water. The gif on the left shows how our boat behaved before implementing this functionality, while the gif on the right shows the improved performance afterwards. We implemented a restoring force on the boat back towards its vertical orientation.</p>
+
+<div align="middle">
+    <table style="width=100%">
+        <tr>
+        <td>
+            <img src="storm%20speed%20cropped.gif" align="middle" width="500px"/>
+            <figcaption align="middle">Boat in a storm</figcaption>
+        </td>
+        <td>
+            <img src="better_cropped.gif" align="middle" width="520px"/>
+            <figcaption align="middle">With improved stability</figcaption>
+        </td>
+    </tr>
+    </table>
 </div>
+
+<p>For these two final rendered videos, we implemented a quartic restoring force (the force is proportional to <i>theta</i>^4, where <i>theta</i> is the angular distance between the boat's relative vertical direction and the true vertical direction). This is better because it leaves the restoring force relatively small for small angular displacements and turns on a larger restoring force only when the angular displacement gets relatively large.</p>
+
+<div align="middle">
+    <table style="width=100%">
+        <tr>
+            <td>
+                <img src="boat_final.gif" align="middle" width="550px"/>
+                <figcaption align="middle">Rendered version with interpolation and increased boat stability</figcaption>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<p>We also rendered a version with the individual particles visible, each having a small cube mesh drawn around it:</p>
+
+<div align="middle">
+    <table style="width=100%">
+        <tr>
+            <td>
+                <img src="final_sim_frames/outputfile.gif" align="middle" width="550px"/>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<h2 align="middle"><i>References</i></h2>
+
+<p>B. Solenthaler, J. Schlafli, R. Pajarola. "A Unified Particle Model for Fluid-Solid Interactions." Computer Animation and Virtual Worlds 18, 1 (2007), 69-82.</p>
+
+<p>David Browne, https://davidbrown3.github.io/2017-07-25/EulerAngles/.</p>
+
+<p>Gauthier Dieppedalle, Utkarsh Singhal, YiDing Jiang. "3D Position Based Fluid Simulation and Surfacing." https://yidingjiang.github.io/cs184sp18_final/.</p>
+
+<p>J. Frederico Carvalho, https://github.com/crvs/KDTree.</p>
+
+<p>Jihun Yu, Greg Turk. "Reconstructing Surfaces of Particle-Based Fluids Using Anisotropic Kernels." Eurographics/ACM SIGGRAPH Symposium on Computer Animation (2010).</p>
+
+<p>Miles Macklin, Matthias Muller. "Position Based Fluids." ACM TOG 32(4).</p>
+
+<p>Wenzel Jakob, Mitsuba Renderer, 2010, http://www.mitsuba-renderer.org</p>
+
+<p>The CGAL Project. CGAL User and Reference Manual. CGAL Editorial Board, 4.14 edition, 2019.</p>
+
+<h2 align="middle"><i>Contributions</i></h2>
+
+<p><b>Hannah McNeil</b></p>
+
+<p>Wrote the code to generate the XML files needed to render our scene in Mitsuba, including both the particle view and the mesh surface views. Also wrote the code interacting with OBJ files which are used extensively both internally and for debugging. Performed a lot of the rendering. Contributed to a lot of debugging of the overall project structure and interactions between different files.</p>
+
+<p><b>Lee Hagaman</b></p>
+
+<p>Wrote the code for the interactions between water particles using the paper by Miles Macklin and Matthias Muller as a reference. Also implemented the interactions between water particles and the boat and walls, including generating the forces on the boat and tracking how that affects its position and orientation. Also contributed significantly to the design of the project structure.</p>
+
+<p><b>Walker Snedaker</b></p>
+
+<p>Created the boat mesh in blender, including many different versions with different number of vertices as we changed how we planned to treat the boat vertices in relation to the physics simulation. Did significant research into different rendering techniques, and performed a lot of the rendering. Contributed to a lot of debugging of the physical simulation and rendering.</p>
+
+<div>
 </body>
 </html>

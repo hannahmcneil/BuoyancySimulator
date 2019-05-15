@@ -161,7 +161,7 @@ int main(int argc, char **argv) {
 
   // COUNT NUMBER OF BOAT POINTS
   int num_vertices = 0;
-  std::ifstream boatfile ("build/small4points.obj");
+  std::ifstream boatfile ("small4points.obj");
   std::string line;
   while (std::getline(boatfile, line)) {
     if (line[0] == *"v") {

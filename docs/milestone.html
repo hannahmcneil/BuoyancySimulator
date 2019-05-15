@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<style>  
+    div.padded {  
+      padding-top: 0px;  
+      padding-right: 100px;  
+      padding-bottom: 0.25in;  
+      padding-left: 100px;  
+    }  
+
+    body {
+      margin: 150px;
+    font-size: 125%;
+  }
+
+  </style> 
+<title>Hannah McNeil, Lee Hagaman, Walker Snedaker  |  CS 184</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+</head>
+<body>
+<br />
+<h1 align="middle">CS184 Final Project Milestone: Buoyancy Simulator</h1>
+
+<h2 align="middle">Hannah McNeil, Lee Hagaman, Walker Snedaker</h2>
+
+<h2 align="middle">Progress</h2>
+
+<p>So far our team has finished setting up the basic framework for our project, as well as the construction of our particle system and mesh boat. Our code works as follows: all of our particles are initialized in a 1 x 1 x 1 cube in our scene. They are evenly spaced apart. Each particle of water has the same density and mass. Other attributes include current position, former position, velocity, and the accumulated forces acting on it. As for our boat, we constructed a mesh object using Blender.</p>
+
+<p>Once we have initialized our points, we then begin the simulation. At each time step, we run one step of the simulation; while this code is not yet complete (it only adds gravity to each of the water points' <i>forces</i> vector) we plan to fill it in with code to simulate fluid dynamics soon. Basically, this involves changing the position of each of the particles in predictable ways, based on the forces that are acting on them (nearest neighbors, gravity, solid surfaces/planes, etc.). We then determine if we should create a frame for our video. (This is because we might want to have more or fewer time steps between frames depending on what we want our framerate to be; this will be one of the parameters to our program once we complete the user command line interface.) If so, then we go about the process of creating an OBJ file.</p>
+
+<p>Creating a OBJ file first involves creating a mesh surface from our water points. The reason for this is that we only want to render the surface of the water; this saves on time, but involves creating a method for determining which particles are closest to the surface. This we have already implemented. We use a nearest-neighbors search to determine (for every point) if that point is significantly farther from the average of its neighbors. If it is, then we consider it a surface point. We then have a collection of all the coordinates of our surface points. We are using the CGAL library in order to reconstruct a mesh surface based on these points. We use the Poisson surface reconstruction function to generate a mesh via Delaunay refinement.</p>
+
+<p>The next step is to use our newly constructed mesh to create an OBJ file that can then be rendered. We once again use a function from the CGAL library in order to do this conversion. We plan to then use an external renderer, such as Mitsuba or Blender, in order to create the PNG files that serve as our frames, which we can then reconstruct into a movie of our simulation.</p>
+
+<h2 align="middle">Preliminary Results</h2>
+
+<p>Preliminary results show that we are able to construct a water mesh object (with the boat mesh included) for each frame and have its corresponding OBJ file exported to a prespecified folder created by our code. (Currently, we are only using the 10 nearest neighbors in our code to decide if a given point is on the surface. We plan to change this method to see if it gives us a more accurate reconstruction.)</p>
+
+<h2 align="middle">Future Plans/Changes</h2>
+
+<p>The next step is obviously to complete the simulation by adding realistic fluid dynamics, as well as methods that detect plane and self-collisions. Once this is done, we will be able to render a more realistic scene. In conclusion, we still must implement functionality for the following:</p>
+
+<ul>
+  <li>Particle self-collisions; forces & fluid dynamics</li>
+  <li>Particle-plane collisions (this can be applied to any walls we decide to create and the boat itself); fluid-solid dynamics</li>
+  <li>Plane-plane collisions (between boat and walls); this may not be necessary if we constrain the boat’s position</li>
+  <li>Fine-tune the way we construct our surface mesh</li>
+</ul>
+
+<h2 align="middle">Google Slides</h2>
+
+<p><a href="https://docs.google.com/presentation/d/e/2PACX-1vQBxtTesM1OAqwwfoO4IDhNUrA-2dPFFrKOedc-wkUrFdAU6g6t5P6sxtYFygqKfdon7t5JyENkfWZb/pub?start=true&loop=true&delayms=10000">Link to our milestone slides.</a></p>
+
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQBxtTesM1OAqwwfoO4IDhNUrA-2dPFFrKOedc-wkUrFdAU6g6t5P6sxtYFygqKfdon7t5JyENkfWZb/embed?start=true&loop=true&delayms=10000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+
+<h2 align="middle">Milestone Video</h2>
+
+<p><a href="https://youtu.be/wv02Kfv0yBg">Link to our milestone video on YouTube.</a></p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/wv02Kfv0yBg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+</div>
+</body>
+</html>
